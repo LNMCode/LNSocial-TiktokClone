@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Checkout files
+git --work-tree=deployserver --git-dir=deployserver.git checkout -f
+
+# Install dependencies
+cd deloyserver
+npm install
+
+# Restart app
+pm2 reload deployserver
+

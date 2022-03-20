@@ -1,4 +1,4 @@
-package com.example.lnsocial
+package com.longnp.lnsocial
 
 import org.junit.Test
 

@@ -1,5 +1,6 @@
 package com.longnp.lnsocial.presentation.main.seeds.list
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,6 +13,7 @@ import okhttp3.MediaType
 import okhttp3.RequestBody
 import org.json.JSONObject
 import javax.inject.Inject
+import kotlin.math.log
 
 @HiltViewModel
 class SeedViewModel
@@ -64,6 +66,7 @@ constructor(
                     }else{
                         //appendToMessageQueue(stateMessage)
                     }
+                    Log.e(TAG, "search: " + stateMessage.response.message)
                 }
 
             }.launchIn(viewModelScope)

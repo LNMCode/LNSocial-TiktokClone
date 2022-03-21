@@ -1,6 +1,7 @@
 package com.longnp.lnsocial.business.interactors.video
 
 import com.longnp.lnsocial.business.datasource.network.main.OpenApiMainService
+import com.longnp.lnsocial.business.datasource.network.main.VideoSeedDto
 import com.longnp.lnsocial.business.datasource.network.main.toVideo
 import com.longnp.lnsocial.business.domain.models.AuthToken
 import com.longnp.lnsocial.business.domain.models.VideoSeed
@@ -22,7 +23,7 @@ class SearchVideoSeeds(
         try{ // catch network exception
             val blogs = service.getVideoSeeds(
                 body
-            ).map { it.toVideo() }
+            ).data
 
             // Insert into cache
             /*for(blog in blogs){
@@ -32,11 +33,12 @@ class SearchVideoSeeds(
                     e.printStackTrace()
                 }
             }*/
+            emit(DataState.data(response = null, data =  blogs.map { it.toVideo() }))
         }catch (e: Exception){
             emit(
                 DataState.error<List<VideoSeed>>(
                     response = Response(
-                        message = "Unable to update the cache.",
+                        message = e.message,
                         uiComponentType = UIComponentType.None(),
                         messageType = MessageType.Error()
                     )

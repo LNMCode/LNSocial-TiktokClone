@@ -5,7 +5,7 @@ import com.longnp.lnsocial.business.domain.models.VideoSeed
 
 class VideoSeedDto(
     @SerializedName("id")
-    val pk: Int, // id
+    val pk: String, // id
 
     @SerializedName("video_link")
     val videoLink: String,
@@ -15,6 +15,12 @@ class VideoSeedDto(
 
     @SerializedName("sound_id")
     val soundId: String,
+
+    @SerializedName("sound_title")
+    val soundTitle: String,
+
+    @SerializedName("sound_thumbnail")
+    val soundThumbnail: String,
 
     @SerializedName("auth_profile_id")
     val authProfileId: String,
@@ -32,7 +38,13 @@ class VideoSeedDto(
     val description: String,
 
     @SerializedName("types_video")
-    val types_videos: String,
+    val typesVideos: String,
+
+    @SerializedName("nickname")
+    val nickName: String,
+
+    @SerializedName("avatar_link")
+    val avatarLink: String
 )
 
 fun VideoSeedDto.toVideo(): VideoSeed {
@@ -41,11 +53,15 @@ fun VideoSeedDto.toVideo(): VideoSeed {
         videoLink = videoLink,
         hashTagVideo = hashTagVideo,
         soundId = soundId,
+        soundTitle = soundTitle,
+        soundThumbnail = soundThumbnail,
         authProfileId = authProfileId,
         numberLike = numberLike,
         numberComments = numberComments,
         numberShared = numberShared,
         description = description,
-        types_videos = types_videos,
+        typesVideos = typesVideos,
+        nickName = nickName,
+        avatarLink = avatarLink,
     )
 }

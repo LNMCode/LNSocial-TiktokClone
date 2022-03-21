@@ -1,5 +1,6 @@
 package com.longnp.lnsocial.presentation.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -11,13 +12,13 @@ import com.example.lnsocial.R
 import com.example.lnsocial.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.longnp.lnsocial.presentation.BaseActivity
+import com.longnp.lnsocial.presentation.auth.AuthActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
     private lateinit var navController: NavController
-    private lateinit var appBarConfiguration: AppBarConfiguration
 
     private lateinit var bottomNavigationView: BottomNavigationView
 
@@ -40,7 +41,6 @@ class MainActivity : BaseActivity() {
         navController = navHostFragment.navController
 
         setupBottomNavigationView()
-
         subscribeObservers()
     }
 
@@ -49,17 +49,25 @@ class MainActivity : BaseActivity() {
         bottomNavigationView.setupWithNavController(navController)
     }
 
-    fun subscribeObservers() {
-
+    private fun subscribeObservers() {
+        sessionManager.state.observe(this){ state ->
+            displayProgressBar(state.isLoading)
+            if (state.authToken == null || state.authToken.accountPk == -1) {
+                //navAuthActivity()
+            }
+        }
     }
 
 
     override fun displayProgressBar(isLoading: Boolean) {
-        if (isLoading) {
-            binding.progressBar.visibility = View.VISIBLE
-        } else {
-            binding.progressBar.visibility = View.GONE
-        }
+    }
+
+    private fun navAuthActivity() {
+        val intent = Intent(this, AuthActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+        finish()
     }
 
 }

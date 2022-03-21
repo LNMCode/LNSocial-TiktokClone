@@ -9,6 +9,4 @@ import com.google.android.exoplayer2.upstream.cache.SimpleCache
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class BaseApplication: Application(){
-
-}
+class BaseApplication: Application()

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/nav_home_seeds"
+        android:title="Home"
+        android:icon="@drawable/ic_home_icon"/>
+
+    <item android:id="@+id/nav_discovery"
+        android:title="Discovery"
+        android:icon="@drawable/ic_search_icon"/>
+
+    <item android:id="@+id/nav_add"
+        android:enabled="false"
+        android:title="@null"/>
+
+    <item
+        android:id="@+id/nav_inbox"
+        android:icon="@drawable/ic_inbox_icon"
+        android:title="@string/title_inbox" />
+
+    <item
+        android:id="@+id/nav_profile"
+        android:icon="@drawable/ic_person_icon"
+        android:title="@string/title_profile" />
+
+</menu>

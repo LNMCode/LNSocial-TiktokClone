@@ -11,10 +11,8 @@ import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.DataSource
-import com.google.android.exoplayer2.upstream.DefaultDataSource
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.google.android.exoplayer2.upstream.cache.CacheDataSource
-import com.google.android.exoplayer2.upstream.cache.SimpleCache
 import com.google.android.exoplayer2.util.Util
 import com.longnp.lnsocial.business.domain.models.VideoSeed
 import com.longnp.lnsocial.presentation.main.seeds.BaseSeedFragment
@@ -31,7 +29,6 @@ class SeedItemFragment : BaseSeedFragment() {
 
     private var simplePlayer: ExoPlayer? = null
     private var cacheDataSourceFactory: DataSource.Factory? = null
-    private var toPlayVideoPosition: Int = -1
 
     companion object {
         // TODO: Nghien cuu va fix lai cho nay
@@ -86,12 +83,13 @@ class SeedItemFragment : BaseSeedFragment() {
     private fun prepareVideoPlayer() {
         simplePlayer = context?.let { ExoPlayer.Builder(it).build() }
         cacheDataSourceFactory =
-            CacheDataSource.Factory().setCache(simpleCache!!).setUpstreamDataSourceFactory(
+            CacheDataSource.Factory().setCache(simpleCache).setUpstreamDataSourceFactory(
                 DefaultHttpDataSource.Factory().setUserAgent(
                     Util.getUserAgent(context!!, "SeedExoPlayer")
                 )
             )
     }
+
 
     private fun prepareMedia(url: String) {
         val uri = Uri.parse(url)
@@ -101,6 +99,46 @@ class SeedItemFragment : BaseSeedFragment() {
         simplePlayer?.repeatMode = Player.REPEAT_MODE_ONE
         simplePlayer?.setMediaSource(mediaSource, true)
         simplePlayer?.prepare()
+        simplePlayer?.addListener(object: Player.Listener {
+            override fun onPlaybackStateChanged(playbackState: Int) {
+                super.onPlaybackStateChanged(playbackState)
+                if (playbackState == Player.STATE_ENDED) {
+                    restartVideo()
+                }
+            }
+        })
         simplePlayer?.playWhenReady = true
+    }
+
+    private fun restartVideo() {
+        if (simplePlayer == null) {
+            storyUrl?.let { prepareMedia(it) }
+        } else {
+            simplePlayer?.seekToDefaultPosition()
+            simplePlayer?.playWhenReady = true
+        }
+    }
+
+    private fun pauseVideo() {
+        simplePlayer?.playWhenReady = false
+    }
+
+    private fun releasePlayer() {
+        simplePlayer?.release()
+    }
+
+    override fun onPause() {
+        pauseVideo()
+        super.onPause()
+    }
+
+    override fun onResume() {
+        restartVideo()
+        super.onResume()
+    }
+
+    override fun onDestroy() {
+        releasePlayer()
+        super.onDestroy()
     }
 }

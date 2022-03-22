@@ -1,4 +1,4 @@
-package com.longnp.lnsocial.di
+package com.longnp.lnsocial.di.auth
 
 import com.longnp.lnsocial.business.datasource.cache.account.AccountDao
 import com.longnp.lnsocial.business.datasource.cache.auth.AuthTokenDao

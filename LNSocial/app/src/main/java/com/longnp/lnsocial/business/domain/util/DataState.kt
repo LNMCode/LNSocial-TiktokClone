@@ -33,7 +33,6 @@ class DataState<T>(
         }
 
         fun <T> loading(): DataState<T> = DataState(isLoading = true)
-
     }
 
 }

@@ -1,26 +1,37 @@
 package com.longnp.lnsocial.presentation.main.seeds.list.item
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.lnsocial.databinding.FragmentSeedItemBinding
-import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.ExoPlayer
+import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.Player
+import com.google.android.exoplayer2.source.ProgressiveMediaSource
+import com.google.android.exoplayer2.upstream.DataSource
+import com.google.android.exoplayer2.upstream.DefaultDataSource
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.google.android.exoplayer2.upstream.cache.CacheDataSource
+import com.google.android.exoplayer2.upstream.cache.SimpleCache
+import com.google.android.exoplayer2.util.Util
 import com.longnp.lnsocial.business.domain.models.VideoSeed
 import com.longnp.lnsocial.presentation.main.seeds.BaseSeedFragment
 import com.longnp.lnsocial.presentation.util.loadCenterCropImageFromUrl
 import kotlinx.android.synthetic.main.layout_story_view.view.*
 
 class SeedItemFragment : BaseSeedFragment() {
+
     private var storyUrl: String? = null
     private var storiesDataModel: VideoSeed? = null
 
     private var _binding: FragmentSeedItemBinding? = null
     private val binding get() = _binding!!
 
-    private var simplePlayer: SimpleExoPlayer? = null
-    private var cacheDataSourceFactory: CacheDataSource? = null
+    private var simplePlayer: ExoPlayer? = null
+    private var cacheDataSourceFactory: DataSource.Factory? = null
+    private var toPlayVideoPosition: Int = -1
 
     companion object {
         // TODO: Nghien cuu va fix lai cho nay
@@ -59,11 +70,37 @@ class SeedItemFragment : BaseSeedFragment() {
         binding.root.image_view_profile_pic?.loadCenterCropImageFromUrl(storiesDataModel?.avatarLink)
         binding.root.text_view_music_title.isSelected = true
 
-        //val simplePlayer = getPlayer()
-        binding.root.player_view_story.player = simplePlayer
+        binding.root.player_view_story.player = initSimplePlayer()
 
         storyUrl = storiesDataModel?.videoLink
-        //storyUrl?.let { prepareMedia(it) }
+        storyUrl?.let { prepareMedia(it) }
     }
 
+    private fun initSimplePlayer(): ExoPlayer? {
+        if (simplePlayer == null) {
+            prepareVideoPlayer()
+        }
+        return simplePlayer
+    }
+
+    private fun prepareVideoPlayer() {
+        simplePlayer = context?.let { ExoPlayer.Builder(it).build() }
+        cacheDataSourceFactory =
+            CacheDataSource.Factory().setCache(simpleCache!!).setUpstreamDataSourceFactory(
+                DefaultHttpDataSource.Factory().setUserAgent(
+                    Util.getUserAgent(context!!, "SeedExoPlayer")
+                )
+            )
+    }
+
+    private fun prepareMedia(url: String) {
+        val uri = Uri.parse(url)
+        val mediaSource =
+            ProgressiveMediaSource.Factory(cacheDataSourceFactory!!)
+                .createMediaSource(MediaItem.fromUri(uri))
+        simplePlayer?.repeatMode = Player.REPEAT_MODE_ONE
+        simplePlayer?.setMediaSource(mediaSource, true)
+        simplePlayer?.prepare()
+        simplePlayer?.playWhenReady = true
+    }
 }

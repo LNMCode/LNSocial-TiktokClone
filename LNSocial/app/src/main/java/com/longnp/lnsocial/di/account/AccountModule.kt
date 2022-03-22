@@ -1,4 +1,4 @@
-package com.longnp.lnsocial.di
+package com.longnp.lnsocial.di.account
 
 import com.longnp.lnsocial.business.datasource.cache.account.AccountDao
 import com.longnp.lnsocial.business.datasource.network.main.OpenApiMainService

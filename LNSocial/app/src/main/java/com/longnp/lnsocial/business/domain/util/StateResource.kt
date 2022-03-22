@@ -61,10 +61,6 @@ interface AreYouSureCallback {
     fun cancel()
 }
 
-
-
-
-
 class StateResource {
 
 }

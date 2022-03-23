@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.viewpager2.widget.ViewPager2
 import com.example.lnsocial.databinding.FragmentSeedBinding
 import com.longnp.lnsocial.presentation.main.seeds.BaseSeedFragment
 
@@ -61,6 +62,7 @@ class SeedFragment : BaseSeedFragment(),
         storiesPagerAdapter = SeedPagerAdapter(this)
         binding.viewPagerStories.apply {
             adapter = storiesPagerAdapter
+            overScrollMode = ViewPager2.OVER_SCROLL_NEVER
         }
     }
 

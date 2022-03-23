@@ -10,4 +10,5 @@
     <color name="colorBlack">#000000</color>
     <color name="colorGray">#858585</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorSeedLineBottomNav">#A1ACACAC</color>
 </resources>

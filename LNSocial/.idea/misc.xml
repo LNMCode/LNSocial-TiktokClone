@@ -4,8 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Tai_lieu_hoc_tap_VKU/Nam4-Ki2/DACN2/LNSocial/app/src/main/res/drawable/ic_add_icon_dark.xml" value="0.1715" />
+        <entry key="..\:/Tai_lieu_hoc_tap_VKU/Nam4-Ki2/DACN2/LNSocial/app/src/main/res/drawable/ic_add_icon_light.xml" value="0.229" />
+        <entry key="..\:/Tai_lieu_hoc_tap_VKU/Nam4-Ki2/DACN2/LNSocial/app/src/main/res/drawable/ic_btn_pause_video.xml" value="0.229" />
         <entry key="..\:/Tai_lieu_hoc_tap_VKU/Nam4-Ki2/DACN2/LNSocial/app/src/main/res/drawable/ic_heart_icon.xml" value="0.1715" />
         <entry key="..\:/Tai_lieu_hoc_tap_VKU/Nam4-Ki2/DACN2/LNSocial/app/src/main/res/drawable/ic_message_icon.xml" value="0.1715" />
+        <entry key="..\:/Tai_lieu_hoc_tap_VKU/Nam4-Ki2/DACN2/LNSocial/app/src/main/res/drawable/ic_share_icon.xml" value="0.229" />
         <entry key="..\:/Tai_lieu_hoc_tap_VKU/Nam4-Ki2/DACN2/LNSocial/app/src/main/res/layout-v28/activity_main.xml" value="0.2554347826086957" />
         <entry key="..\:/Tai_lieu_hoc_tap_VKU/Nam4-Ki2/DACN2/LNSocial/app/src/main/res/layout/activity_auth.xml" value="0.23324275362318841" />
         <entry key="..\:/Tai_lieu_hoc_tap_VKU/Nam4-Ki2/DACN2/LNSocial/app/src/main/res/layout/activity_main.xml" value="0.10400000000000001" />
@@ -13,7 +16,7 @@
         <entry key="..\:/Tai_lieu_hoc_tap_VKU/Nam4-Ki2/DACN2/LNSocial/app/src/main/res/layout/fragment_main.xml" value="0.22826086956521738" />
         <entry key="..\:/Tai_lieu_hoc_tap_VKU/Nam4-Ki2/DACN2/LNSocial/app/src/main/res/layout/fragment_seed.xml" value="0.1" />
         <entry key="..\:/Tai_lieu_hoc_tap_VKU/Nam4-Ki2/DACN2/LNSocial/app/src/main/res/layout/fragment_seed_item.xml" value="0.22826086956521738" />
-        <entry key="..\:/Tai_lieu_hoc_tap_VKU/Nam4-Ki2/DACN2/LNSocial/app/src/main/res/layout/layout_story_view.xml" value="0.2" />
+        <entry key="..\:/Tai_lieu_hoc_tap_VKU/Nam4-Ki2/DACN2/LNSocial/app/src/main/res/layout/layout_story_view.xml" value="0.22" />
         <entry key="..\:/Tai_lieu_hoc_tap_VKU/Nam4-Ki2/DACN2/LNSocial/app/src/main/res/menu/main_bottom_navigation_menu.xml" value="0.1" />
       </map>
     </option>

@@ -5,6 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
+import androidx.core.view.isVisible
+import com.example.lnsocial.R
 import com.example.lnsocial.databinding.FragmentSeedItemBinding
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
@@ -29,6 +35,8 @@ class SeedItemFragment : BaseSeedFragment() {
 
     private var simplePlayer: ExoPlayer? = null
     private var cacheDataSourceFactory: DataSource.Factory? = null
+
+    private lateinit var btnPauseVideo: ImageView
 
     companion object {
         // TODO: Nghien cuu va fix lai cho nay
@@ -68,6 +76,9 @@ class SeedItemFragment : BaseSeedFragment() {
         binding.root.text_view_music_title.isSelected = true
 
         binding.root.player_view_story.player = initSimplePlayer()
+        initEventPlayerView()
+
+        btnPauseVideo = binding.root.btn_pause_video
 
         storyUrl = storiesDataModel?.videoLink
         storyUrl?.let { prepareMedia(it) }
@@ -78,6 +89,17 @@ class SeedItemFragment : BaseSeedFragment() {
             prepareVideoPlayer()
         }
         return simplePlayer
+    }
+
+    private fun initEventPlayerView(){
+        binding.root.options_container.setOnClickListener {
+            if (simplePlayer?.playWhenReady == true) {
+                btnPauseVideo.isVisible = true
+                pauseVideo()
+            } else {
+                continueVideo()
+            }
+        }
     }
 
     private fun prepareVideoPlayer() {
@@ -114,6 +136,7 @@ class SeedItemFragment : BaseSeedFragment() {
         if (simplePlayer == null) {
             storyUrl?.let { prepareMedia(it) }
         } else {
+            btnPauseVideo.isVisible = false
             simplePlayer?.seekToDefaultPosition()
             simplePlayer?.playWhenReady = true
         }
@@ -121,6 +144,11 @@ class SeedItemFragment : BaseSeedFragment() {
 
     private fun pauseVideo() {
         simplePlayer?.playWhenReady = false
+    }
+
+    private fun continueVideo() {
+        btnPauseVideo.isVisible = false
+        simplePlayer?.playWhenReady = true
     }
 
     private fun releasePlayer() {

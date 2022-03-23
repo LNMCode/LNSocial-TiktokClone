@@ -21,10 +21,10 @@
         android:id="@+id/options_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginBottom="?attr/actionBarSize"
         android:padding="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="?attr/actionBarSize"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -224,6 +224,17 @@
             app:layout_constraintEnd_toEndOf="@+id/recycler_view_options"
             app:layout_constraintStart_toStartOf="@+id/recycler_view_options"
             tools:src="@tools:sample/avatars" />
+
+        <ImageView
+            android:id="@+id/btn_pause_video"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_pause_video"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

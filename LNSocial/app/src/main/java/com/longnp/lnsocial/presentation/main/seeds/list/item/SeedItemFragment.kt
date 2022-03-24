@@ -2,6 +2,7 @@ package com.longnp.lnsocial.presentation.main.seeds.list.item
 
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +23,7 @@ import com.google.android.exoplayer2.upstream.cache.CacheDataSource
 import com.google.android.exoplayer2.util.Util
 import com.longnp.lnsocial.business.domain.models.VideoSeed
 import com.longnp.lnsocial.presentation.main.seeds.BaseSeedFragment
+import com.longnp.lnsocial.presentation.main.seeds.list.SeedBtnPauseVideo
 import com.longnp.lnsocial.presentation.util.loadCenterCropImageFromUrl
 import kotlinx.android.synthetic.main.layout_story_view.view.*
 
@@ -36,7 +38,8 @@ class SeedItemFragment : BaseSeedFragment() {
     private var simplePlayer: ExoPlayer? = null
     private var cacheDataSourceFactory: DataSource.Factory? = null
 
-    private lateinit var btnPauseVideo: ImageView
+    private lateinit var btnPauseVideo: SeedBtnPauseVideo
+    private var isPauseVideo = false
 
     companion object {
         // TODO: Nghien cuu va fix lai cho nay
@@ -91,12 +94,13 @@ class SeedItemFragment : BaseSeedFragment() {
         return simplePlayer
     }
 
-    private fun initEventPlayerView(){
+    private fun initEventPlayerView() {
         binding.root.options_container.setOnClickListener {
             if (simplePlayer?.playWhenReady == true) {
-                btnPauseVideo.isVisible = true
+                isPauseVideo = true
                 pauseVideo()
             } else {
+                isPauseVideo = false
                 continueVideo()
             }
         }
@@ -121,11 +125,19 @@ class SeedItemFragment : BaseSeedFragment() {
         simplePlayer?.repeatMode = Player.REPEAT_MODE_ONE
         simplePlayer?.setMediaSource(mediaSource, true)
         simplePlayer?.prepare()
-        simplePlayer?.addListener(object: Player.Listener {
+        simplePlayer?.addListener(object : Player.Listener {
             override fun onPlaybackStateChanged(playbackState: Int) {
                 super.onPlaybackStateChanged(playbackState)
                 if (playbackState == Player.STATE_ENDED) {
                     restartVideo()
+                }
+            }
+
+            override fun onPlayWhenReadyChanged(playWhenReady: Boolean, reason: Int) {
+                super.onPlayWhenReadyChanged(playWhenReady, reason)
+                val timeCurrent = simplePlayer?.currentPosition
+                if (timeCurrent != null) {
+                    btnPauseVideo.actionPauseVideo(playWhenReady, timeCurrent, isPauseVideo)
                 }
             }
         })
@@ -133,10 +145,10 @@ class SeedItemFragment : BaseSeedFragment() {
     }
 
     private fun restartVideo() {
+        isPauseVideo = false
         if (simplePlayer == null) {
             storyUrl?.let { prepareMedia(it) }
         } else {
-            btnPauseVideo.isVisible = false
             simplePlayer?.seekToDefaultPosition()
             simplePlayer?.playWhenReady = true
         }
@@ -147,7 +159,6 @@ class SeedItemFragment : BaseSeedFragment() {
     }
 
     private fun continueVideo() {
-        btnPauseVideo.isVisible = false
         simplePlayer?.playWhenReady = true
     }
 

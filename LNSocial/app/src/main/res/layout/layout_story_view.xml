@@ -225,12 +225,11 @@
             app:layout_constraintStart_toStartOf="@+id/recycler_view_options"
             tools:src="@tools:sample/avatars" />
 
-        <ImageView
+        <com.longnp.lnsocial.presentation.main.seeds.list.SeedBtnPauseVideo
             android:id="@+id/btn_pause_video"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/ic_pause_video"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

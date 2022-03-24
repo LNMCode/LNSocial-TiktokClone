@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/nav_home_seeds"
+    <item android:id="@+id/nav_seed"
         android:title="Home"
         android:icon="@drawable/ic_home_icon"/>
 

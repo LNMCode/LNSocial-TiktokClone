@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_inbox">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_inbox"
+    app:startDestination="@id/inboxFragment">
+
+    <fragment
+        android:id="@+id/inboxFragment"
+        android:name="com.longnp.lnsocial.presentation.main.create.CreateFragment"
+        android:label=""
+        tools:layout="@layout/fragment_create" />
 
 </navigation>

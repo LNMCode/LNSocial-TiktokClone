@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/inboxFragment"
-        android:name="com.longnp.lnsocial.presentation.main.create.CreateFragment"
+        android:name="com.longnp.lnsocial.presentation.main.inbox.InboxFragment"
         android:label=""
         tools:layout="@layout/fragment_create" />
 

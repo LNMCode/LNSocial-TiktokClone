@@ -6,14 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.lnsocial.databinding.FragmentDiscoveryBinding
+import com.longnp.lnsocial.business.domain.models.ItemDiscovery
 
-class DiscoveryFragment : BaseDiscoveryFragment() {
+class DiscoveryFragment : BaseDiscoveryFragment(){
 
     private var _binding: FragmentDiscoveryBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel: DiscoveryViewModel by viewModels()
+    private var recyclerViewAdapter: DiscoveryListAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,7 +32,7 @@ class DiscoveryFragment : BaseDiscoveryFragment() {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
         //binding.swipeRefresh.setOnRefreshListener(this)
-        //initViewPager()
+        initRecyclerView()
         subscribeObservers()
     }
 
@@ -49,6 +53,19 @@ class DiscoveryFragment : BaseDiscoveryFragment() {
             /*storiesPagerAdapter.apply {
                 submitList(blogList = state.videoSeedList)
             }*/
+
+            recyclerViewAdapter?.apply {
+                submitList(blogList = state.items)
+            }
+        }
+    }
+
+    private fun initRecyclerView() {
+        binding.recyclerview.apply {
+            layoutManager = LinearLayoutManager(context)
+
+            recyclerViewAdapter = DiscoveryListAdapter()
+            adapter = recyclerViewAdapter
         }
     }
 

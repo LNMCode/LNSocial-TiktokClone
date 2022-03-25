@@ -1,19 +1,16 @@
 package com.longnp.lnsocial.presentation.main.discovery
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.*
-import com.bumptech.glide.request.RequestOptions
-import com.example.lnsocial.R
 import com.example.lnsocial.databinding.LayoutItemDiscoveryBinding
 import com.longnp.lnsocial.business.domain.models.ItemDiscovery
+import com.longnp.lnsocial.business.domain.models.ItemThumbnailDiscovery
+import com.longnp.lnsocial.presentation.main.discovery.item.DiscoveryListThumbnailAdapter
 
 class DiscoveryListAdapter(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-    private val requestOptions = RequestOptions
-        .placeholderOf(R.drawable.default_image)
-        .error(R.drawable.default_image)
 
     val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ItemDiscovery>() {
         override fun areItemsTheSame(oldItem: ItemDiscovery, newItem: ItemDiscovery): Boolean {
@@ -38,7 +35,6 @@ class DiscoveryListAdapter(
                 parent,
                 false
             ),
-            requestOptions = requestOptions,
         )
     }
 
@@ -78,17 +74,22 @@ class DiscoveryListAdapter(
     class DiscoveryListViewHolder
     constructor(
         private val binding: LayoutItemDiscoveryBinding,
-        private val requestOptions: RequestOptions,
-    ): RecyclerView.ViewHolder(binding.root) {
+    ): RecyclerView.ViewHolder(binding.root),
+    DiscoveryListThumbnailAdapter.Interaction{
         fun bind(item: ItemDiscovery) {
-            /*Glide.with(binding.root)
-                .setDefaultRequestOptions(requestOptions)
-                .load(item.image)
-                .transition(withCrossFade())
-                .into(binding.imageViewProfilePic)*/
+            val adapterThumbnail = DiscoveryListThumbnailAdapter(this@DiscoveryListViewHolder)
+            adapterThumbnail.submitList(item.data)
+            binding.recyclerviewItemThumbnail.apply {
+                layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+                adapter = adapterThumbnail
+            }
 
             binding.title.text = item.title
             binding.hashtagTitle.text = item.hashtagTitle
+        }
+
+        override fun onItemSelected(position: Int, item: ItemThumbnailDiscovery) {
+            Log.d("Hahahaha", "onItemSelected: " + position)
         }
     }
 

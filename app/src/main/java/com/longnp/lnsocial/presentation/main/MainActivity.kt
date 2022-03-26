@@ -89,6 +89,7 @@ class MainActivity : BaseActivity() {
 
     override fun hideNavigation(isHide: Boolean) {
         bottomNavigationView.isVisible = !isHide
+        binding.imageViewAddIcon.isVisible = !isHide
     }
 
     private fun navAuthActivity() {

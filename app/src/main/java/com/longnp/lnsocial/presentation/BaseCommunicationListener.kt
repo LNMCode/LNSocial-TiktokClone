@@ -10,4 +10,6 @@ interface BaseCommunicationListener {
 
     fun changeColorNavigation(isHomePage: Boolean = false)
 
+    fun hideNavigation(isHide: Boolean = false)
+
 }

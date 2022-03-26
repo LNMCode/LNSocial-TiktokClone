@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -84,6 +85,10 @@ class MainActivity : BaseActivity() {
         ) else {
             bottomNavigationView.setBackgroundColor(Color.WHITE)
         }
+    }
+
+    override fun hideNavigation(isHide: Boolean) {
+        bottomNavigationView.isVisible = !isHide
     }
 
     private fun navAuthActivity() {

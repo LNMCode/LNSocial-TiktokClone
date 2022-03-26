@@ -44,7 +44,10 @@ class VideoSeedDto(
     val nickName: String,
 
     @SerializedName("avatar_link")
-    val avatarLink: String
+    val avatarLink: String,
+
+    @SerializedName("thumbnail")
+    val thumbnail: String
 )
 
 fun VideoSeedDto.toVideo(): VideoSeed {
@@ -63,5 +66,6 @@ fun VideoSeedDto.toVideo(): VideoSeed {
         typesVideos = typesVideos,
         nickName = nickName,
         avatarLink = avatarLink,
+        thumbnail = thumbnail,
     )
 }

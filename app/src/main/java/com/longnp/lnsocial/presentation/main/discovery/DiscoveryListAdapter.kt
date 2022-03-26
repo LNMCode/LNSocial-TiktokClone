@@ -1,23 +1,23 @@
 package com.longnp.lnsocial.presentation.main.discovery
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.*
 import com.example.lnsocial.databinding.LayoutItemDiscoveryBinding
-import com.longnp.lnsocial.business.domain.models.ItemDiscovery
-import com.longnp.lnsocial.business.domain.models.ItemThumbnailDiscovery
+import com.longnp.lnsocial.business.domain.models.discovery.DiscoveryModel
+import com.longnp.lnsocial.business.domain.models.VideoSeed
 import com.longnp.lnsocial.presentation.main.discovery.item.DiscoveryListThumbnailAdapter
 
 class DiscoveryListAdapter(
+    private val interactionItemVideo: InteractionItemVideo
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ItemDiscovery>() {
-        override fun areItemsTheSame(oldItem: ItemDiscovery, newItem: ItemDiscovery): Boolean {
-            return oldItem.title == newItem.title
+    val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DiscoveryModel>() {
+        override fun areItemsTheSame(oldItem: DiscoveryModel, newItem: DiscoveryModel): Boolean {
+            return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: ItemDiscovery, newItem: ItemDiscovery): Boolean {
+        override fun areContentsTheSame(oldItem: DiscoveryModel, newItem: DiscoveryModel): Boolean {
             return oldItem == newItem
         }
     }
@@ -35,6 +35,7 @@ class DiscoveryListAdapter(
                 parent,
                 false
             ),
+            interactionItemVideo = interactionItemVideo,
         )
     }
 
@@ -74,28 +75,33 @@ class DiscoveryListAdapter(
     class DiscoveryListViewHolder
     constructor(
         private val binding: LayoutItemDiscoveryBinding,
+        private val interactionItemVideo: InteractionItemVideo,
     ): RecyclerView.ViewHolder(binding.root),
     DiscoveryListThumbnailAdapter.Interaction{
-        fun bind(item: ItemDiscovery) {
+        fun bind(item: DiscoveryModel) {
             val adapterThumbnail = DiscoveryListThumbnailAdapter(this@DiscoveryListViewHolder)
             binding.recyclerviewItemThumbnail.apply {
                 layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
                 adapter = adapterThumbnail
             }
 
-            binding.title.text = item.title
-            binding.hashtagTitle.text = item.hashtagTitle
+            binding.title.text = "This is title"
+            binding.hashtagTitle.text = "Hashtag"
             adapterThumbnail.submitList(item.data)
         }
 
-        override fun onItemSelected(position: Int, item: ItemThumbnailDiscovery) {
-            Log.d("Hahahaha", "onItemSelected: " + position)
+        override fun onItemSelected(position: Int, item: List<VideoSeed>) {
+            interactionItemVideo.onItemSelected(position, item)
         }
     }
 
-    fun submitList(blogList: List<ItemDiscovery>?, ){
+    fun submitList(blogList: List<DiscoveryModel>?){
         val newList = blogList?.toMutableList()
         differ.submitList(newList)
+    }
+
+    interface InteractionItemVideo {
+        fun onItemSelected(position: Int, item: List<VideoSeed>)
     }
 
 }

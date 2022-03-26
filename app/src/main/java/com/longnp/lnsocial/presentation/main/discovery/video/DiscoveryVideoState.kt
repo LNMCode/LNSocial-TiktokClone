@@ -1,11 +1,11 @@
-package com.longnp.lnsocial.presentation.main.discovery
+package com.longnp.lnsocial.presentation.main.discovery.video
 
-import com.longnp.lnsocial.business.domain.models.discovery.DiscoveryModel
+import com.longnp.lnsocial.business.domain.models.VideoSeed
 import com.longnp.lnsocial.business.domain.util.Queue
 import com.longnp.lnsocial.business.domain.util.StateMessage
 
-data class DiscoveryState(
+data class DiscoveryVideoState(
     val isLoading: Boolean = false,
-    val items: List<DiscoveryModel>? = null,
+    val videoSeedList: List<VideoSeed> = listOf(),
     val queue: Queue<StateMessage> = Queue(mutableListOf()),
 )

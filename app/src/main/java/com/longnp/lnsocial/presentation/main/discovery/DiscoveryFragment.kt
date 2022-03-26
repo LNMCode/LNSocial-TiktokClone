@@ -1,21 +1,18 @@
 package com.longnp.lnsocial.presentation.main.discovery
 
-import android.R
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lnsocial.databinding.FragmentDiscoveryBinding
-import com.longnp.lnsocial.presentation.main.MainActivity
-import kotlinx.android.synthetic.main.activity_main.view.*
+import com.longnp.lnsocial.business.domain.models.VideoSeed
 
-
-class DiscoveryFragment : BaseDiscoveryFragment(){
+class DiscoveryFragment : BaseDiscoveryFragment(), DiscoveryListAdapter.InteractionItemVideo {
 
     private var _binding: FragmentDiscoveryBinding? = null
     private val binding get() = _binding!!
@@ -68,10 +65,22 @@ class DiscoveryFragment : BaseDiscoveryFragment(){
         binding.recyclerview.apply {
             layoutManager = LinearLayoutManager(context)
 
-            recyclerViewAdapter = DiscoveryListAdapter()
+            recyclerViewAdapter = DiscoveryListAdapter(this@DiscoveryFragment)
             adapter = recyclerViewAdapter
         }
     }
 
-
+    override fun onItemSelected(position: Int, item: List<VideoSeed>) {
+        try {
+            viewModel.state.value?.let {
+                val bundle = bundleOf("videoLink" to item.toTypedArray())
+                findNavController().navigate(
+                    com.example.lnsocial.R.id.action_discoveryFragment_to_discoveryVideoFragment,
+                    bundle
+                )
+            }?: throw Exception("Null Video seeds")
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
 }

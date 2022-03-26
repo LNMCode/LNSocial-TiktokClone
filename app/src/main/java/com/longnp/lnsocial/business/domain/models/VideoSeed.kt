@@ -19,4 +19,5 @@ data class VideoSeed(
     val typesVideos: String,
     val nickName: String,
     val avatarLink: String,
+    val thumbnail: String,
 ): Parcelable

@@ -1,6 +1,5 @@
 package com.longnp.lnsocial.presentation.main.discovery.item
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.*
@@ -9,7 +8,8 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.*
 import com.bumptech.glide.request.RequestOptions
 import com.example.lnsocial.R
 import com.example.lnsocial.databinding.LayoutItemDiscoveryThumbnailBinding
-import com.longnp.lnsocial.business.domain.models.ItemThumbnailDiscovery
+import com.longnp.lnsocial.business.domain.models.discovery.DiscoveryModel
+import com.longnp.lnsocial.business.domain.models.VideoSeed
 
 class DiscoveryListThumbnailAdapter(
     private val interaction: Interaction,
@@ -19,12 +19,12 @@ class DiscoveryListThumbnailAdapter(
         .placeholderOf(R.drawable.default_image)
         .error(R.drawable.default_image)
 
-    private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ItemThumbnailDiscovery>() {
-        override fun areItemsTheSame(oldItem: ItemThumbnailDiscovery, newItem: ItemThumbnailDiscovery): Boolean {
-            return oldItem.videoId == newItem.videoId
+    private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<VideoSeed>() {
+        override fun areItemsTheSame(oldItem: VideoSeed, newItem: VideoSeed): Boolean {
+            return oldItem.pk == newItem.pk
         }
 
-        override fun areContentsTheSame(oldItem: ItemThumbnailDiscovery, newItem: ItemThumbnailDiscovery): Boolean {
+        override fun areContentsTheSame(oldItem: VideoSeed, newItem: VideoSeed): Boolean {
             return oldItem == newItem
         }
 
@@ -51,7 +51,7 @@ class DiscoveryListThumbnailAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is DiscoveryListThumbnailViewHolder -> {
-                holder.bind(differ.currentList[position])
+                holder.bind(differ.currentList)
             }
         }
     }
@@ -86,26 +86,25 @@ class DiscoveryListThumbnailAdapter(
         private val requestOptions: RequestOptions,
         private val interaction: Interaction?,
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: ItemThumbnailDiscovery) {
+        fun bind(item: List<VideoSeed>) {
             binding.root.setOnClickListener {
                 interaction?.onItemSelected(adapterPosition, item)
             }
 
-            Log.d("TAG", "bind: " + item.thumbnail)
-
             Glide.with(binding.root)
-                .load(item.thumbnail)
+                .setDefaultRequestOptions(requestOptions)
+                .load(item[adapterPosition].thumbnail)
                 .centerCrop()
                 .into(binding.imageThumbnail)
         }
     }
 
-    fun submitList(blogList: List<ItemThumbnailDiscovery>?, ){
+    fun submitList(blogList: List<VideoSeed>?, ){
         val newList = blogList?.toMutableList()
         differ.submitList(newList)
     }
 
     interface Interaction {
-        fun onItemSelected(position: Int, item: ItemThumbnailDiscovery)
+        fun onItemSelected(position: Int, item: List<VideoSeed>)
     }
 }

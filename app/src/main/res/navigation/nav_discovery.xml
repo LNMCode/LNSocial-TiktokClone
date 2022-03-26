@@ -9,6 +9,22 @@
         android:id="@+id/discoveryFragment"
         android:name="com.longnp.lnsocial.presentation.main.discovery.DiscoveryFragment"
         android:label=""
-        tools:layout="@layout/fragment_discovery" />
+        tools:layout="@layout/fragment_discovery" >
+        <action
+            android:id="@+id/action_discoveryFragment_to_discoveryVideoFragment"
+            app:destination="@id/discoveryVideoFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/discoveryVideoFragment"
+        android:name="com.longnp.lnsocial.presentation.main.discovery.video.DiscoveryVideoFragment"
+        android:label="fragment_discovery_video"
+        tools:layout="@layout/fragment_discovery_video" >
+
+        <argument
+            android:name="videoLink"
+            app:argType="com.longnp.lnsocial.business.domain.models.VideoSeed[]" />
+
+    </fragment>
 
 </navigation>

@@ -22,11 +22,6 @@ class AuthActivity : BaseActivity() {
         subscribeObservers()
     }
 
-    override fun changeColorNavigation(isHomePage: Boolean) {
-        TODO("Not yet implemented")
-    }
-
-
     private fun subscribeObservers(){
         sessionManager.state.observe(this) { state ->
             displayProgressBar(state.isLoading)
@@ -59,4 +54,13 @@ class AuthActivity : BaseActivity() {
         startActivity(intent)
         finish()
     }
+
+    override fun changeColorNavigation(isHomePage: Boolean) {
+        TODO("Not yet implemented")
+    }
+
+    override fun hideNavigation(isHide: Boolean) {
+        TODO("Not yet implemented")
+    }
+
 }

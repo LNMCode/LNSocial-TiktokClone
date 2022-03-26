@@ -68,7 +68,6 @@ class SeedFragment : BaseSeedFragment(),
 
     override fun onRefresh() {
         TODO("Not yet implemented")
-
     }
 
 }

@@ -86,6 +86,9 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$glide_version"
     kapt "com.github.bumptech.glide:compiler:$glide_version"
 
+    // slider
+    implementation 'com.github.smarteist:autoimageslider:1.4.0'
+
     def dataStore = "1.0.0"
     implementation "androidx.datastore:datastore-preferences:$dataStore"
 

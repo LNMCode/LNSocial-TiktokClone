@@ -1,5 +1,8 @@
 package com.longnp.lnsocial.presentation.main.discovery
 
+import android.R
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,9 +10,10 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.lnsocial.databinding.FragmentDiscoveryBinding
-import com.longnp.lnsocial.business.domain.models.ItemDiscovery
+import com.longnp.lnsocial.presentation.main.MainActivity
+import kotlinx.android.synthetic.main.activity_main.view.*
+
 
 class DiscoveryFragment : BaseDiscoveryFragment(){
 

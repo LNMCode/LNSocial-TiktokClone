@@ -8,4 +8,6 @@ interface BaseCommunicationListener {
 
     fun isStoragePermissionGranted(): Boolean
 
+    fun changeColorNavigation(isHomePage: Boolean = false)
+
 }

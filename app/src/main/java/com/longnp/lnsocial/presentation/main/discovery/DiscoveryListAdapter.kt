@@ -78,7 +78,6 @@ class DiscoveryListAdapter(
     DiscoveryListThumbnailAdapter.Interaction{
         fun bind(item: ItemDiscovery) {
             val adapterThumbnail = DiscoveryListThumbnailAdapter(this@DiscoveryListViewHolder)
-            adapterThumbnail.submitList(item.data)
             binding.recyclerviewItemThumbnail.apply {
                 layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
                 adapter = adapterThumbnail
@@ -86,6 +85,7 @@ class DiscoveryListAdapter(
 
             binding.title.text = item.title
             binding.hashtagTitle.text = item.hashtagTitle
+            adapterThumbnail.submitList(item.data)
         }
 
         override fun onItemSelected(position: Int, item: ItemThumbnailDiscovery) {

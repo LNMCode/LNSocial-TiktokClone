@@ -1,5 +1,6 @@
 package com.longnp.lnsocial.presentation.main.discovery.item
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.*
@@ -90,10 +91,11 @@ class DiscoveryListThumbnailAdapter(
                 interaction?.onItemSelected(adapterPosition, item)
             }
 
+            Log.d("TAG", "bind: " + item.thumbnail)
+
             Glide.with(binding.root)
-                .setDefaultRequestOptions(requestOptions)
                 .load(item.thumbnail)
-                .transition(withCrossFade())
+                .centerCrop()
                 .into(binding.imageThumbnail)
         }
     }

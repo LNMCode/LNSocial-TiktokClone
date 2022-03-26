@@ -22,6 +22,10 @@ class AuthActivity : BaseActivity() {
         subscribeObservers()
     }
 
+    override fun changeColorNavigation(isHomePage: Boolean) {
+        TODO("Not yet implemented")
+    }
+
 
     private fun subscribeObservers(){
         sessionManager.state.observe(this) { state ->

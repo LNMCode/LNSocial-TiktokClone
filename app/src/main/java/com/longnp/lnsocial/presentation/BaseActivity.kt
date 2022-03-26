@@ -22,6 +22,10 @@ abstract class BaseActivity: AppCompatActivity(), BaseCommunicationListener {
 
     abstract override fun displayProgressBar(isLoading: Boolean)
 
+    abstract override fun changeColorNavigation(isHomePage: Boolean)
+
+    abstract override fun hideNavigation(isHide: Boolean)
+
     override fun hideSoftKeyboard() {
         if (currentFocus != null){
             val inputMethodManager = getSystemService(
@@ -56,5 +60,10 @@ abstract class BaseActivity: AppCompatActivity(), BaseCommunicationListener {
             (dialogInView as MaterialDialog).dismiss()
             dialogInView = null
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        hideNavigation(isHide = false)
     }
 }

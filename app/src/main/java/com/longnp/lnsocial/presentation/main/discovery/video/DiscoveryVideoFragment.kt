@@ -65,4 +65,6 @@ class DiscoveryVideoFragment : BaseDiscoveryFragment() {
             baseCommunicationListener.hideNavigation(isHide = false)
         }
     }
+
+
 }

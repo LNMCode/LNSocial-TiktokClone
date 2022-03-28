@@ -4,9 +4,6 @@
     android:layout_height="match_parent"
     tools:context="com.longnp.lnsocial.presentation.main.create.CreateFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Create " />
+    <include layout="@layout/layout_coding_future"/>
 
 </FrameLayout>

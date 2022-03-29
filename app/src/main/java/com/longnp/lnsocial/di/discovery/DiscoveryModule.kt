@@ -15,10 +15,10 @@ object DiscoveryModule {
     @Singleton
     @Provides
     fun provideSearchDiscovery(
-        discoveryDataRepo: DiscoveryDataRepo
+        dataRepoJson: DiscoveryDataRepo
     ): SearchDiscovery {
         return SearchDiscovery(
-            discoveryDataRepo = discoveryDataRepo
+            dataRepoJson = dataRepoJson
         )
     }
 }

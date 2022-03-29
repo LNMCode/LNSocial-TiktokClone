@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="6dp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/image_view_profile_pic"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:padding="1dp"
+        android:src="@drawable/coding_image"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="@style/RoundedImageViewShape"
+        app:strokeColor="@color/colorGray"
+        app:strokeWidth="1dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/image_view_profile_pic"
+        app:layout_constraintStart_toEndOf="@+id/image_view_profile_pic"
+        app:layout_constraintTop_toTopOf="@+id/image_view_profile_pic">
+
+        <TextView
+            android:id="@+id/title_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            tools:text="Nguyen Van Anh" />
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,49 +1,50 @@
-package com.longnp.lnsocial.presentation.main.discovery
+package com.longnp.lnsocial.presentation.main.inbox.addfriend
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.lnsocial.R
-import com.longnp.lnsocial.business.interactors.discovery.SearchDiscovery
+import com.longnp.lnsocial.business.interactors.inbox.GetFriendRecommend
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
-class DiscoveryViewModel
+class AddFriendViewModel
 @Inject
 constructor(
-    private val searchDiscovery: SearchDiscovery,
+    private val getFriendRecommend: GetFriendRecommend,
 ) : ViewModel() {
     private val TAG: String = "AppDebug"
 
-    val state: MutableLiveData<DiscoveryState> = MutableLiveData(DiscoveryState())
+    val state: MutableLiveData<AddFriendState> = MutableLiveData(AddFriendState())
 
     init {
-        onTriggerEvent(DiscoveryEvents.NewSearch)
+        onTriggerEvent(AddFriendEvents.GetFriendRecommend)
     }
 
-    fun onTriggerEvent(event: DiscoveryEvents) {
+    private fun onTriggerEvent(event: AddFriendEvents) {
         when (event) {
-            is DiscoveryEvents.NewSearch -> {
-                search()
+            is AddFriendEvents.GetFriendRecommend -> {
+                getFriendRecommend()
             }
         }
     }
 
-    private fun search() {
+    private fun getFriendRecommend() {
         state.value?.let { state ->
-            searchDiscovery.execute(
-                id = R.raw.stories_data
+            getFriendRecommend.execute(
+                id = R.raw.recommend_friend
             ).onEach { dataState ->
                 this.state.value = state.copy(isLoading = dataState.isLoading)
                 dataState.data?.let { list ->
-                    this.state.value = state.copy(items = list)
+                    this.state.value = state.copy(friends = list)
                 }
 
                 dataState.stateMessage?.let {}
             }.launchIn(viewModelScope)
         }
     }
+
 }

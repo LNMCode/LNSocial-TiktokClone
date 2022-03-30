@@ -10,8 +10,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.SavedStateViewModelFactory
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
-import com.example.lnsocial.R
-import com.example.lnsocial.databinding.FragmentDiscoveryVideoBinding
+import com.longnp.lnsocial.R
+import com.longnp.lnsocial.databinding.FragmentDiscoveryVideoBinding
 import com.longnp.lnsocial.presentation.main.discovery.BaseDiscoveryFragment
 import com.longnp.lnsocial.presentation.main.seeds.list.SeedPagerAdapter
 

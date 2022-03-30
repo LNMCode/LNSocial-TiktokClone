@@ -4,8 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import com.example.lnsocial.R
-import com.example.lnsocial.databinding.ActivityAuthBinding
+import com.longnp.lnsocial.databinding.ActivityAuthBinding
 import com.longnp.lnsocial.presentation.BaseActivity
 import com.longnp.lnsocial.presentation.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint

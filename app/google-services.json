@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "98173475690",
+    "firebase_url": "https://dacn2-3a675-default-rtdb.firebaseio.com",
+    "project_id": "dacn2-3a675",
+    "storage_bucket": "dacn2-3a675.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:98173475690:android:79b6945ddf7d66d7ef2313",
+        "android_client_info": {
+          "package_name": "com.longnp.lnsocial"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "98173475690-mef9mif5ppt8t6ed1lm3e2hopou9bsn7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMta2TvdgaCr6tyJ9Km-s2rdb3K0BeW2U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "98173475690-mef9mif5ppt8t6ed1lm3e2hopou9bsn7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -7,8 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
-import com.example.lnsocial.R
-import com.example.lnsocial.databinding.FragmentProfileBinding
+import com.longnp.lnsocial.databinding.FragmentProfileBinding
 
 class ProfileFragment : BaseProfileFragment() {
 

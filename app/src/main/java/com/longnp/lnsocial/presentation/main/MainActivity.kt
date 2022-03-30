@@ -12,9 +12,9 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
-import com.example.lnsocial.R
-import com.example.lnsocial.databinding.ActivityMainBinding
+import com.longnp.lnsocial.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.longnp.lnsocial.R
 import com.longnp.lnsocial.presentation.BaseActivity
 import com.longnp.lnsocial.presentation.auth.AuthActivity
 import dagger.hilt.android.AndroidEntryPoint

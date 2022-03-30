@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'kotlin-android-extensions'
     id 'dagger.hilt.android.plugin'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -85,6 +86,10 @@ dependencies {
     def glide_version = "4.12.0"
     implementation "com.github.bumptech.glide:glide:$glide_version"
     kapt "com.github.bumptech.glide:compiler:$glide_version"
+
+    // Firebase
+    implementation platform('com.google.firebase:firebase-bom:29.2.1')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
 
     def dataStore = "1.0.0"
     implementation "androidx.datastore:datastore-preferences:$dataStore"

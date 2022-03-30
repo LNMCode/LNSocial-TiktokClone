@@ -13,12 +13,29 @@
         <action
             android:id="@+id/action_inboxFragment_to_addFriendFragment"
             app:destination="@id/addFriendFragment" />
+        <action
+            android:id="@+id/action_inboxFragment_to_inboxMessageFragment2"
+            app:destination="@id/inboxMessageFragment2" />
     </fragment>
 
     <fragment
         android:id="@+id/addFriendFragment"
         android:name="com.longnp.lnsocial.presentation.main.inbox.addfriend.AddFriendFragment"
         android:label="fragment_add_friend"
-        tools:layout="@layout/fragment_add_friend" />
+        tools:layout="@layout/fragment_add_friend" >
+        <action
+            android:id="@+id/action_addFriendFragment_to_inboxMessageFragment2"
+            app:destination="@id/inboxMessageFragment2" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/inboxMessageFragment2"
+        android:name="com.longnp.lnsocial.presentation.main.inbox.message.InboxMessageFragment"
+        android:label="InboxMessageFragment"
+        tools:layout="@layout/fragment_inbox_message">
+        <argument
+            android:name="model"
+            app:argType="com.longnp.lnsocial.business.domain.models.inbox.InboxModel" />
+    </fragment>
 
 </navigation>

@@ -3,8 +3,8 @@ package com.longnp.lnsocial.presentation.main.inbox
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.*
-import com.example.lnsocial.databinding.LayoutItemInboxBinding
 import com.longnp.lnsocial.business.domain.models.inbox.InboxModel
+import com.longnp.lnsocial.databinding.LayoutItemInboxBinding
 
 class InboxListAdapter(
     private val interactionInboxList: InteractionInboxList,
@@ -75,11 +75,14 @@ class InboxListAdapter(
         private val interactionInboxList: InteractionInboxList,
     ) : RecyclerView.ViewHolder(binding.root), InteractionInboxList {
         fun bind(item: InboxModel) {
+            binding.root.setOnClickListener {
+                interactionInboxList.onItemSelected(position = adapterPosition, item)
+            }
             binding.titleName.text = item.idReceiver
             binding.titleLastMessage.text = item.lastMessage
         }
 
-        override fun onItemSelected(position: Int, item: List<InboxModel>) {
+        override fun onItemSelected(position: Int, item: InboxModel) {
             interactionInboxList.onItemSelected(position, item)
         }
     }
@@ -89,8 +92,7 @@ class InboxListAdapter(
         differ.submitList(newList)
     }
 
-
     interface InteractionInboxList {
-        fun onItemSelected(position: Int, item: List<InboxModel>)
+        fun onItemSelected(position: Int, item: InboxModel)
     }
 }

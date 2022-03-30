@@ -3,9 +3,11 @@ package com.longnp.lnsocial.presentation.main.inbox.addfriend
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.*
-import com.example.lnsocial.databinding.LayoutItemAddFriendBinding
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.longnp.lnsocial.business.domain.models.inbox.Friend
 import com.longnp.lnsocial.business.domain.models.inbox.InboxModel
+import com.longnp.lnsocial.databinding.LayoutItemAddFriendBinding
 
 class AddFriendListAdapter(
     private val interactionAddFriend: InteractionAddFriend
@@ -76,10 +78,18 @@ class AddFriendListAdapter(
         private val interaction: InteractionAddFriend
     ) : RecyclerView.ViewHolder(binding.root), InteractionAddFriend {
         fun bind(item: Friend) {
+            binding.btnSendMessage.setOnClickListener {
+                interaction.onItemSelected(position = adapterPosition, item = item)
+            }
+
+            Glide.with(binding.root)
+                .load(item.avatar)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(binding.imageViewProfilePic)
             binding.titleName.text = item.username
         }
 
-        override fun onItemSelected(position: Int, item: List<Friend>) {
+        override fun onItemSelected(position: Int, item: Friend) {
             interaction.onItemSelected(position, item)
         }
     }
@@ -90,6 +100,6 @@ class AddFriendListAdapter(
     }
 
     interface InteractionAddFriend {
-        fun onItemSelected(position: Int, item: List<Friend>)
+        fun onItemSelected(position: Int, item: Friend)
     }
 }

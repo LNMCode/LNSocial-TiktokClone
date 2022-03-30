@@ -1,5 +1,6 @@
 package com.longnp.lnsocial.di.inbox
 
+import com.longnp.lnsocial.business.datasource.network.main.OpenApiMainService
 import com.longnp.lnsocial.business.domain.models.inbox.Friend
 import com.longnp.lnsocial.business.interactors.inbox.GetFriendRecommend
 import com.longnp.lnsocial.presentation.main.inbox.addfriend.FriendDataRepo
@@ -17,7 +18,11 @@ object InboxModule {
     @Singleton
     fun provideGetFriendRecommend(
         dataRepoJson: FriendDataRepo,
-    ): GetFriendRecommend {
-        return GetFriendRecommend(dataRepoJson = dataRepoJson)
+        service: OpenApiMainService,
+        ): GetFriendRecommend {
+        return GetFriendRecommend(
+            dataRepoJson = dataRepoJson,
+            service = service
+        )
     }
 }

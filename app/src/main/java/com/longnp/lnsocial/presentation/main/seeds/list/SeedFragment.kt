@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.viewpager2.widget.ViewPager2
-import com.example.lnsocial.databinding.FragmentSeedBinding
+import com.longnp.lnsocial.databinding.FragmentSeedBinding
 import com.longnp.lnsocial.presentation.main.seeds.BaseSeedFragment
 
 class SeedFragment : BaseSeedFragment(),

@@ -4,15 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="6dp">
+    android:paddingHorizontal="5dp"
+    android:paddingVertical="14dp">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/image_view_profile_pic"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginStart="10dp"
         android:padding="1dp"
         android:src="@drawable/coding_image"
-        android:layout_marginStart="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearance="@style/RoundedImageViewShape"
@@ -20,6 +21,7 @@
         app:strokeWidth="1dp" />
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -37,5 +39,16 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/btn_send_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/border_round"
+        android:padding="10dp"
+        android:text="Send message"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

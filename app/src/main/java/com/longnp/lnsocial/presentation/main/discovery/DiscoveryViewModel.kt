@@ -3,7 +3,7 @@ package com.longnp.lnsocial.presentation.main.discovery
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.lnsocial.R
+import com.longnp.lnsocial.R
 import com.longnp.lnsocial.business.interactors.discovery.SearchDiscovery
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn

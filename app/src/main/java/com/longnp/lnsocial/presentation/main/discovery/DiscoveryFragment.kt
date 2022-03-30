@@ -9,8 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.lnsocial.databinding.FragmentDiscoveryBinding
+import com.longnp.lnsocial.R
 import com.longnp.lnsocial.business.domain.models.VideoSeed
+import com.longnp.lnsocial.databinding.FragmentDiscoveryBinding
 
 class DiscoveryFragment : BaseDiscoveryFragment(), DiscoveryListAdapter.InteractionItemVideo {
 
@@ -75,7 +76,7 @@ class DiscoveryFragment : BaseDiscoveryFragment(), DiscoveryListAdapter.Interact
             viewModel.state.value?.let {
                 val bundle = bundleOf("videoLink" to item.toTypedArray())
                 findNavController().navigate(
-                    com.example.lnsocial.R.id.action_discoveryFragment_to_discoveryVideoFragment,
+                    R.id.action_discoveryFragment_to_discoveryVideoFragment,
                     bundle
                 )
             }?: throw Exception("Null Video seeds")

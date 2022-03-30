@@ -11,8 +11,6 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import androidx.core.view.isVisible
-import com.example.lnsocial.R
-import com.example.lnsocial.databinding.FragmentSeedItemBinding
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
@@ -22,6 +20,7 @@ import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.google.android.exoplayer2.upstream.cache.CacheDataSource
 import com.google.android.exoplayer2.util.Util
 import com.longnp.lnsocial.business.domain.models.VideoSeed
+import com.longnp.lnsocial.databinding.FragmentSeedItemBinding
 import com.longnp.lnsocial.presentation.main.seeds.BaseSeedFragment
 import com.longnp.lnsocial.presentation.main.seeds.list.SeedBtnPauseVideo
 import com.longnp.lnsocial.presentation.util.loadCenterCropImageFromUrl

@@ -3,9 +3,9 @@ package com.longnp.lnsocial.presentation.main.discovery
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.*
-import com.example.lnsocial.databinding.LayoutItemDiscoveryBinding
 import com.longnp.lnsocial.business.domain.models.discovery.DiscoveryModel
 import com.longnp.lnsocial.business.domain.models.VideoSeed
+import com.longnp.lnsocial.databinding.LayoutItemDiscoveryBinding
 import com.longnp.lnsocial.presentation.main.discovery.item.DiscoveryListThumbnailAdapter
 
 class DiscoveryListAdapter(

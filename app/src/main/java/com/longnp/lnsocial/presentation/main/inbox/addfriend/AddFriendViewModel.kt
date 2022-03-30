@@ -3,7 +3,6 @@ package com.longnp.lnsocial.presentation.main.inbox.addfriend
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.lnsocial.R
 import com.longnp.lnsocial.business.interactors.inbox.GetFriendRecommend
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -34,9 +33,7 @@ constructor(
 
     private fun getFriendRecommend() {
         state.value?.let { state ->
-            getFriendRecommend.execute(
-                id = R.raw.recommend_friend
-            ).onEach { dataState ->
+            getFriendRecommend.execute().onEach { dataState ->
                 this.state.value = state.copy(isLoading = dataState.isLoading)
                 dataState.data?.let { list ->
                     this.state.value = state.copy(friends = list)

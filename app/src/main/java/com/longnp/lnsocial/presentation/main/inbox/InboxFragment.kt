@@ -4,14 +4,15 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
-import com.example.lnsocial.R
-import com.example.lnsocial.databinding.FragmentInboxBinding
+import com.longnp.lnsocial.R
 import com.longnp.lnsocial.business.domain.models.inbox.InboxModel
+import com.longnp.lnsocial.databinding.FragmentInboxBinding
 import kotlin.math.log
 
 class InboxFragment : BaseInboxFragment(), InboxListAdapter.InteractionInboxList {
@@ -79,8 +80,12 @@ class InboxFragment : BaseInboxFragment(), InboxListAdapter.InteractionInboxList
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onItemSelected(position: Int, item: List<InboxModel>) {
-        Log.d(TAG, "onItemSelected: " + position)
+    override fun onItemSelected(position: Int, item: InboxModel) {
+        val bundle = bundleOf("model" to item)
+        findNavController().navigate(
+            R.id.action_inboxFragment_to_inboxMessageFragment2,
+            bundle
+        )
     }
 
 }

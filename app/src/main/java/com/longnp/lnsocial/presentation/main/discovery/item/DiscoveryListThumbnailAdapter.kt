@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.*
 import com.bumptech.glide.request.RequestOptions
-import com.example.lnsocial.R
-import com.example.lnsocial.databinding.LayoutItemDiscoveryThumbnailBinding
+import com.longnp.lnsocial.R
 import com.longnp.lnsocial.business.domain.models.discovery.DiscoveryModel
 import com.longnp.lnsocial.business.domain.models.VideoSeed
+import com.longnp.lnsocial.databinding.LayoutItemDiscoveryThumbnailBinding
 
 class DiscoveryListThumbnailAdapter(
     private val interaction: Interaction,

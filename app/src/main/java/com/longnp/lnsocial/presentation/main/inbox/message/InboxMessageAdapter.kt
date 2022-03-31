@@ -1,10 +1,8 @@
 package com.longnp.lnsocial.presentation.main.inbox.message
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.*
-import com.longnp.lnsocial.business.domain.models.inbox.InboxModel
 import com.longnp.lnsocial.business.domain.models.inbox.Message
 import com.longnp.lnsocial.databinding.LayoutItemChatMeBinding
 import com.longnp.lnsocial.databinding.LayoutItemChatOtherBinding
@@ -16,7 +14,7 @@ class InboxMessageAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Message>() {
         override fun areItemsTheSame(oldItem: Message, newItem: Message): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem.date == newItem.date
         }
 
         override fun areContentsTheSame(oldItem: Message, newItem: Message): Boolean {
@@ -90,13 +88,18 @@ class InboxMessageAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return differ.currentList.size
     }
 
+
+    fun submitList(messages: List<Message>?){
+        val newList = messages?.toMutableList()
+        differ.submitList(newList)
+    }
+
     class SendMessageViewHolder
     constructor(
         private val binding: LayoutItemChatMeBinding
     ): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Message) {
             binding.textGchatMessageMe.text = item.value
-            binding.textGchatDateMe.text = item.value
         }
     }
 
@@ -106,7 +109,6 @@ class InboxMessageAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     ): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Message) {
             binding.textGchatMessageOther.text = item.value
-            binding.textGchatDateOther.text = item.value
         }
     }
 }

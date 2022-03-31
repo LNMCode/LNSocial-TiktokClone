@@ -44,5 +44,6 @@ fun ImageView.loadCenterCropImageFromUrl(
     Glide.with(this)
         .setDefaultRequestOptions(requestOptions)
         .load(imageUrl)
+        .centerCrop()
         .into(this)
 }

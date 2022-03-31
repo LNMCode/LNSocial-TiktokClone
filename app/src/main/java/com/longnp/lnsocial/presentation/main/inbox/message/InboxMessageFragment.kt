@@ -1,19 +1,18 @@
 package com.longnp.lnsocial.presentation.main.inbox.message
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.longnp.lnsocial.R
 import com.longnp.lnsocial.databinding.FragmentInboxMessageBinding
 import com.longnp.lnsocial.presentation.main.inbox.BaseInboxFragment
 import com.longnp.lnsocial.presentation.util.loadCenterCropImageFromUrl
-import kotlin.math.log
 
 class InboxMessageFragment : BaseInboxFragment() {
 
@@ -21,6 +20,8 @@ class InboxMessageFragment : BaseInboxFragment() {
     private val binding get() = _binding!!
 
     private val viewModel: InboxMessageViewModel by viewModels()
+
+    private lateinit var inboxMessageAdapter: InboxMessageAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,6 +35,8 @@ class InboxMessageFragment : BaseInboxFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initEventBackPop()
+        initEventSendMessage()
+        initRecyclerView()
         subscribeObservers()
         baseCommunicationListener.hideNavigation(isHide = true)
     }
@@ -48,6 +51,10 @@ class InboxMessageFragment : BaseInboxFragment() {
                     username = state.inboxModel.nameReceiver
                 )
             }
+
+            inboxMessageAdapter.apply {
+                submitList(state.messages)
+            }
         }
     }
 
@@ -56,10 +63,31 @@ class InboxMessageFragment : BaseInboxFragment() {
         binding.username.text = username
     }
 
+    private fun cacheValueState() {
+        val value = binding.editGchatMessage.text.toString()
+        viewModel.onTriggerEvent(InboxMessageEvents.OnUpdateValueMessage(value))
+        binding.editGchatMessage.text.clear()
+    }
+
     private fun initEventBackPop() {
         binding.buttonBackPop.setOnClickListener {
             findNavController().popBackStack(R.id.inboxFragment, false)
             baseCommunicationListener.hideNavigation(isHide = false)
+        }
+    }
+
+    private fun initEventSendMessage() {
+        binding.buttonGchatSend.setOnClickListener {
+            cacheValueState()
+            viewModel.onTriggerEvent(InboxMessageEvents.Send)
+        }
+    }
+
+    private fun initRecyclerView() {
+        binding.recyclerGchat.apply {
+            inboxMessageAdapter = InboxMessageAdapter()
+            layoutManager = LinearLayoutManager(context)
+            adapter = inboxMessageAdapter
         }
     }
 }

@@ -5,8 +5,18 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Message(
-    val id: String,
-    val value: String,
-    val date: String,
-    val type: Int, // type is receiver or sender
+    val id: String = "", // id of user send message
+    val value: String = "",
+    val date: Int = 0,
+    val type: Int = 0, // type is receiver or sender
 ): Parcelable
+
+// Convert to map to send firebase
+fun Message.toMap(): Map<String, Any?> {
+    return mapOf(
+        "id" to id,
+        "value" to value,
+        "date" to date,
+        "type" to type
+    )
+}

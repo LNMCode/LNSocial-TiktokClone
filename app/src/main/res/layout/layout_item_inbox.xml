@@ -11,7 +11,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:padding="1dp"
-        android:src="@drawable/coding_image"
+        tools:src="@drawable/coding_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearance="@style/RoundedImageViewShape"

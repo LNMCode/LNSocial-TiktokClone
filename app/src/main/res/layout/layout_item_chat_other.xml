@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginStart="8dp"
-    android:layout_marginTop="10dp">
+    android:layout_marginTop="5dp">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/image_gchat_profile_other"

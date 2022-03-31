@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -57,6 +58,9 @@ constructor(
             is InboxMessageEvents.OnSuccessSend -> {
                 onSuccessSend()
             }
+            is InboxMessageEvents.OnScrollToLastMessage -> {
+                onScrollToLastMessage(events.position)
+            }
         }
     }
 
@@ -84,9 +88,6 @@ constructor(
                     }
 
                     onTriggerEvent(InboxMessageEvents.OnUpdateMessages(messages))
-                    for (message in messages) {
-                        Log.d(TAG, "onDataChange: " + message.value)
-                    }
                 }
             }
 
@@ -101,6 +102,7 @@ constructor(
         if (messages != null) {
             state.value?.let { state ->
                 this.state.value = state.copy(messages = messages)
+                onTriggerEvent(InboxMessageEvents.OnScrollToLastMessage(messages.size))
             }
         }
     }
@@ -133,9 +135,16 @@ constructor(
             val childUpdates = hashMapOf<String, Any>(
                 "$key" to messageValue
             )
-            messageRef.updateChildren(childUpdates)
-            onTriggerEvent(InboxMessageEvents.GetMessage(inboxModel.id))
-            onTriggerEvent(InboxMessageEvents.OnSuccessSend)
+            messageRef.updateChildren(childUpdates).addOnSuccessListener {
+                onTriggerEvent(InboxMessageEvents.GetMessage(inboxModel.id))
+                onTriggerEvent(InboxMessageEvents.OnSuccessSend)
+            }
+        }
+    }
+
+    private fun onScrollToLastMessage(position: Int) {
+        state.value?.let { state ->
+            this.state.value = state.copy(positionLastMessage = position)
         }
     }
 }

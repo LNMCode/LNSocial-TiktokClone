@@ -1,14 +1,14 @@
 package com.longnp.lnsocial.presentation.main.inbox.message
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.longnp.lnsocial.R
 import com.longnp.lnsocial.databinding.FragmentInboxMessageBinding
 import com.longnp.lnsocial.presentation.main.inbox.BaseInboxFragment
@@ -55,6 +55,8 @@ class InboxMessageFragment : BaseInboxFragment() {
             inboxMessageAdapter.apply {
                 submitList(state.messages)
             }
+            Log.d(TAG, "subscribeObservers: ${state.positionLastMessage}")
+            scrollToLastMessage(state.positionLastMessage)
         }
     }
 
@@ -66,7 +68,7 @@ class InboxMessageFragment : BaseInboxFragment() {
     private fun cacheValueState() {
         val value = binding.editGchatMessage.text.toString()
         viewModel.onTriggerEvent(InboxMessageEvents.OnUpdateValueMessage(value))
-        binding.editGchatMessage.text.clear()
+        binding.editGchatMessage.setText("")
     }
 
     private fun initEventBackPop() {
@@ -86,8 +88,13 @@ class InboxMessageFragment : BaseInboxFragment() {
     private fun initRecyclerView() {
         binding.recyclerGchat.apply {
             inboxMessageAdapter = InboxMessageAdapter()
-            layoutManager = LinearLayoutManager(context)
+            val manager = LinearLayoutManager(context)
+            layoutManager = manager
             adapter = inboxMessageAdapter
         }
+    }
+
+    private fun scrollToLastMessage(position: Int) {
+        binding.recyclerGchat.smoothScrollToPosition(position)
     }
 }

@@ -16,4 +16,6 @@ sealed class InboxMessageEvents {
     data class OnUpdateValueMessage(val message: String): InboxMessageEvents()
 
     object OnSuccessSend: InboxMessageEvents()
+
+    data class OnScrollToLastMessage(val position: Int): InboxMessageEvents()
 }

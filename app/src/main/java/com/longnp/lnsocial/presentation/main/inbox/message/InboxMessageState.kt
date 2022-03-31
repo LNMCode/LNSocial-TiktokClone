@@ -10,5 +10,6 @@ data class InboxMessageState(
     val inboxModel: InboxModel? = null,
     val messages: List<Message> = listOf(),
     val valueMessage: String = "",
+    val positionLastMessage: Int = 0,
     val queue: Queue<StateMessage> = Queue(mutableListOf())
 )

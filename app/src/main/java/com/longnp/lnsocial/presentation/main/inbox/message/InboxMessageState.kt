@@ -6,6 +6,6 @@ import com.longnp.lnsocial.business.domain.util.StateMessage
 
 data class InboxMessageState(
     val isLoading: Boolean = false,
-    val message: InboxModel? = null,
+    val inboxModel: InboxModel? = null,
     val queue: Queue<StateMessage> = Queue(mutableListOf())
 )

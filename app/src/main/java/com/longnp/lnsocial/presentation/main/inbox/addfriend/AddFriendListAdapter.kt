@@ -8,10 +8,11 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.longnp.lnsocial.business.domain.models.inbox.Friend
 import com.longnp.lnsocial.business.domain.models.inbox.InboxModel
 import com.longnp.lnsocial.databinding.LayoutItemAddFriendBinding
+import com.longnp.lnsocial.presentation.util.loadImageFromUrl
 
 class AddFriendListAdapter(
     private val interactionAddFriend: InteractionAddFriend
-): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Friend>() {
         override fun areItemsTheSame(oldItem: Friend, newItem: Friend): Boolean {
@@ -31,7 +32,7 @@ class AddFriendListAdapter(
 
     internal inner class AddFriendChangeCallBack(
         private val adapter: AddFriendListAdapter
-    ): ListUpdateCallback {
+    ) : ListUpdateCallback {
         override fun onInserted(position: Int, count: Int) {
             adapter.notifyItemChanged(position, count)
         }
@@ -82,10 +83,7 @@ class AddFriendListAdapter(
                 interaction.onItemSelected(position = adapterPosition, item = item)
             }
 
-            Glide.with(binding.root)
-                .load(item.avatar)
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .into(binding.imageViewProfilePic)
+            binding.imageViewProfilePic.loadImageFromUrl(item.avatar)
             binding.titleName.text = item.username
         }
 
@@ -94,7 +92,7 @@ class AddFriendListAdapter(
         }
     }
 
-    fun submitList(blogList: List<Friend>?){
+    fun submitList(blogList: List<Friend>?) {
         val newList = blogList?.toMutableList()
         differ.submitList(newList)
     }

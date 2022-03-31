@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.*
 import com.longnp.lnsocial.business.domain.models.inbox.InboxModel
 import com.longnp.lnsocial.databinding.LayoutItemInboxBinding
+import com.longnp.lnsocial.presentation.util.loadCenterCropImageFromUrl
 
 class InboxListAdapter(
     private val interactionInboxList: InteractionInboxList,
@@ -80,6 +81,7 @@ class InboxListAdapter(
             }
             binding.titleName.text = item.nameReceiver
             binding.titleLastMessage.text = item.idReceiver
+            binding.imageViewProfilePic.loadCenterCropImageFromUrl(item.avaReceiver)
         }
 
         override fun onItemSelected(position: Int, item: InboxModel) {

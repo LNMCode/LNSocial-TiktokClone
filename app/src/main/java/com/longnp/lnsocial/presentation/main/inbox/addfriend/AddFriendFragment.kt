@@ -48,6 +48,7 @@ class AddFriendFragment : BaseInboxFragment(), AddFriendListAdapter.InteractionA
             adapterAddFriend.submitList(state.friends)
 
             if (state.isAddFriendComplete) {
+                baseCommunicationListener.hideNavigation(isHide = false)
                 findNavController().popBackStack(R.id.inboxFragment, false)
             }
         }

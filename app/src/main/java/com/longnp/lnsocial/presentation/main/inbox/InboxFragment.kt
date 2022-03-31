@@ -88,4 +88,10 @@ class InboxFragment : BaseInboxFragment(), InboxListAdapter.InteractionInboxList
         )
     }
 
+    override fun onStart() {
+        super.onStart()
+        viewModel.onTriggerEvent(InboxEvents.NewSearch)
+        Log.d(TAG, "onStart: ")
+    }
+
 }

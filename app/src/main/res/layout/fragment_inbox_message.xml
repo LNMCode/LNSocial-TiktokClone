@@ -5,16 +5,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/button_back_pop"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="10dp"
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
         android:layout_marginTop="25dp"
-        android:src="@drawable/ic_baseline_arrow_back_24"
-        android:tint="@color/colorGray"
+        android:elevation="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/button_back_pop"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            android:tint="@color/colorGray" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/image_view_profile_pic"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:padding="1dp"
+            android:src="@drawable/coding_image"
+            app:shapeAppearance="@style/RoundedImageViewShape"
+            app:strokeColor="@color/colorGray"
+            app:strokeWidth="1dp" />
+
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            tools:text="This is name" />
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_gchat"
@@ -23,7 +51,7 @@
         android:layout_marginBottom="16dp"
         app:layout_constrainedHeight="true"
         app:layout_constraintBottom_toTopOf="@+id/text_gchat_indicator"
-        app:layout_constraintTop_toBottomOf="@+id/button_back_pop" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
     <TextView
         android:id="@+id/text_gchat_indicator"

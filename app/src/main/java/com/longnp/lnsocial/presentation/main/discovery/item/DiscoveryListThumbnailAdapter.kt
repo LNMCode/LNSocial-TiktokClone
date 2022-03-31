@@ -10,6 +10,8 @@ import com.longnp.lnsocial.R
 import com.longnp.lnsocial.business.domain.models.discovery.DiscoveryModel
 import com.longnp.lnsocial.business.domain.models.VideoSeed
 import com.longnp.lnsocial.databinding.LayoutItemDiscoveryThumbnailBinding
+import com.longnp.lnsocial.presentation.util.loadCenterCropImageFromUrl
+import com.longnp.lnsocial.presentation.util.loadImageFromUrl
 
 class DiscoveryListThumbnailAdapter(
     private val interaction: Interaction,
@@ -91,15 +93,12 @@ class DiscoveryListThumbnailAdapter(
                 interaction?.onItemSelected(adapterPosition, item)
             }
 
-            Glide.with(binding.root)
-                .setDefaultRequestOptions(requestOptions)
-                .load(item[adapterPosition].thumbnail)
-                .centerCrop()
-                .into(binding.imageThumbnail)
+            binding.imageThumbnail
+                .loadCenterCropImageFromUrl(item[adapterPosition].thumbnail)
         }
     }
 
-    fun submitList(blogList: List<VideoSeed>?, ){
+    fun submitList(blogList: List<VideoSeed>?) {
         val newList = blogList?.toMutableList()
         differ.submitList(newList)
     }

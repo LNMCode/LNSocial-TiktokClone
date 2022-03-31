@@ -46,6 +46,10 @@ class AddFriendFragment : BaseInboxFragment(), AddFriendListAdapter.InteractionA
             baseCommunicationListener.displayProgressBar(state.isLoading)
 
             adapterAddFriend.submitList(state.friends)
+
+            if (state.isAddFriendComplete) {
+                findNavController().popBackStack(R.id.inboxFragment, false)
+            }
         }
     }
 
@@ -65,10 +69,6 @@ class AddFriendFragment : BaseInboxFragment(), AddFriendListAdapter.InteractionA
     }
 
     override fun onItemSelected(position: Int, item: Friend) {
-        val bundle = bundleOf("model" to item)
-        findNavController().navigate(
-            R.id.action_addFriendFragment_to_inboxMessageFragment2,
-            bundle
-        )
+        viewModel.onTriggerEvent(AddFriendEvents.AddFriendMessage(item))
     }
 }

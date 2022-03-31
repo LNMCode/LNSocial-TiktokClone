@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.longnp.lnsocial.business.domain.util.Constants
 import com.longnp.lnsocial.business.interactors.video.SearchVideoSeeds
 import com.longnp.lnsocial.presentation.session.SessionManager
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -44,15 +45,10 @@ constructor(
         //resetPage()
         //clearList()
         state.value?.let { state ->
-            val params = JSONObject()
-            params.put("userid", "ukXlOlDZ0QD12YsSF2Xc")
-            params.put("access_token", "l0w0sjek41.21235317272802")
-            val body = RequestBody.create(
-                MediaType.parse("application/json; charset=utf-8"),
-                params.toString()
-            )
+            val paramsRequestBody = Constants.PARAMS_RERQUEST_BODY
+            val bodyRequest = Constants.getRequestBodyAuth(paramsRequestBody.toString())
             searchVideoSeeds.execute(
-                body = body
+                body = bodyRequest
             ).onEach { dataState ->
                 this.state.value = state.copy(isLoading = dataState.isLoading)
 

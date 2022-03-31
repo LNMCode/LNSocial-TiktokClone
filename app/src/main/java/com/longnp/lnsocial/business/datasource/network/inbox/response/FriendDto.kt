@@ -5,8 +5,14 @@ import com.longnp.lnsocial.business.domain.models.inbox.Friend
 
 data class FriendDto(
 
+    @SerializedName("id")
+    val id: String, // id of friend
+
+    @SerializedName("access_token")
+    val accessToken: String,
+
     @SerializedName("idauth")
-    val id: String,
+    val idAuth: String, // id profile user
 
     @SerializedName("username")
     val username: String,

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import com.longnp.lnsocial.business.datasource.network.main.VideoSeedDto
 import java.util.*
 
-class ResponseModel(
+class VideoSeedResponse(
 
     @SerializedName("status")
     var status: Int,

@@ -11,7 +11,4 @@ data class InboxModel(
     val idReceiver: String,
     val nameReceiver: String,
     val avaReceiver: String,
-    val messages: List<Message>,
-    val lastMessage: String,
-    val lastUpdated: String,
 ): Parcelable

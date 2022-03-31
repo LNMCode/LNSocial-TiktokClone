@@ -78,8 +78,8 @@ class InboxListAdapter(
             binding.root.setOnClickListener {
                 interactionInboxList.onItemSelected(position = adapterPosition, item)
             }
-            binding.titleName.text = item.idReceiver
-            binding.titleLastMessage.text = item.lastMessage
+            binding.titleName.text = item.nameReceiver
+            binding.titleLastMessage.text = item.idReceiver
         }
 
         override fun onItemSelected(position: Int, item: InboxModel) {

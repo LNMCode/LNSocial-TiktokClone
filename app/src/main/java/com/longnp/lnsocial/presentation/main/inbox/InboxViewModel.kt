@@ -2,13 +2,20 @@ package com.longnp.lnsocial.presentation.main.inbox
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.longnp.lnsocial.business.domain.util.Constants
+import com.longnp.lnsocial.business.interactors.inbox.GetConnectedMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
 class InboxViewModel
 @Inject
-constructor() : ViewModel() {
+constructor(
+    private val getConnectedMessage: GetConnectedMessage,
+) : ViewModel() {
     private val TAG = "AppDebug"
 
     val state: MutableLiveData<InboxState> = MutableLiveData(InboxState())
@@ -20,8 +27,25 @@ constructor() : ViewModel() {
     fun onTriggerEvent(events: InboxEvents) {
         when (events) {
             is InboxEvents.NewSearch -> {
-                //
+                getConnectedFriend()
             }
+        }
+    }
+
+    private fun getConnectedFriend() {
+        state.value?.let { state ->
+            val paramsRequestBody = Constants.PARAMS_RERQUEST_BODY
+            val bodyRequest = Constants.getRequestBodyAuth(paramsRequestBody.toString())
+            getConnectedMessage.execute(
+                body = bodyRequest
+            ).onEach {  dataState ->
+                this.state.value = state.copy(isLoading = dataState.isLoading)
+
+                dataState.data?.let { list ->
+                    this.state.value = state.copy(inboxModelList = list)
+                }
+                dataState.stateMessage?.let {}
+            }.launchIn(viewModelScope)
         }
     }
 }

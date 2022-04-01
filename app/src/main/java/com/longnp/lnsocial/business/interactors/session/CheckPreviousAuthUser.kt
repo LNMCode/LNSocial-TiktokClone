@@ -22,7 +22,7 @@ class CheckPreviousAuthUser(
     ): Flow<DataState<AuthToken>> = flow {
         emit(DataState.loading())
         var authToken: AuthToken? = null
-        val entity = accountDao.searchByEmail(username)
+        val entity = accountDao.searchByUsername(username)
         if (entity != null) {
             authToken = authTokenDao.searchByPk(entity.pk)?.toAuthToken()
             if (authToken != null) {

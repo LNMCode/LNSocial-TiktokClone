@@ -34,11 +34,7 @@ constructor(
 
     private fun getConnectedFriend() {
         state.value?.let { state ->
-            val paramsRequestBody = Constants.PARAMS_RERQUEST_BODY
-            val bodyRequest = Constants.getRequestBodyAuth(paramsRequestBody.toString())
-            getConnectedMessage.execute(
-                body = bodyRequest
-            ).onEach {  dataState ->
+            getConnectedMessage.execute().onEach {  dataState ->
                 this.state.value = state.copy(isLoading = dataState.isLoading)
 
                 dataState.data?.let { list ->

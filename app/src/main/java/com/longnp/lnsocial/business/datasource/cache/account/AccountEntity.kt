@@ -10,13 +10,13 @@ data class AccountEntity (
 
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "pk")
-    val pk: Int,
+    val pk: String, // is userid
 
     @ColumnInfo(name = "username")
     val username: String,
 
     @ColumnInfo(name = "scope")
-    val scope: Int
+    val scope: String
 
 )
 

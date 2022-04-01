@@ -2,6 +2,9 @@ package com.longnp.lnsocial.di.auth
 
 import com.longnp.lnsocial.business.datasource.cache.account.AccountDao
 import com.longnp.lnsocial.business.datasource.cache.auth.AuthTokenDao
+import com.longnp.lnsocial.business.datasource.datastore.AppDataStore
+import com.longnp.lnsocial.business.datasource.network.auth.OpenApiAuthService
+import com.longnp.lnsocial.business.interactors.auth.Login
 import com.longnp.lnsocial.business.interactors.session.CheckPreviousAuthUser
 import com.longnp.lnsocial.business.interactors.session.Logout
 import dagger.Module
@@ -12,18 +15,17 @@ import kotlinx.coroutines.FlowPreview
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
-@FlowPreview
 @Module
 @InstallIn(SingletonComponent::class)
 object AuthModule{
 
-    /*@Singleton
+    @Singleton
     @Provides
     fun provideOpenApiAuthService(retrofitBuilder: Retrofit.Builder): OpenApiAuthService {
         return retrofitBuilder
             .build()
             .create(OpenApiAuthService::class.java)
-    }*/
+    }
 
     @Singleton
     @Provides
@@ -37,7 +39,7 @@ object AuthModule{
         )
     }
 
-    /*@Singleton
+    @Singleton
     @Provides
     fun provideLogin(
         service: OpenApiAuthService,
@@ -51,7 +53,7 @@ object AuthModule{
             authTokenDao,
             appDataStoreManager
         )
-    }*/
+    }
 
     @Singleton
     @Provides

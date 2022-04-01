@@ -8,7 +8,7 @@ import androidx.room.Query
 @Dao
 interface AccountDao {
     @Query("SELECT * FROM users WHERE username = :username")
-    suspend fun searchByEmail(username: String): AccountEntity?
+    suspend fun searchByUsername(username: String): AccountEntity?
 
     @Query("SELECT * FROM users WHERE pk = :pk")
     suspend fun searchByPk(pk: Int): AccountEntity?

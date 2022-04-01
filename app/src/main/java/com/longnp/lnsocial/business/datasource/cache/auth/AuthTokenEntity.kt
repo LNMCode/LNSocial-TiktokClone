@@ -1,5 +1,6 @@
 package com.longnp.lnsocial.business.datasource.cache.auth
 
+import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
@@ -20,31 +21,36 @@ import java.lang.Exception
     ]
 )
 data class AuthTokenEntity(
-
     @PrimaryKey
+    @NonNull
     @ColumnInfo(name = "account_pk")
-    var account_pk: Int? = -1,
+    var account_pk: String, // is userid from accountEntity
 
     @ColumnInfo(name = "access_token")
-    val token: String? = null
+    val token: String? = null,
+
+    @ColumnInfo(name = "auth_profile_id")
+    val authProfileId: String? = null
 )
 
 fun AuthTokenEntity.toAuthToken(): AuthToken {
-    if (account_pk == null) {
-        throw Exception("Account PK cannot be null.")
-    }
     if (token == null) {
         throw Exception("Token cannot be null")
     }
+    if (authProfileId == null) {
+        throw Exception("Auth profile id cannot be null")
+    }
     return AuthToken(
         accountPk = account_pk!!,
-        token = token
+        token = token,
+        authProfileId = authProfileId,
     )
 }
 
 fun AuthToken.toEntity(): AuthTokenEntity {
     return AuthTokenEntity(
         account_pk = accountPk,
-        token = token
+        token = token,
+        authProfileId = authProfileId,
     )
 }

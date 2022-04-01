@@ -24,26 +24,17 @@ class AuthActivity : BaseActivity() {
     private fun subscribeObservers(){
         sessionManager.state.observe(this) { state ->
             displayProgressBar(state.isLoading)
-            if (state.didCheckForPreviousAuthUser) {
-                onFinishCheckPreviousAuthUser()
-            }
-            if (state.authToken != null && state.authToken.accountPk != -1) {
+            if (state.authToken != null && state.authToken.accountPk != "") {
                 navMainActivity()
             }
         }
     }
 
     private fun onFinishCheckPreviousAuthUser(){
-        binding.fragmentContainer.visibility = View.VISIBLE
-        binding.splashLogo.visibility = View.INVISIBLE
     }
 
     override fun displayProgressBar(isLoading: Boolean) {
-        if (isLoading) {
-            binding.progressBar.visibility = View.VISIBLE
-        } else {
-            binding.progressBar.visibility = View.GONE
-        }
+
     }
 
     private fun navMainActivity(){

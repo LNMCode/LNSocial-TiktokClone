@@ -86,13 +86,14 @@ constructor(
         state.value?.let { state ->
             checkPreviousAuthUser.execute(email).onEach { dataState ->
                 this.state.value = state.copy(isLoading = dataState.isLoading)
+
                 dataState.data?.let { authToken ->
                     this.state.value = state.copy(authToken = authToken)
                     onTriggerEvent(SessionEvents.Login(authToken))
                 }
 
                 dataState.stateMessage?.let { stateMessage ->
-                    if(stateMessage.response.message.equals("RESPONSE_CHECK_PREVIOUS_AUTH_USER_DONE")){
+                    if(stateMessage.response.message.equals("SuccessHandling.RESPONSE_CHECK_PREVIOUS_AUTH_USER_DONE")){
                         onFinishCheckingPrevAuthUser()
                     }
                     else{

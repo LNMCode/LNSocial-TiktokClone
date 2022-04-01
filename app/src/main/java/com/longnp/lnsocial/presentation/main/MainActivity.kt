@@ -57,8 +57,8 @@ class MainActivity : BaseActivity() {
     private fun subscribeObservers() {
         sessionManager.state.observe(this) { state ->
             displayProgressBar(state.isLoading)
-            if (state.authToken == null || state.authToken.accountPk == -1) {
-                //navAuthActivity()
+            if (state.authToken == null || state.authToken.accountPk == "") {
+                navAuthActivity()
             }
         }
     }

@@ -45,11 +45,7 @@ constructor(
         //resetPage()
         //clearList()
         state.value?.let { state ->
-            val paramsRequestBody = Constants.PARAMS_RERQUEST_BODY
-            val bodyRequest = Constants.getRequestBodyAuth(paramsRequestBody.toString())
-            searchVideoSeeds.execute(
-                body = bodyRequest
-            ).onEach { dataState ->
+            searchVideoSeeds.execute().onEach { dataState ->
                 this.state.value = state.copy(isLoading = dataState.isLoading)
 
                 dataState.data?.let { list ->

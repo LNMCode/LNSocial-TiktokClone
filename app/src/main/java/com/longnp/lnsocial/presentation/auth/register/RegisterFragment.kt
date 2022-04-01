@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.longnp.lnsocial.R
@@ -30,6 +31,7 @@ class RegisterFragment : BaseAuthFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initEventChangeToLogin()
+        initEventBtnLoginOther()
         subscribeObservers()
     }
 
@@ -39,14 +41,24 @@ class RegisterFragment : BaseAuthFragment() {
         }
     }
 
+    private fun initEventBtnLoginOther() {
+        binding.btnLoginEmailPassword.setOnClickListener { showToast() }
+        binding.btnLoginFacebook.setOnClickListener { showToast() }
+        binding.btnLoginGoogle.setOnClickListener { showToast() }
+    }
+
     private fun subscribeObservers() {
         viewModel.state.observe(viewLifecycleOwner) { state ->
             baseCommunicationListener.displayProgressBar(state.isLoading)
         }
     }
 
+    private fun showToast() {
+        Toast.makeText(context, "This future is not available", Toast.LENGTH_LONG).show()
+    }
+
     private fun cacheState() {
-        val username = binding
+        //val username = binding
     }
 
 }

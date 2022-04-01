@@ -4,10 +4,15 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import com.longnp.lnsocial.databinding.ActivityAuthBinding
 import com.longnp.lnsocial.presentation.BaseActivity
 import com.longnp.lnsocial.presentation.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
 
 @AndroidEntryPoint
 class AuthActivity : BaseActivity() {
@@ -24,13 +29,13 @@ class AuthActivity : BaseActivity() {
     private fun subscribeObservers(){
         sessionManager.state.observe(this) { state ->
             displayProgressBar(state.isLoading)
+            if (state.didCheckForPreviousAuthUser) {
+                onFinishCheckPreviousAuthUser()
+            }
             if (state.authToken != null && state.authToken.accountPk != "") {
                 navMainActivity()
             }
         }
-    }
-
-    private fun onFinishCheckPreviousAuthUser(){
     }
 
     override fun displayProgressBar(isLoading: Boolean) {
@@ -43,6 +48,18 @@ class AuthActivity : BaseActivity() {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
         finish()
+    }
+
+    private fun onFinishCheckPreviousAuthUser(){
+        val flow = flow {
+            delay(3000)
+            emit(0)
+        }
+        lifecycleScope.launchWhenCreated {
+            flow.collect {
+                binding.layoutSplash.root.isVisible = false
+            }
+        }
     }
 
     override fun changeColorNavigation(isHomePage: Boolean) {

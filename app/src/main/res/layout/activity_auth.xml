@@ -18,4 +18,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/auth_nav_graph" />
 
+    <include
+        android:id="@+id/layout_splash"
+        layout="@layout/layout_splash"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

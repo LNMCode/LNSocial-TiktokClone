@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="?attr/actionBarSize"
+    android:background="@color/colorWhite"
     android:orientation="vertical"
     tools:context="com.longnp.lnsocial.presentation.main.inbox.addfriend.AddFriendFragment">
 

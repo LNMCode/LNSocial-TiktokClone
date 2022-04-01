@@ -127,6 +127,9 @@ class SeedItemFragment : BaseSeedFragment() {
         simplePlayer?.addListener(object : Player.Listener {
             override fun onPlaybackStateChanged(playbackState: Int) {
                 super.onPlaybackStateChanged(playbackState)
+                if (playbackState == Player.STATE_READY) {
+                    binding.root.view_black.isVisible = false
+                }
                 if (playbackState == Player.STATE_ENDED) {
                     restartVideo()
                 }

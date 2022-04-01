@@ -55,7 +55,6 @@ class InboxMessageFragment : BaseInboxFragment() {
             inboxMessageAdapter.apply {
                 submitList(state.messages)
             }
-            Log.d(TAG, "subscribeObservers: ${state.positionLastMessage}")
             scrollToLastMessage(state.positionLastMessage)
         }
     }
@@ -89,12 +88,16 @@ class InboxMessageFragment : BaseInboxFragment() {
         binding.recyclerGchat.apply {
             inboxMessageAdapter = InboxMessageAdapter()
             val manager = LinearLayoutManager(context)
+            manager.stackFromEnd = true
             layoutManager = manager
             adapter = inboxMessageAdapter
         }
     }
 
     private fun scrollToLastMessage(position: Int) {
-        binding.recyclerGchat.smoothScrollToPosition(position)
+        if (position > 0){
+            Log.d(TAG, "subscribeObservers: $position")
+            binding.recyclerGchat.smoothScrollToPosition(position)
+        }
     }
 }

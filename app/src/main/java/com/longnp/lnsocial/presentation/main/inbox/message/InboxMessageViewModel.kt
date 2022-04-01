@@ -143,8 +143,10 @@ constructor(
     }
 
     private fun onScrollToLastMessage(position: Int) {
-        state.value?.let { state ->
-            this.state.value = state.copy(positionLastMessage = position)
+        if (position > 0) {
+            state.value?.let { state ->
+                this.state.value = state.copy(positionLastMessage = position)
+            }
         }
     }
 }

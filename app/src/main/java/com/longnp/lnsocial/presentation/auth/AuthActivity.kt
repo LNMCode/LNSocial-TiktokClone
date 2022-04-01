@@ -19,6 +19,11 @@ class AuthActivity : BaseActivity() {
 
     private lateinit var binding: ActivityAuthBinding
 
+    private val flowDelay = flow {
+        delay(3000)
+        emit(0)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAuthBinding.inflate(layoutInflater)
@@ -26,7 +31,7 @@ class AuthActivity : BaseActivity() {
         subscribeObservers()
     }
 
-    private fun subscribeObservers(){
+    private fun subscribeObservers() {
         sessionManager.state.observe(this) { state ->
             displayProgressBar(state.isLoading)
             if (state.didCheckForPreviousAuthUser) {
@@ -42,21 +47,21 @@ class AuthActivity : BaseActivity() {
 
     }
 
-    private fun navMainActivity(){
+    private fun navMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(intent)
-        finish()
+        lifecycleScope.launchWhenCreated {
+            flowDelay.collect {
+                startActivity(intent)
+                finish()
+            }
+        }
     }
 
-    private fun onFinishCheckPreviousAuthUser(){
-        val flow = flow {
-            delay(3000)
-            emit(0)
-        }
+    private fun onFinishCheckPreviousAuthUser() {
         lifecycleScope.launchWhenCreated {
-            flow.collect {
+            flowDelay.collect {
                 binding.layoutSplash.root.isVisible = false
             }
         }

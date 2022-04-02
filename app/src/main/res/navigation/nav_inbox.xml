@@ -9,24 +9,28 @@
         android:id="@+id/inboxFragment"
         android:name="com.longnp.lnsocial.presentation.main.inbox.InboxFragment"
         android:label=""
-        tools:layout="@layout/fragment_inbox" >
+        tools:layout="@layout/fragment_inbox">
         <action
             android:id="@+id/action_inboxFragment_to_addFriendFragment"
-            app:destination="@id/addFriendFragment" />
+            app:destination="@id/addFriendFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left"
+            app:popEnterAnim="@anim/slide_from_left"
+            app:popExitAnim="@anim/slide_to_right" />
         <action
             android:id="@+id/action_inboxFragment_to_inboxMessageFragment2"
-            app:destination="@id/inboxMessageFragment2" />
+            app:destination="@id/inboxMessageFragment2"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left"
+            app:popEnterAnim="@anim/slide_from_left"
+            app:popExitAnim="@anim/slide_to_right" />
     </fragment>
 
     <fragment
         android:id="@+id/addFriendFragment"
         android:name="com.longnp.lnsocial.presentation.main.inbox.addfriend.AddFriendFragment"
         android:label="fragment_add_friend"
-        tools:layout="@layout/fragment_add_friend" >
-        <action
-            android:id="@+id/action_addFriendFragment_to_inboxMessageFragment2"
-            app:destination="@id/inboxMessageFragment2" />
-    </fragment>
+        tools:layout="@layout/fragment_add_friend" />
 
     <fragment
         android:id="@+id/inboxMessageFragment2"

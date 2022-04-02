@@ -85,8 +85,8 @@ class DiscoveryListAdapter(
                 adapter = adapterThumbnail
             }
 
-            binding.title.text = "This is title"
-            binding.hashtagTitle.text = "Hashtag"
+            binding.title.text = item.title
+            binding.hashtagTitle.text = item.hashtagTitle
             adapterThumbnail.submitList(item.data.shuffled())
         }
 

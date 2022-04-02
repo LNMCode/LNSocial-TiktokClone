@@ -42,7 +42,9 @@ class RegisterFragment : BaseAuthFragment() {
     }
 
     private fun initEventBtnLoginOther() {
-        binding.btnLoginEmailPassword.setOnClickListener { showToast() }
+        binding.btnLoginEmailPassword.setOnClickListener {
+            findNavController().navigate(R.id.action_registerFragment_to_registerEmailPasswordFragment)
+        }
         binding.btnLoginFacebook.setOnClickListener { showToast() }
         binding.btnLoginGoogle.setOnClickListener { showToast() }
     }
@@ -55,10 +57,6 @@ class RegisterFragment : BaseAuthFragment() {
 
     private fun showToast() {
         Toast.makeText(context, "This future is not available", Toast.LENGTH_LONG).show()
-    }
-
-    private fun cacheState() {
-        //val username = binding
     }
 
 }

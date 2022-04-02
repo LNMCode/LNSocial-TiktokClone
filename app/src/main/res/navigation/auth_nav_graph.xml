@@ -15,7 +15,7 @@
         android:id="@+id/registerFragment"
         android:name="com.longnp.lnsocial.presentation.auth.register.RegisterFragment"
         android:label="fragment_register"
-        tools:layout="@layout/fragment_register" >
+        tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment"
@@ -23,6 +23,18 @@
             app:exitAnim="@anim/slide_to_left"
             app:popEnterAnim="@anim/slide_from_left"
             app:popExitAnim="@anim/slide_to_right" />
+        <action
+            android:id="@+id/action_registerFragment_to_registerEmailPasswordFragment"
+            app:destination="@id/registerEmailPasswordFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left"
+            app:popEnterAnim="@anim/slide_from_left"
+            app:popExitAnim="@anim/slide_to_right" />
     </fragment>
+    <fragment
+        android:id="@+id/registerEmailPasswordFragment"
+        android:name="com.longnp.lnsocial.presentation.auth.register.registerUP.RegisterEmailPasswordFragment"
+        android:label="fragment_register_email_password"
+        tools:layout="@layout/fragment_register_email_password" />
 
 </navigation>

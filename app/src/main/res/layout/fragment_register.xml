@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/border_rectangle"
-            android:text="login with email/password" />
+            android:text="with username/password" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_login_facebook"

@@ -87,7 +87,7 @@ class DiscoveryListAdapter(
 
             binding.title.text = "This is title"
             binding.hashtagTitle.text = "Hashtag"
-            adapterThumbnail.submitList(item.data)
+            adapterThumbnail.submitList(item.data.shuffled())
         }
 
         override fun onItemSelected(position: Int, item: List<VideoSeed>) {

@@ -5,6 +5,7 @@ import com.longnp.lnsocial.business.datasource.cache.auth.AuthTokenDao
 import com.longnp.lnsocial.business.datasource.datastore.AppDataStore
 import com.longnp.lnsocial.business.datasource.network.auth.OpenApiAuthService
 import com.longnp.lnsocial.business.interactors.auth.Login
+import com.longnp.lnsocial.business.interactors.auth.Register
 import com.longnp.lnsocial.business.interactors.session.CheckPreviousAuthUser
 import com.longnp.lnsocial.business.interactors.session.Logout
 import dagger.Module
@@ -62,7 +63,7 @@ object AuthModule{
     ): Logout {
         return Logout(authTokenDao)
     }
-/*
+
     @Singleton
     @Provides
     fun provideRegister(
@@ -77,7 +78,7 @@ object AuthModule{
             authTokenDao,
             appDataStoreManager
         )
-    }*/
+    }
 }
 
 

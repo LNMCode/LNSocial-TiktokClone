@@ -14,4 +14,10 @@ interface OpenApiAuthService {
         @Body params: RequestBody
     ): LoginResponse
 
+    @Headers("Content-Type: application/json")
+    @POST("user/register")
+    suspend fun register(
+        @Body params: RequestBody
+    ): LoginResponse
+
 }

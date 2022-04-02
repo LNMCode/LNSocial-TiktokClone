@@ -4,20 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_marginStart="8dp"
     android:layout_marginTop="5dp">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/image_gchat_profile_other"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:padding="1dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="5dp"
         tools:src="@drawable/coding_image"
         app:shapeAppearance="@style/RoundedImageViewShape"
         app:strokeColor="@color/colorGray"
         app:strokeWidth="1dp"
-
         app:layout_constraintBottom_toBottomOf="@+id/card_gchat_message_other"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/card_gchat_message_other"/>
@@ -29,7 +27,7 @@
         app:cardBackgroundColor="#eef1f6"
         app:cardCornerRadius="12dp"
         app:cardElevation="0dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="5dp"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true"
         app:layout_constraintStart_toEndOf="@+id/image_gchat_profile_other"

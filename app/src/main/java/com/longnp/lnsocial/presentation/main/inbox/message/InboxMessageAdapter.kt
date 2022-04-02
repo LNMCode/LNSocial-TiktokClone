@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.*
 import com.longnp.lnsocial.business.domain.models.inbox.Message
 import com.longnp.lnsocial.databinding.LayoutItemChatMeBinding
 import com.longnp.lnsocial.databinding.LayoutItemChatOtherBinding
+import com.longnp.lnsocial.presentation.util.loadCenterCropImageFromUrl
 
 class InboxMessageAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -109,6 +110,7 @@ class InboxMessageAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     ): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Message) {
             binding.textGchatMessageOther.text = item.value
+            binding.imageGchatProfileOther.loadCenterCropImageFromUrl(item.ava) // this is ava for user other
         }
     }
 }

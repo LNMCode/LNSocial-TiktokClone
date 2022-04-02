@@ -8,8 +8,9 @@ data class Message(
     val id: String = "", // id of user send message
     val value: String = "",
     val date: Int = 0,
-    val type: Int = 0, // type is receiver or sender
-): Parcelable
+    var type: Int = 0, // type is receiver or sender
+    var ava: String = "",
+) : Parcelable
 
 // Convert to map to send firebase
 fun Message.toMap(): Map<String, Any?> {
@@ -17,6 +18,7 @@ fun Message.toMap(): Map<String, Any?> {
         "id" to id,
         "value" to value,
         "date" to date,
-        "type" to type
+        "type" to type,
+        "ava" to ava
     )
 }

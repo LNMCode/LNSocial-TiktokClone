@@ -14,6 +14,7 @@ import com.google.firebase.ktx.Firebase
 import com.longnp.lnsocial.business.domain.models.inbox.InboxModel
 import com.longnp.lnsocial.business.domain.models.inbox.Message
 import com.longnp.lnsocial.business.domain.models.inbox.toMap
+import com.longnp.lnsocial.presentation.session.SessionManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -21,6 +22,7 @@ import javax.inject.Inject
 class InboxMessageViewModel
 @Inject
 constructor(
+    private val sessionManager: SessionManager,
     private val savedStateHandle: SavedStateHandle,
 ): ViewModel(){
 
@@ -77,10 +79,14 @@ constructor(
         val messageListener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
+                    val authId = sessionManager.state.value?.authToken?.authProfileId
                     val messages: ArrayList<Message> = ArrayList()
                     for (sn in snapshot.children) {
                         val message: Message? = sn.getValue(Message::class.java)
-                        if (message != null) messages.add(message)
+                        if (message != null && authId != null) {
+                            if (authId != message.id) message.type = 2
+                            messages.add(message)
+                        }
                         else {
                             Log.d(TAG, "onDataChange: null message error")
                             return
@@ -120,21 +126,25 @@ constructor(
     private fun send() {
         state.value?.let { state ->
             val inboxModel = state.inboxModel!!
+            val authId = sessionManager.state.value?.authToken?.authProfileId
             val key = messageRef.push().key
             if (key == null) {
                 Log.w(TAG, "Couldn't get push key for posts")
                 return
             }
+            if (authId == null) {
+                Log.w(TAG, "Couldn't get auth form cache")
+                return
+            }
             val message = Message(
-                id = inboxModel.idAuth,
+                id = authId,
                 value = state.valueMessage,
                 date = state.messages.size,
-                type = 1
+                type = 1,
+                ava = inboxModel.avaReceiver,
             )
             val messageValue = message.toMap()
-            val childUpdates = hashMapOf<String, Any>(
-                "$key" to messageValue
-            )
+            val childUpdates = hashMapOf<String, Any>("$key" to messageValue)
             messageRef.updateChildren(childUpdates).addOnSuccessListener {
                 onTriggerEvent(InboxMessageEvents.GetMessage(inboxModel.id))
                 onTriggerEvent(InboxMessageEvents.OnSuccessSend)

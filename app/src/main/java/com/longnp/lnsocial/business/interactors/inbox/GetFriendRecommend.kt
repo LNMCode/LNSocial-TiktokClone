@@ -7,6 +7,8 @@ import com.longnp.lnsocial.business.datasource.network.main.OpenApiMainService
 import com.longnp.lnsocial.business.domain.models.AuthToken
 import com.longnp.lnsocial.business.domain.models.inbox.Friend
 import com.longnp.lnsocial.business.domain.util.Constants
+import com.longnp.lnsocial.business.domain.util.Constants.Companion.getParamsBodyAuth
+import com.longnp.lnsocial.business.domain.util.Constants.Companion.getRequestBodyAuth
 import com.longnp.lnsocial.business.domain.util.DataState
 import com.longnp.lnsocial.presentation.main.inbox.addfriend.FriendDataRepo
 import kotlinx.coroutines.flow.Flow
@@ -36,14 +38,14 @@ class GetFriendRecommend(
         if (authToken == null) {
             throw Exception("Auth token is null")
         }
-        val paramsRequestBody = Constants.getParamsBodyAuth(
+        val paramsRequestBody = getParamsBodyAuth(
             hashMapOf(
                 "userid" to authToken.accountPk,
                 "access_token" to authToken.token,
                 "auth_profile_id" to authToken.authProfileId
             )
         )
-        val bodyRequest = Constants.getRequestBodyAuth(paramsRequestBody.toString())
+        val bodyRequest = getRequestBodyAuth(paramsRequestBody.toString())
         val data = service.getFriendCommend(bodyRequest)
         emit(DataState.data(response = null, data = data.map { it.toFriend() }))
     }.catch { e ->

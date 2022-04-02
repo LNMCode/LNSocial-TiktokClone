@@ -6,6 +6,7 @@ import com.longnp.lnsocial.business.datasource.network.main.OpenApiMainService
 import com.longnp.lnsocial.business.domain.models.AuthToken
 import com.longnp.lnsocial.business.domain.models.inbox.InboxModel
 import com.longnp.lnsocial.business.domain.util.Constants
+import com.longnp.lnsocial.business.domain.util.Constants.Companion.getParamsBodyAuth
 import com.longnp.lnsocial.business.domain.util.Constants.Companion.getRequestBodyAuth
 import com.longnp.lnsocial.business.domain.util.DataState
 import kotlinx.coroutines.flow.Flow
@@ -27,7 +28,7 @@ class AddFriendMessage(
         if (authToken == null) {
             throw Exception("Auth token is null")
         }
-        val paramsRequestBody = Constants.getParamsBodyAuth(
+        val paramsRequestBody = getParamsBodyAuth(
             hashMapOf(
                 "userid" to authToken.accountPk,
                 "access_token" to authToken.token,

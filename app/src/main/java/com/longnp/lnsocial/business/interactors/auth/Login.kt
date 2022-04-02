@@ -10,6 +10,8 @@ import com.longnp.lnsocial.business.datasource.network.auth.OpenApiAuthService
 import com.longnp.lnsocial.business.domain.models.Account
 import com.longnp.lnsocial.business.domain.models.AuthToken
 import com.longnp.lnsocial.business.domain.util.Constants
+import com.longnp.lnsocial.business.domain.util.Constants.Companion.getParamsBodyAuth
+import com.longnp.lnsocial.business.domain.util.Constants.Companion.getRequestBodyAuth
 import com.longnp.lnsocial.business.domain.util.DataState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -27,10 +29,10 @@ class Login(
         password: String
     ): Flow<DataState<AuthToken>> = flow {
         emit(DataState.loading<AuthToken>())
-        val paramsRequestBody = JSONObject()
-        paramsRequestBody.put("username",username)
-        paramsRequestBody.put("password", password)
-        val bodyRequest = Constants.getRequestBodyAuth(paramsRequestBody.toString())
+        val paramsRequestBody = getParamsBodyAuth(
+            hashMapOf("username" to username, "password" to password)
+        )
+        val bodyRequest = getRequestBodyAuth(paramsRequestBody.toString())
         val login = service.login(bodyRequest)
         if (login.message == "Password is correct" || login.message == "User is not exist") {
             throw Exception(login.message)

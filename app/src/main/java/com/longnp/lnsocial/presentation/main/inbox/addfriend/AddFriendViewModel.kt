@@ -4,10 +4,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.longnp.lnsocial.business.domain.models.inbox.Friend
-import com.longnp.lnsocial.business.domain.util.Constants.Companion.PARAMS_RERQUEST_BODY
 import com.longnp.lnsocial.business.domain.util.Constants.Companion.getRequestBodyAuth
 import com.longnp.lnsocial.business.interactors.inbox.AddFriendMessage
 import com.longnp.lnsocial.business.interactors.inbox.GetFriendRecommend
+import com.longnp.lnsocial.presentation.session.SessionManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -17,6 +17,7 @@ import javax.inject.Inject
 class AddFriendViewModel
 @Inject
 constructor(
+    private val sessionManager: SessionManager,
     private val getFriendRecommend: GetFriendRecommend,
     private val addFriendMessage: AddFriendMessage,
 ) : ViewModel() {
@@ -41,9 +42,7 @@ constructor(
 
     private fun getFriendRecommend() {
         state.value?.let { state ->
-            val paramsRequestBody = PARAMS_RERQUEST_BODY
-            val bodyRequest = getRequestBodyAuth(paramsRequestBody.toString())
-            getFriendRecommend.execute(bodyRequest).onEach { dataState ->
+            getFriendRecommend.execute(sessionManager.state.value?.authToken).onEach { dataState ->
                 this.state.value = state.copy(isLoading = dataState.isLoading)
                 dataState.data?.let { list ->
                     this.state.value = state.copy(friends = list)
@@ -56,13 +55,11 @@ constructor(
 
     private fun addFriendMessage(item: Friend) {
         state.value?.let { state ->
-            val paramsRequestBody = PARAMS_RERQUEST_BODY
-            paramsRequestBody.put("auth_profile_id_other", item.id)
-            paramsRequestBody.put("username", item.username)
-            paramsRequestBody.put("ava", item.avatar)
-            val bodyRequest = getRequestBodyAuth(paramsRequestBody.toString())
             addFriendMessage.execute(
-                body = bodyRequest
+                authToken = sessionManager.state.value?.authToken,
+                authProfileIdOther = item.id,
+                username = item.username,
+                ava = item.avatar
             ).onEach { dataState ->
                 this.state.value = state.copy(isLoading = dataState.isLoading)
                 dataState.data?.let { inboxModel ->

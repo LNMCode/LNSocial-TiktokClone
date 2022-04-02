@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.longnp.lnsocial.business.domain.util.Constants
 import com.longnp.lnsocial.business.interactors.inbox.GetConnectedMessage
+import com.longnp.lnsocial.presentation.session.SessionManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -14,6 +15,7 @@ import javax.inject.Inject
 class InboxViewModel
 @Inject
 constructor(
+    private val sessionManager: SessionManager,
     private val getConnectedMessage: GetConnectedMessage,
 ) : ViewModel() {
     private val TAG = "AppDebug"
@@ -34,7 +36,7 @@ constructor(
 
     private fun getConnectedFriend() {
         state.value?.let { state ->
-            getConnectedMessage.execute().onEach {  dataState ->
+            getConnectedMessage.execute(sessionManager.state.value?.authToken).onEach {  dataState ->
                 this.state.value = state.copy(isLoading = dataState.isLoading)
 
                 dataState.data?.let { list ->

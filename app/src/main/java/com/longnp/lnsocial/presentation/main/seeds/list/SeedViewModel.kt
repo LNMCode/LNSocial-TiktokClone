@@ -45,7 +45,7 @@ constructor(
         //resetPage()
         //clearList()
         state.value?.let { state ->
-            searchVideoSeeds.execute().onEach { dataState ->
+            searchVideoSeeds.execute(sessionManager.state.value?.authToken).onEach { dataState ->
                 this.state.value = state.copy(isLoading = dataState.isLoading)
 
                 dataState.data?.let { list ->

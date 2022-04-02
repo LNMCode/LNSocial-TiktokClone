@@ -10,17 +10,27 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import okhttp3.RequestBody
+import java.lang.Exception
 
 class SearchVideoSeeds(
     private val service: OpenApiMainService,
 ) {
-    fun execute(): Flow<DataState<List<VideoSeed>>> = flow{
+    fun execute(
+        authToken: AuthToken?,
+    ): Flow<DataState<List<VideoSeed>>> = flow{
         emit(DataState.loading<List<VideoSeed>>())
-        val paramsRequestBody = Constants.PARAMS_RERQUEST_BODY
+        if (authToken == null) {
+            throw Exception("Auth token is null")
+        }
+        val paramsRequestBody = Constants.getParamsBodyAuth(
+            hashMapOf(
+                "userid" to authToken.accountPk,
+                "access_token" to authToken.token,
+                "auth_profile_id" to authToken.authProfileId
+            )
+        )
         val bodyRequest = Constants.getRequestBodyAuth(paramsRequestBody.toString())
-        val blogs = service.getVideoSeeds(
-            bodyRequest
-        ).data
+        val blogs = service.getVideoSeeds(bodyRequest).data
 
         // Insert into cache
         /*for(blog in blogs){

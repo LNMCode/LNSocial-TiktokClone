@@ -7,9 +7,6 @@ data class InboxModelDto(
     @SerializedName("id")
     val id: String,
 
-    @SerializedName("access_token")
-    val accessToken: String,
-
     @SerializedName("idAuth")
     val idAuth: String, // id profile user
 
@@ -26,8 +23,7 @@ data class InboxModelDto(
 fun InboxModelDto.toInboxModel(): InboxModel {
     return InboxModel(
         id = id,
-        accessToken = accessToken,
-        idAuth = idAuth,
+        idAuth = idAuth, // nguoi so huu tin nhan
         idReceiver = idReceiver,
         nameReceiver = nameReceiver,
         avaReceiver = avaReceiver

@@ -24,7 +24,7 @@ class GetConnectedMessage(
     ): Flow<DataState<List<InboxModel>>> = flow {
         emit(DataState.loading())
         if (authToken == null) {
-            throw Exception("Auth token is null")
+            throw Exception("GetConnectedMessage: Auth token is null")
         }
         val paramsRequestBody = getParamsBodyAuth(
             hashMapOf(

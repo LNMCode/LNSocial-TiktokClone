@@ -127,6 +127,7 @@ constructor(
         state.value?.let { state ->
             val inboxModel = state.inboxModel!!
             val authId = sessionManager.state.value?.authToken?.authProfileId
+            val avaSender = sessionManager.state.value?.profile?.avatarLink
             val key = messageRef.push().key
             if (key == null) {
                 Log.w(TAG, "Couldn't get push key for posts")
@@ -136,12 +137,16 @@ constructor(
                 Log.w(TAG, "Couldn't get auth form cache")
                 return
             }
+            if (avaSender == null) {
+                Log.w(TAG, "Couldn't get avatar sender form cache")
+                return
+            }
             val message = Message(
                 id = authId,
                 value = state.valueMessage,
                 date = state.messages.size,
                 type = 1,
-                ava = inboxModel.avaReceiver,
+                ava = avaSender, // fix send avatar's sender
             )
             val messageValue = message.toMap()
             val childUpdates = hashMapOf<String, Any>("$key" to messageValue)

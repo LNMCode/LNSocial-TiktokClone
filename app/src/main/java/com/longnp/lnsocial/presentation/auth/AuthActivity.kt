@@ -20,7 +20,7 @@ class AuthActivity : BaseActivity() {
     private lateinit var binding: ActivityAuthBinding
 
     private val flowDelay = flow {
-        delay(3000)
+        delay(2000)
         emit(0)
     }
 
@@ -37,7 +37,11 @@ class AuthActivity : BaseActivity() {
             if (state.didCheckForPreviousAuthUser) {
                 onFinishCheckPreviousAuthUser()
             }
-            if (state.authToken != null && state.authToken.accountPk != "") {
+            if (state.authToken != null &&
+                state.profile != null &&
+                state.authToken.accountPk != "" &&
+                state.profile.pk != ""
+            ) {
                 navMainActivity()
             }
         }
@@ -51,12 +55,8 @@ class AuthActivity : BaseActivity() {
         val intent = Intent(this, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        lifecycleScope.launchWhenCreated {
-            flowDelay.collect {
-                startActivity(intent)
-                finish()
-            }
-        }
+        startActivity(intent)
+        finish()
     }
 
     private fun onFinishCheckPreviousAuthUser() {

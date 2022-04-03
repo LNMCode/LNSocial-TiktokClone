@@ -7,6 +7,7 @@ import com.google.gson.GsonBuilder
 import com.longnp.lnsocial.business.datasource.cache.AppDatabase
 import com.longnp.lnsocial.business.datasource.cache.account.AccountDao
 import com.longnp.lnsocial.business.datasource.cache.auth.AuthTokenDao
+import com.longnp.lnsocial.business.datasource.cache.profile.ProfileDao
 import com.longnp.lnsocial.business.datasource.datastore.AppDataStore
 import com.longnp.lnsocial.business.datasource.datastore.AppDataStoreManager
 import com.longnp.lnsocial.business.datasource.network.main.OpenApiMainService
@@ -73,6 +74,12 @@ object AppModule{
         return retrofitBuilder
             .build()
             .create(OpenApiMainService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideProfileDao(db: AppDatabase): ProfileDao {
+        return db.getProfileDao()
     }
 /*
 

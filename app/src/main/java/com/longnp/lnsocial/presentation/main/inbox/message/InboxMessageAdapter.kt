@@ -6,12 +6,12 @@ import androidx.recyclerview.widget.*
 import com.longnp.lnsocial.business.domain.models.inbox.Message
 import com.longnp.lnsocial.databinding.LayoutItemChatMeBinding
 import com.longnp.lnsocial.databinding.LayoutItemChatOtherBinding
+import com.longnp.lnsocial.presentation.util.TypeMessage.Companion.VIEW_TYPE_MESSAGE_RECEIVED
+import com.longnp.lnsocial.presentation.util.TypeMessage.Companion.VIEW_TYPE_MESSAGE_SENT
 import com.longnp.lnsocial.presentation.util.loadCenterCropImageFromUrl
 
-class InboxMessageAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class InboxMessageAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val VIEW_TYPE_MESSAGE_SENT = 1
-    private val VIEW_TYPE_MESSAGE_RECEIVED = 2
 
     private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Message>() {
         override fun areItemsTheSame(oldItem: Message, newItem: Message): Boolean {
@@ -25,7 +25,7 @@ class InboxMessageAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     internal inner class InboxMessageChangeCallBack(
         private val adapter: InboxMessageAdapter
-    ): ListUpdateCallback {
+    ) : ListUpdateCallback {
         override fun onInserted(position: Int, count: Int) {
             adapter.notifyItemChanged(position, count)
         }
@@ -90,7 +90,7 @@ class InboxMessageAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
 
-    fun submitList(messages: List<Message>?){
+    fun submitList(messages: List<Message>?) {
         val newList = messages?.toMutableList()
         differ.submitList(newList)
     }
@@ -98,7 +98,7 @@ class InboxMessageAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     class SendMessageViewHolder
     constructor(
         private val binding: LayoutItemChatMeBinding
-    ): RecyclerView.ViewHolder(binding.root) {
+    ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Message) {
             binding.textGchatMessageMe.text = item.value
         }
@@ -107,10 +107,11 @@ class InboxMessageAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     class ReceivedMessageViewHolder
     constructor(
         private val binding: LayoutItemChatOtherBinding
-    ): RecyclerView.ViewHolder(binding.root) {
+    ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Message) {
             binding.textGchatMessageOther.text = item.value
-            binding.imageGchatProfileOther.loadCenterCropImageFromUrl(item.ava) // this is ava for user other
+            if (item.type == VIEW_TYPE_MESSAGE_RECEIVED)
+                binding.imageGchatProfileOther.loadCenterCropImageFromUrl(item.ava)
         }
     }
 }

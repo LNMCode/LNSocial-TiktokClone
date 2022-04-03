@@ -22,7 +22,7 @@ class SearchVideoSeeds(
     ): Flow<DataState<List<VideoSeed>>> = flow{
         emit(DataState.loading<List<VideoSeed>>())
         if (authToken == null) {
-            throw Exception("Auth token is null")
+            throw Exception("SearchVideoSeeds: Auth token is null")
         }
         val paramsRequestBody = getParamsBodyAuth(
             hashMapOf(

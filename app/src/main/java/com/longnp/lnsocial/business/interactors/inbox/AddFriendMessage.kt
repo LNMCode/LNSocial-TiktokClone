@@ -26,7 +26,7 @@ class AddFriendMessage(
     ): Flow<DataState<InboxModel>> = flow {
         emit(DataState.loading<InboxModel>())
         if (authToken == null) {
-            throw Exception("Auth token is null")
+            throw Exception("AddFriendMessage: Auth token is null")
         }
         val paramsRequestBody = getParamsBodyAuth(
             hashMapOf(

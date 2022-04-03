@@ -41,7 +41,7 @@ fun AuthTokenEntity.toAuthToken(): AuthToken {
         throw Exception("Auth profile id cannot be null")
     }
     return AuthToken(
-        accountPk = account_pk!!,
+        accountPk = account_pk,
         token = token,
         authProfileId = authProfileId,
     )

@@ -10,6 +10,10 @@ sealed class SessionEvents {
         val authToken: AuthToken
     ): SessionEvents()
 
+    data class OnGetProfileFromCache(
+        val pk: String,
+    ): SessionEvents()
+
     data class CheckPreviousAuthUser(
         val email: String
     ): SessionEvents()

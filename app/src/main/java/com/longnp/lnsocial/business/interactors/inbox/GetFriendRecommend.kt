@@ -36,7 +36,7 @@ class GetFriendRecommend(
     ): Flow<DataState<List<Friend>>> = flow {
         emit(DataState.loading())
         if (authToken == null) {
-            throw Exception("Auth token is null")
+            throw Exception("GetFriendRecommend: Auth token is null")
         }
         val paramsRequestBody = getParamsBodyAuth(
             hashMapOf(

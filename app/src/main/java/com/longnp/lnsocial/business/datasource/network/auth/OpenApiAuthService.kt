@@ -1,6 +1,7 @@
 package com.longnp.lnsocial.business.datasource.network.auth
 
 import com.longnp.lnsocial.business.datasource.network.auth.response.LoginResponse
+import com.longnp.lnsocial.business.datasource.network.auth.response.ProfileResponse
 import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.Headers
@@ -20,4 +21,9 @@ interface OpenApiAuthService {
         @Body params: RequestBody
     ): LoginResponse
 
+    @Headers("Content-Type: application/json")
+    @POST("profile/getByUserId")
+    suspend fun profile(
+        @Body params: RequestBody
+    ): ProfileResponse
 }

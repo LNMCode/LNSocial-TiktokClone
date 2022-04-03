@@ -7,6 +7,7 @@ import com.longnp.lnsocial.business.domain.models.AuthToken
 import com.longnp.lnsocial.business.domain.util.StateMessage
 import com.longnp.lnsocial.business.domain.util.UIComponentType
 import com.longnp.lnsocial.business.domain.util.doesMessageAlreadyExistInQueue
+import com.longnp.lnsocial.business.interactors.auth.ProfileFromCache
 import com.longnp.lnsocial.business.interactors.session.CheckPreviousAuthUser
 import com.longnp.lnsocial.business.interactors.session.Logout
 import kotlinx.coroutines.CoroutineScope
@@ -23,6 +24,7 @@ class SessionManager
 constructor(
     private val checkPreviousAuthUser: CheckPreviousAuthUser,
     private val logout: Logout,
+    private val profileFromCache: ProfileFromCache,
     private val appDataStoreManager: AppDataStore,
 )
 {
@@ -54,6 +56,9 @@ constructor(
             }
             is SessionEvents.OnRemoveHeadFromQueue ->{
                 removeHeadFromQueue()
+            }
+            is SessionEvents.OnGetProfileFromCache -> {
+                onGetProfileFromCache(event.pk)
             }
         }
     }
@@ -104,9 +109,18 @@ constructor(
         }
     }
 
+    private fun onGetProfileFromCache(pk: String) {
+        state.value?.let { state ->
+            profileFromCache.execute(pk).onEach { dataState ->
+                this.state.value = state.copy(profile = dataState.data)
+            }.launchIn(sessionScope)
+        }
+    }
+
     private fun login(authToken: AuthToken){
         state.value?.let { state ->
             this.state.value = state.copy(authToken = authToken)
+            onTriggerEvent(SessionEvents.OnGetProfileFromCache(authToken.authProfileId))
         }
     }
 

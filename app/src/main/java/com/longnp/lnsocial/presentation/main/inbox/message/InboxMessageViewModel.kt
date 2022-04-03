@@ -125,6 +125,10 @@ constructor(
 
     private fun send() {
         state.value?.let { state ->
+            if (state.valueMessage.isBlank()) {
+                Log.w(TAG, "Message send is blank")
+                return
+            }
             val inboxModel = state.inboxModel!!
             val authId = sessionManager.state.value?.authToken?.authProfileId
             val avaSender = sessionManager.state.value?.profile?.avatarLink

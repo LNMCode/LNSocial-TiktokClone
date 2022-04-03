@@ -112,6 +112,7 @@ constructor(
     private fun onGetProfileFromCache(pk: String) {
         state.value?.let { state ->
             profileFromCache.execute(pk).onEach { dataState ->
+                this.state.value = state.copy(isLoading = dataState.isLoading)
                 this.state.value = state.copy(profile = dataState.data)
             }.launchIn(sessionScope)
         }

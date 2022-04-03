@@ -48,7 +48,12 @@ class AuthActivity : BaseActivity() {
     }
 
     override fun displayProgressBar(isLoading: Boolean) {
-
+        if(isLoading){
+            binding.progressBar.visibility = View.VISIBLE
+        }
+        else{
+            binding.progressBar.visibility = View.GONE
+        }
     }
 
     private fun navMainActivity() {

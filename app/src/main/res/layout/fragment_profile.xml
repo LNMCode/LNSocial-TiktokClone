@@ -47,7 +47,7 @@
             android:id="@+id/title_name_a"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="15dp"
             android:gravity="center"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -55,17 +55,27 @@
             app:layout_constraintTop_toBottomOf="@+id/image_view_profile_pic"
             tools:text="/@Titlename" />
 
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            app:layout_constraintEnd_toEndOf="@+id/title_name_a"
+            app:layout_constraintStart_toStartOf="@+id/title_name_a"
+            app:layout_constraintTop_toBottomOf="@+id/title_name_a"
+            tools:text="Hahhaa" />
+
         <LinearLayout
             android:id="@+id/linearLayout5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="10dp"
             android:gravity="center"
             android:orientation="vertical"
             app:layout_constraintEnd_toStartOf="@+id/view2"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title_name_a">
+            app:layout_constraintTop_toBottomOf="@+id/description">
 
             <TextView
                 android:id="@+id/number_following"
@@ -152,7 +162,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:background="@drawable/border_round"
             android:text="Edit profile"
             app:layout_constraintEnd_toEndOf="@+id/linearLayout7"
             app:layout_constraintStart_toStartOf="@+id/linearLayout5"

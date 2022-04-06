@@ -9,8 +9,10 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.longnp.lnsocial.R
 import com.longnp.lnsocial.business.domain.models.Profile
 import com.longnp.lnsocial.databinding.FragmentProfileBinding
 import com.longnp.lnsocial.presentation.main.profile.TabAdapter.*
@@ -36,6 +38,7 @@ class ProfileFragment : BaseProfileFragment() {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
         initTabViewPager()
+        initBtnEventEditProfile()
         subscribeObservers()
     }
 
@@ -58,7 +61,14 @@ class ProfileFragment : BaseProfileFragment() {
         binding.numberFollowing.text = profile.numberFollowing.toString()
         binding.numberFollower.text = profile.numberFollowers.toString()
         binding.numberLike.text = profile.numberLike.toString()
+        binding.description.text = profile.description
         binding.imageViewProfilePic.loadCenterCropImageFromUrl(profile.avatarLink)
+    }
+
+    private fun initBtnEventEditProfile() {
+        binding.button.setOnClickListener {
+            findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment)
+        }
     }
 
     private fun initTabViewPager() {

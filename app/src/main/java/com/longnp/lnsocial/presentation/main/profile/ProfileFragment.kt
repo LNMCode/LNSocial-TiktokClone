@@ -1,6 +1,7 @@
 package com.longnp.lnsocial.presentation.main.profile
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,9 +9,11 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.longnp.lnsocial.business.domain.models.Profile
 import com.longnp.lnsocial.databinding.FragmentProfileBinding
+import com.longnp.lnsocial.presentation.main.profile.TabAdapter.*
 import com.longnp.lnsocial.presentation.util.loadCenterCropImageFromUrl
 
 class ProfileFragment : BaseProfileFragment() {
@@ -43,6 +46,9 @@ class ProfileFragment : BaseProfileFragment() {
             if (state.profile != null) {
                 initViewFromData(state.profile)
             }
+            PUBLIC.setListItemTab(state.videoPublic)
+            FAVORITE.setListItemTab(state.videoFavorite)
+            PRIVATE.setListItemTab(state.videoPrivate)
         }
     }
 
@@ -59,10 +65,22 @@ class ProfileFragment : BaseProfileFragment() {
         val adapter = ProfileTabAdapter()
         binding.viewPager.adapter = adapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, pos ->
+            tab.tag = values()[pos].name
             tab.icon = ContextCompat.getDrawable(
                 activity?.applicationContext!!,
-                TabAdapter.values()[pos].icon
+                values()[pos].icon
             )
         }.attach()
+
+        binding.tabLayout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                viewModel.onTriggerEvents(ProfileEvents.GetVideoByType(tab?.tag as String))
+                Log.d(TAG, "onTabSelected: ${tab.tag}")
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+        })
     }
 }

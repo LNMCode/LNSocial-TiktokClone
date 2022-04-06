@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.longnp.lnsocial.business.interactors.auth.ProfileFromCache
+import com.longnp.lnsocial.business.interactors.profile.GetVideoByType
+import com.longnp.lnsocial.presentation.main.profile.TabAdapter.*
 import com.longnp.lnsocial.presentation.session.SessionManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -17,6 +19,7 @@ class ProfileViewModel
 constructor(
     private val sessionManager: SessionManager,
     private val profileFromCache: ProfileFromCache,
+    private val getVideoByType: GetVideoByType,
 ) : ViewModel() {
 
     private val TAG = "AppDebug"
@@ -31,6 +34,9 @@ constructor(
         when (events) {
             is ProfileEvents.GetProfile -> {
                 getProfile()
+            }
+            is ProfileEvents.GetVideoByType -> {
+                getVideoByType(events.type)
             }
         }
     }
@@ -47,6 +53,35 @@ constructor(
 
                 dataState.data?.let { profile ->
                     this.state.value = state.copy(profile = profile)
+                    onTriggerEvents(ProfileEvents.GetVideoByType(PUBLIC.name))
+                }
+
+                dataState.stateMessage?.let {}
+            }.launchIn(viewModelScope)
+        }
+    }
+
+    private fun getVideoByType(type: String) {
+        state.value?.let { state ->
+            val authToken = sessionManager.state.value?.authToken
+            getVideoByType.execute(
+                authToken = authToken,
+                type = type
+            ).onEach { dataState ->
+                this.state.value = state.copy(dataState.isLoading)
+
+                dataState.data?.let { list ->
+                    when (type.uppercase()) {
+                        PUBLIC.name -> {
+                            this.state.value = state.copy(videoPublic = list)
+                        }
+                        FAVORITE.name -> {
+                            this.state.value = state.copy(videoFavorite = list)
+                        }
+                        PRIVATE.name -> {
+                            this.state.value = state.copy(videoPrivate = list)
+                        }
+                    }
                 }
 
                 dataState.stateMessage?.let {}

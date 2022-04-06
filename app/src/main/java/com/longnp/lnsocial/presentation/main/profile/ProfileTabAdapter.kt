@@ -6,9 +6,12 @@ import android.view.ViewGroup
 import androidx.annotation.DrawableRes
 import androidx.recyclerview.widget.RecyclerView
 import com.longnp.lnsocial.R
+import com.longnp.lnsocial.business.domain.models.VideoSeed
 import com.longnp.lnsocial.databinding.LayoutItemTabProfileBinding
 
 class ProfileTabAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    // Phai xay dung differ de submit type of array de ma cap nhat lai view
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ProfileTabViewHolder(
@@ -35,17 +38,17 @@ class ProfileTabAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: TabAdapter) {
-            binding.haha.text = item.name
+            binding.haha.text = item.listItem.size.toString()
         }
     }
 }
 
-enum class TabAdapter(@DrawableRes val icon: Int, var listItem: List<String>) {
+enum class TabAdapter(@DrawableRes val icon: Int, var listItem: List<VideoSeed>) {
     PUBLIC(R.drawable.ic_tab_share, listOf()),
     FAVORITE(R.drawable.ic_tab_favorite, listOf()),
     PRIVATE(R.drawable.ic_tab_private, listOf()), ;
 
-    fun setListItemTab(listItemValue: List<String>) {
+    fun setListItemTab(listItemValue: List<VideoSeed>) {
         listItem = listItemValue
     }
 }

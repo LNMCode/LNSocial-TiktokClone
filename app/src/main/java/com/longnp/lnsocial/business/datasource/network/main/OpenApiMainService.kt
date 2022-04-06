@@ -14,19 +14,28 @@ interface OpenApiMainService {
         @Body params: RequestBody
     ): VideoSeedResponse
 
+    @Headers("Content-Type: application/json")
     @POST("profile/getfriendcommend")
     suspend fun getFriendCommend(
         @Body params: RequestBody
     ): List<FriendDto>
 
+    @Headers("Content-Type: application/json")
     @POST("profile/connectmessage")
     suspend fun addFriendMessage(
         @Body params: RequestBody
     ): InboxModelDto
 
+    @Headers("Content-Type: application/json")
     @POST("profile/getallconnectedmessage")
     suspend fun getFriendMessage(
         @Body params: RequestBody
     ): List<InboxModelDto>
+
+    @Headers("Content-Type: application/json")
+    @POST("video/getvideosbytypeanduserid")
+    suspend fun getVideosByTypeAndUserId(
+        @Body params: RequestBody
+    ): VideoSeedResponse
 
 }

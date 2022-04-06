@@ -7,5 +7,7 @@ sealed class ProfileEvents {
 
     data class Error(val stateMessage: StateMessage): ProfileEvents()
 
+    data class GetVideoByType(val type: String): ProfileEvents()
+
     object OnRemoveHeadFromQueue: ProfileEvents()
 }

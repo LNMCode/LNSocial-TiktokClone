@@ -26,13 +26,13 @@ class VideoSeedDto(
     val authProfileId: String,
 
     @SerializedName("number_like")
-    val numberLike: String,
+    val numberLike: Int,
 
     @SerializedName("number_comments")
-    val numberComments: String,
+    val numberComments: Int,
 
     @SerializedName("number_share")
-    val numberShared: String,
+    val numberShared: Int,
 
     @SerializedName("description")
     val description: String,

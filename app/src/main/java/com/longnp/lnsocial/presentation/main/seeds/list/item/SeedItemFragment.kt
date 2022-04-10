@@ -11,6 +11,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
@@ -19,6 +20,7 @@ import com.google.android.exoplayer2.upstream.DataSource
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.google.android.exoplayer2.upstream.cache.CacheDataSource
 import com.google.android.exoplayer2.util.Util
+import com.longnp.lnsocial.business.domain.models.SeedItem
 import com.longnp.lnsocial.business.domain.models.VideoSeed
 import com.longnp.lnsocial.databinding.FragmentSeedItemBinding
 import com.longnp.lnsocial.presentation.main.seeds.BaseSeedFragment
@@ -39,6 +41,8 @@ class SeedItemFragment : BaseSeedFragment() {
 
     private lateinit var btnPauseVideo: SeedBtnPauseVideo
     private var isPauseVideo = false
+
+    private val viewModel: SeedItemViewModel by viewModels()
 
     companion object {
         // TODO: Nghien cuu va fix lai cho nay
@@ -61,29 +65,64 @@ class SeedItemFragment : BaseSeedFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         storiesDataModel = arguments?.getParcelable("Constants.KEY_STORY_DATA")
+        initVideoSeed(storiesDataModel)
         setData()
+        initEvents()
+        subcribeObserver()
     }
 
     private fun setData() {
-        binding.root.text_view_account_handle.text = storiesDataModel?.nickName
-        binding.root.text_view_video_description.text = storiesDataModel?.description
-        binding.root.text_view_music_title.text = storiesDataModel?.soundTitle
+        viewModel.state.value?.let { state ->
+            val videoModel = state.videoSeed
+            binding.root.text_view_account_handle.text = videoModel?.nickName
+            binding.root.text_view_video_description.text = videoModel?.description
+            binding.root.text_view_music_title.text = videoModel?.soundTitle
 
-        binding.root.image_view_option_comment_title?.text = storiesDataModel?.numberComments
-        binding.root.image_view_option_like_title?.text = storiesDataModel?.numberLike
-
-        binding.root.image_view_profile_pic?.loadCenterCropImageFromUrl(storiesDataModel?.avatarLink)
+            binding.root.image_view_profile_pic?.loadCenterCropImageFromUrl(videoModel?.avatarLink)
+            
+            storyUrl = videoModel?.videoLink
+        }
         binding.root.text_view_music_title.isSelected = true
 
         binding.root.player_view_story.player = initSimplePlayer()
-        initEventPlayerView()
-
         btnPauseVideo = binding.root.btn_pause_video
-
-        storyUrl = storiesDataModel?.videoLink
+        initEventPlayerView()
         storyUrl?.let { prepareMedia(it) }
+    }
+
+    private fun initEvents() {
+        binding.root.image_view_follow_option.setOnClickListener {
+            viewModel.onTriggerEvents(SeedItemEvents.Follow)
+        }
+        binding.root.image_view_option_like.setOnClickListener {
+            viewModel.onTriggerEvents(SeedItemEvents.LikeVideo)
+        }
+        binding.root.image_view_option_comment.setOnClickListener {
+            Log.d(TAG, "initEvents: Comments show")
+        }
+    }
+
+    private fun subcribeObserver() {
+        viewModel.state.observe(viewLifecycleOwner) { state ->
+            // comments
+            baseCommunicationListener.displayProgressBar(state.isLoading)
+
+            binding.root.image_view_option_like_title.apply {
+                text = state.numberLike.toString()
+            }
+            binding.root.image_view_option_comment_title.apply {
+                text = state.numberComments.toString()
+            }
+        }
+    }
+
+    private fun initVideoSeed(videoSeed: VideoSeed?) {
+        viewModel.onTriggerEvents(SeedItemEvents.InitSeedVideo(videoSeed))
+        if (videoSeed != null) {
+            viewModel.onTriggerEvents(SeedItemEvents.OnChangeNumberLike(videoSeed.numberLike))
+            viewModel.onTriggerEvents(SeedItemEvents.OnChangeNumberComment(videoSeed.numberComments))
+        }
     }
 
     private fun initSimplePlayer(): ExoPlayer? {

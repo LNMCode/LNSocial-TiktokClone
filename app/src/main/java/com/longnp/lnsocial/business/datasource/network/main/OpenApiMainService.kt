@@ -2,7 +2,10 @@ package com.longnp.lnsocial.business.datasource.network.main
 
 import com.longnp.lnsocial.business.datasource.network.inbox.response.FriendDto
 import com.longnp.lnsocial.business.datasource.network.inbox.response.InboxModelDto
+import com.longnp.lnsocial.business.datasource.network.main.response.SeedItemCommentsResponse
 import com.longnp.lnsocial.business.datasource.network.main.response.VideoSeedResponse
+import com.longnp.lnsocial.business.domain.models.SeedItem
+import com.longnp.lnsocial.business.domain.models.VideoSeed
 import okhttp3.RequestBody
 import retrofit2.http.*
 
@@ -38,4 +41,27 @@ interface OpenApiMainService {
         @Body params: RequestBody
     ): VideoSeedResponse
 
+    @Headers("Content-Type: application/json")
+    @POST("video/likevideo")
+    suspend fun likeVideoSeed(
+        @Body params: RequestBody
+    ): VideoSeedDto
+
+    @Headers("Content-Type: application/json")
+    @POST("video/followuser")
+    suspend fun followUser(
+        @Body params: RequestBody
+    ): SeedItemDto
+
+    @Headers("Content-Type: application/json")
+    @POST("video/getcommentsvideo")
+    suspend fun getCommentsVideo(
+        @Body params: RequestBody
+    ): SeedItemCommentsResponse
+
+    @Headers("Content-Type: application/json")
+    @POST("video/commentvideo")
+    suspend fun commentVideo(
+        @Body params: RequestBody
+    ): SeedItemCommentsResponse
 }

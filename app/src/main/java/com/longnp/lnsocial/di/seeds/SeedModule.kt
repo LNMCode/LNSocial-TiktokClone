@@ -6,7 +6,7 @@ import com.google.android.exoplayer2.database.StandaloneDatabaseProvider
 import com.google.android.exoplayer2.upstream.cache.LeastRecentlyUsedCacheEvictor
 import com.google.android.exoplayer2.upstream.cache.SimpleCache
 import com.longnp.lnsocial.business.datasource.network.main.OpenApiMainService
-import com.longnp.lnsocial.business.interactors.video.SearchVideoSeeds
+import com.longnp.lnsocial.business.interactors.video.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,6 +24,46 @@ object SeedModule {
         service: OpenApiMainService,
     ): SearchVideoSeeds {
         return SearchVideoSeeds(
+            service = service
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideCommentVideo(
+        service: OpenApiMainService,
+    ): CommentVideo {
+        return CommentVideo(
+            service = service,
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideFollowUser(
+        service: OpenApiMainService,
+    ): FollowUser {
+        return FollowUser(
+            service = service
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetCommentsVideo(
+        service: OpenApiMainService
+    ): GetCommentsVideo {
+        return GetCommentsVideo(
+            service = service
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideLikeVideoSeed(
+        service: OpenApiMainService
+    ): LikeVideoSeed {
+        return LikeVideoSeed(
             service = service
         )
     }

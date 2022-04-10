@@ -23,6 +23,8 @@ class InboxFragment : BaseInboxFragment(), InboxListAdapter.InteractionInboxList
     private val viewModel: InboxViewModel by viewModels()
 
     private lateinit var adapterInbox: InboxListAdapter
+    private lateinit var adapterInboxHorizoltal: InboxListHorizolAdapter
+
     private lateinit var menu: Menu
 
     override fun onCreateView(
@@ -40,6 +42,7 @@ class InboxFragment : BaseInboxFragment(), InboxListAdapter.InteractionInboxList
         (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
         (activity as AppCompatActivity).setSupportActionBar(binding.toolBar)
         initRecyclerView()
+        initRecyclerViewHorizontal()
         subscribeObservers()
     }
 
@@ -51,11 +54,23 @@ class InboxFragment : BaseInboxFragment(), InboxListAdapter.InteractionInboxList
         }
     }
 
+    private fun initRecyclerViewHorizontal() {
+        binding.recyclerViewHorizontal.apply {
+            layoutManager = LinearLayoutManager(
+                context,
+                LinearLayoutManager.HORIZONTAL,
+                false)
+            adapterInboxHorizoltal = InboxListHorizolAdapter()
+            adapter = adapterInboxHorizoltal
+        }
+    }
+
     private fun subscribeObservers() {
         viewModel.state.observe(viewLifecycleOwner) { state ->
             baseCommunicationListener.displayProgressBar(state.isLoading)
 
             adapterInbox.submitList(blogList = state.inboxModelList)
+            adapterInboxHorizoltal.submitList(blogList = state.inboxModelList)
             emptyListMessage(state.inboxModelList.isEmpty())
         }
     }

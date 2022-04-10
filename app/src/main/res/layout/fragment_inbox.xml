@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
-    android:orientation="vertical"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context="com.longnp.lnsocial.presentation.main.inbox.InboxFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -16,12 +16,12 @@
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/tool_bar"
             android:layout_width="match_parent"
-            app:title="Driect message"
-            app:menu="@menu/menu_inbox_fragment"
-            app:titleTextColor="@color/colorBlack"
-            android:background="@color/colorWhite"
             android:layout_height="?attr/actionBarSize"
-            app:layout_scrollFlags="scroll|enterAlways">
+            android:background="@color/colorWhite"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:menu="@menu/menu_inbox_fragment"
+            app:title="Driect message"
+            app:titleTextColor="@color/colorBlack">
 
         </com.google.android.material.appbar.MaterialToolbar>
 
@@ -33,13 +33,23 @@
         android:layout_marginBottom="?attr/actionBarSize">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview"
+            android:id="@+id/recycler_view_horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="80dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/layout_item_inbox_horizoltal"
+            tools:orientation="horizontal" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recycler_view_horizontal"
             tools:listitem="@layout/layout_item_inbox" />
 
         <TextView
@@ -47,9 +57,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Add a friend to send message!"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

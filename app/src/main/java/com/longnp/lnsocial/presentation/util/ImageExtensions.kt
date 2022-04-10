@@ -47,3 +47,11 @@ fun ImageView.loadCenterCropImageFromUrl(
         .centerCrop()
         .into(this)
 }
+
+fun ImageView.loadImageFromResource(
+    image: Int,
+) {
+    Glide.with(this)
+        .load(image)
+        .into(this)
+}

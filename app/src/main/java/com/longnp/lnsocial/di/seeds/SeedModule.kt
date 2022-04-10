@@ -5,6 +5,7 @@ import com.google.android.exoplayer2.database.DatabaseProvider
 import com.google.android.exoplayer2.database.StandaloneDatabaseProvider
 import com.google.android.exoplayer2.upstream.cache.LeastRecentlyUsedCacheEvictor
 import com.google.android.exoplayer2.upstream.cache.SimpleCache
+import com.longnp.lnsocial.business.datasource.cache.profile.ProfileDao
 import com.longnp.lnsocial.business.datasource.network.main.OpenApiMainService
 import com.longnp.lnsocial.business.interactors.video.*
 import dagger.Module
@@ -42,9 +43,11 @@ object SeedModule {
     @Provides
     fun provideFollowUser(
         service: OpenApiMainService,
+        profileDao: ProfileDao,
     ): FollowUser {
         return FollowUser(
-            service = service
+            service = service,
+            profileDao = profileDao,
         )
     }
 
@@ -61,10 +64,12 @@ object SeedModule {
     @Singleton
     @Provides
     fun provideLikeVideoSeed(
-        service: OpenApiMainService
+        service: OpenApiMainService,
+        profileDao: ProfileDao,
     ): LikeVideoSeed {
         return LikeVideoSeed(
-            service = service
+            service = service,
+            profileDao = profileDao,
         )
     }
 

@@ -11,7 +11,6 @@ import com.longnp.lnsocial.business.domain.models.discovery.DiscoveryModel
 import com.longnp.lnsocial.business.domain.models.VideoSeed
 import com.longnp.lnsocial.databinding.LayoutItemDiscoveryThumbnailBinding
 import com.longnp.lnsocial.presentation.util.loadCenterCropImageFromUrl
-import com.longnp.lnsocial.presentation.util.loadImageFromUrl
 
 class DiscoveryListThumbnailAdapter(
     private val interaction: Interaction,

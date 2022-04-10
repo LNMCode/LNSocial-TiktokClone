@@ -1,6 +1,7 @@
 package com.longnp.lnsocial.business.interactors.video
 
 import android.util.Log
+import com.longnp.lnsocial.business.datasource.cache.profile.ProfileDao
 import com.longnp.lnsocial.business.datasource.network.main.OpenApiMainService
 import com.longnp.lnsocial.business.datasource.network.main.toSeedItem
 import com.longnp.lnsocial.business.datasource.network.main.toVideo
@@ -14,10 +15,12 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 
 class FollowUser(
-    private val service: OpenApiMainService
+    private val service: OpenApiMainService,
+    private val profileDao: ProfileDao,
 ) {
     fun execute(
         userFollow: String, // id user orther
+        followingList: List<String>,
         authToken: AuthToken,
     ): Flow<DataState<SeedItem>> = flow {
         emit(DataState.loading<SeedItem>())
@@ -31,6 +34,11 @@ class FollowUser(
         )
         val bodyRequest = Constants.getRequestBodyAuth(paramsRequestBody.toString())
         val data = service.followUser(params = bodyRequest)
+        profileDao.updateListFollowing(
+            pk = authToken.authProfileId,
+            following = followingList + userFollow,
+            number = followingList.size + 1,
+        )
         emit(DataState.data(response = null, data = data.toSeedItem()))
     }.catch { e ->
         Log.d("TAG", "execute: ${e.message}")

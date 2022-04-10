@@ -12,5 +12,7 @@ data class SeedItemState(
     val numberLike: Int = 0,
     val numberComments: Int = 0,
     val comments: List<Comment> = listOf(),
+    val isLike: Boolean = false,
+    val isFollow: Boolean = false,
     val queue: Queue<StateMessage> = Queue(mutableListOf())
 )

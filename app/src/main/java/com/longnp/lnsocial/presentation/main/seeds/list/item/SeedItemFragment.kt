@@ -20,12 +20,15 @@ import com.google.android.exoplayer2.upstream.DataSource
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.google.android.exoplayer2.upstream.cache.CacheDataSource
 import com.google.android.exoplayer2.util.Util
+import com.longnp.lnsocial.R
 import com.longnp.lnsocial.business.domain.models.SeedItem
 import com.longnp.lnsocial.business.domain.models.VideoSeed
 import com.longnp.lnsocial.databinding.FragmentSeedItemBinding
 import com.longnp.lnsocial.presentation.main.seeds.BaseSeedFragment
 import com.longnp.lnsocial.presentation.main.seeds.list.SeedBtnPauseVideo
 import com.longnp.lnsocial.presentation.util.loadCenterCropImageFromUrl
+import com.longnp.lnsocial.presentation.util.loadImageFromResource
+import com.longnp.lnsocial.presentation.util.loadImageFromUrl
 import kotlinx.android.synthetic.main.layout_story_view.view.*
 
 class SeedItemFragment : BaseSeedFragment() {
@@ -67,22 +70,22 @@ class SeedItemFragment : BaseSeedFragment() {
         super.onViewCreated(view, savedInstanceState)
         storiesDataModel = arguments?.getParcelable("Constants.KEY_STORY_DATA")
         initVideoSeed(storiesDataModel)
+        subcribeObserver()
         setData()
         initEvents()
-        subcribeObserver()
     }
 
     private fun setData() {
-        viewModel.state.value?.let { state ->
-            val videoModel = state.videoSeed
-            binding.root.text_view_account_handle.text = videoModel?.nickName
-            binding.root.text_view_video_description.text = videoModel?.description
-            binding.root.text_view_music_title.text = videoModel?.soundTitle
+        binding.root.text_view_account_handle.text = storiesDataModel?.nickName
+        binding.root.text_view_video_description.text = storiesDataModel?.description
+        binding.root.text_view_music_title.text = storiesDataModel?.soundTitle
 
-            binding.root.image_view_profile_pic?.loadCenterCropImageFromUrl(videoModel?.avatarLink)
-            
-            storyUrl = videoModel?.videoLink
-        }
+        binding.root.image_view_option_like_title.text = storiesDataModel?.numberLike.toString()
+        binding.root.image_view_option_comment_title.text = storiesDataModel?.numberComments.toString()
+
+        binding.root.image_view_profile_pic?.loadCenterCropImageFromUrl(storiesDataModel?.avatarLink)
+
+        storyUrl = storiesDataModel?.videoLink
         binding.root.text_view_music_title.isSelected = true
 
         binding.root.player_view_story.player = initSimplePlayer()
@@ -113,6 +116,14 @@ class SeedItemFragment : BaseSeedFragment() {
             }
             binding.root.image_view_option_comment_title.apply {
                 text = state.numberComments.toString()
+            }
+            if (state.isLike) {
+                binding.root.image_view_option_like.loadImageFromResource(R.drawable.ic_heart_icon)
+            } else {
+                binding.root.image_view_option_like.loadImageFromResource(R.drawable.ic_heart_icon_pink)
+            }
+            if (state.isFollow) {
+                binding.root.image_view_follow_option.isVisible = false
             }
         }
     }

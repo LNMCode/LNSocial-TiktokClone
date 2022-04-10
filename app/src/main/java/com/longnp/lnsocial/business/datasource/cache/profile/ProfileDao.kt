@@ -15,4 +15,16 @@ interface ProfileDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertOrIgnore(profileEntity: ProfileEntity): Long
+
+    @Query("""
+        UPDATE profile SET favorite_videos = :favorite_videos
+        WHERE pk = :pk
+        """)
+    suspend fun updateFavoriteVideos(pk: String, favorite_videos: List<String>)
+
+    @Query("""
+        UPDATE profile SET following = :following, number_following = :number
+        WHERE pk = :pk
+        """)
+    suspend fun updateListFollowing(pk: String, following: List<String>, number: Int)
 }

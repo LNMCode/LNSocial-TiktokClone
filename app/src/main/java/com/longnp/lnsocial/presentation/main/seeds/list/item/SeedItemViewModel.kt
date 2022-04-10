@@ -10,6 +10,7 @@ import com.longnp.lnsocial.business.interactors.video.FollowUser
 import com.longnp.lnsocial.business.interactors.video.GetCommentsVideo
 import com.longnp.lnsocial.business.interactors.video.LikeVideoSeed
 import com.longnp.lnsocial.presentation.main.seeds.list.item.SeedItemEvents.*
+import com.longnp.lnsocial.presentation.session.SessionEvents
 import com.longnp.lnsocial.presentation.session.SessionManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -56,12 +57,19 @@ constructor(
             is OnChangeNumberComment -> {
                 onChangeNumberComment(events.number)
             }
+            is OnChangeIsLike -> {
+                onChangeIsLike(events.isLike)
+            }
+            is CheckFollowing -> {
+                checkFollowing(events.pk)
+            }
         }
     }
 
     private fun likeVideo() {
         state.value?.let { state ->
             val pk = state.videoSeed?.pk
+            val favoritesList = sessionManager.state.value?.profile?.favoriteVideos
             val authToken = sessionManager.state.value?.authToken
             if (pk == null) {
                 Log.d("TAG", "likeVideo: pk video is null")
@@ -71,8 +79,16 @@ constructor(
                 Log.d("TAG", "likeVideo: authToken is null")
                 return
             }
+            if (favoritesList == null) {
+                Log.d("TAG", "likeVideo: favoritesList is empty")
+                return
+            }
+            val isLike = favoritesList.contains(pk)
+
             likeVideo.execute(
                 pk = pk,
+                isLike = isLike,
+                favoritesList = favoritesList,
                 authToken = authToken,
             ).onEach { dataState ->
                 this.state.value = state.copy(isLoading = dataState.isLoading)
@@ -80,6 +96,8 @@ constructor(
                 dataState.data?.let { videoSeed ->
                     this.state.value = state.copy(videoSeed = videoSeed)
                     onTriggerEvents(OnChangeNumberLike(videoSeed.numberLike))
+                    onTriggerEvents(OnChangeIsLike(isLike))
+                    sessionManager.onTriggerEvent(SessionEvents.OnGetProfileFromCache(authToken.authProfileId))
                 }
 
                 dataState.stateMessage?.let {}
@@ -90,23 +108,29 @@ constructor(
     private fun followVideo() {
         state.value?.let { state ->
             val userFollow = state.videoSeed?.authProfileId
+            val followingList = sessionManager.state.value?.profile?.following
             val authToken = sessionManager.state.value?.authToken
             if (userFollow == null) {
-                Log.d("TAG", "likeVideo: pk video is null")
+                Log.d("TAG", "likeVideo: userFollow is null")
                 return
             }
             if (authToken == null) {
                 Log.d("TAG", "likeVideo: authToken is null")
                 return
             }
+            if (followingList == null) {
+                Log.d("TAG", "likeVideo: favoritesList is empty")
+                return
+            }
             followVideo.execute(
                 userFollow = userFollow,
+                followingList = followingList,
                 authToken = authToken,
             ).onEach { dataState ->
                 this.state.value = state.copy(isLoading = dataState.isLoading)
 
                 dataState.data?.let { seedItem ->
-                    //this.state.value = state.copy(videoSeed = videoSeed)
+                    this.state.value = state.copy(isFollow = true)
                 }
 
                 dataState.stateMessage?.let {}
@@ -170,6 +194,12 @@ constructor(
         }
     }
 
+    private fun onChangeIsLike(isLike: Boolean) {
+        state.value?.let{ state ->
+            this.state.value = state.copy(isLike = isLike)
+        }
+    }
+
     private fun shareVideo() {
 
     }
@@ -189,6 +219,31 @@ constructor(
     private fun initSeedVideo(videoSeed: VideoSeed?) {
         state.value?.let { state ->
             this.state.value = state.copy(videoSeed = videoSeed)
+            val favoritesList = sessionManager.state.value?.profile?.favoriteVideos
+            val authProfileId = videoSeed?.authProfileId
+            if (favoritesList == null) {
+                Log.d("TAG", "initSeedVideo: favoritesList is empty")
+                return
+            }
+            if (authProfileId == null) {
+                Log.d("TAG", "initSeedVideo: authProfileId is null")
+                return
+            }
+            val isLike = favoritesList.contains(videoSeed.pk)
+            onTriggerEvents(OnChangeIsLike(isLike))
+            onTriggerEvents(CheckFollowing(authProfileId))
+        }
+    }
+
+    private fun checkFollowing(authProfileId: String) {
+        state.value?.let { state ->
+            val followingList = sessionManager.state.value?.profile?.following
+            if (followingList == null) {
+                Log.d("TAG", "checkFollowing: favoritesList is empty")
+                return
+            }
+            val isFollow = followingList.contains(authProfileId)
+            this.state.value = state.copy(isFollow = isFollow)
         }
     }
 }

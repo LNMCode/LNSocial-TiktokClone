@@ -20,8 +20,8 @@ sealed class SeedItemEvents {
 
     data class OnChangeNumberComment(val number: Int): SeedItemEvents()
 
-    data class OnChangeIsLike(val isLike: Boolean): SeedItemEvents()
+    object OnChangeIsLike: SeedItemEvents()
 
-    data class CheckFollowing(val pk: String): SeedItemEvents()
+    object CheckFollowing: SeedItemEvents()
 
 }

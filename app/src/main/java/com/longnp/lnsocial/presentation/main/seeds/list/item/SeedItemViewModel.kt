@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.longnp.lnsocial.business.domain.models.VideoSeed
+import com.longnp.lnsocial.business.interactors.auth.ProfileFromCache
 import com.longnp.lnsocial.business.interactors.video.CommentVideo
 import com.longnp.lnsocial.business.interactors.video.FollowUser
 import com.longnp.lnsocial.business.interactors.video.GetCommentsVideo
@@ -26,6 +27,7 @@ constructor(
     private val followVideo: FollowUser,
     private val getCommentsVideo: GetCommentsVideo,
     private val commentVideo: CommentVideo,
+    private val profileFromCache: ProfileFromCache,
     //private val shareVideo: Int,
 ) : ViewModel() {
 
@@ -58,10 +60,10 @@ constructor(
                 onChangeNumberComment(events.number)
             }
             is OnChangeIsLike -> {
-                onChangeIsLike(events.isLike)
+                onChangeIsLike()
             }
             is CheckFollowing -> {
-                checkFollowing(events.pk)
+                checkFollowing()
             }
         }
     }
@@ -95,9 +97,9 @@ constructor(
 
                 dataState.data?.let { videoSeed ->
                     this.state.value = state.copy(videoSeed = videoSeed)
-                    onTriggerEvents(OnChangeNumberLike(videoSeed.numberLike))
-                    onTriggerEvents(OnChangeIsLike(isLike))
                     sessionManager.onTriggerEvent(SessionEvents.OnGetProfileFromCache(authToken.authProfileId))
+                    onTriggerEvents(OnChangeNumberLike(videoSeed.numberLike))
+                    onTriggerEvents(OnChangeIsLike)
                 }
 
                 dataState.stateMessage?.let {}
@@ -194,9 +196,16 @@ constructor(
         }
     }
 
-    private fun onChangeIsLike(isLike: Boolean) {
+    private fun onChangeIsLike() {
         state.value?.let{ state ->
-            this.state.value = state.copy(isLike = isLike)
+            val pk = sessionManager.state.value?.profile?.pk
+            if (pk != null) {
+                profileFromCache.execute(pk).onEach { dataState ->
+                    val favoritesList = dataState.data?.favoriteVideos ?: return@onEach
+                    val isLike = favoritesList.contains(state.videoSeed?.pk)
+                    this.state.value = state.copy(isLike = isLike)
+                }.launchIn(viewModelScope)
+            }
         }
     }
 
@@ -212,32 +221,20 @@ constructor(
 
     private fun onChangeNumberComment(number: Int){
         state.value?.let { state ->
-            this.state.value = state.copy(numberLike = number)
+            this.state.value = state.copy(numberComments = number)
         }
     }
 
     private fun initSeedVideo(videoSeed: VideoSeed?) {
         state.value?.let { state ->
             this.state.value = state.copy(videoSeed = videoSeed)
-            val favoritesList = sessionManager.state.value?.profile?.favoriteVideos
-            val authProfileId = videoSeed?.authProfileId
-            if (favoritesList == null) {
-                Log.d("TAG", "initSeedVideo: favoritesList is empty")
-                return
-            }
-            if (authProfileId == null) {
-                Log.d("TAG", "initSeedVideo: authProfileId is null")
-                return
-            }
-            val isLike = favoritesList.contains(videoSeed.pk)
-            onTriggerEvents(OnChangeIsLike(isLike))
-            onTriggerEvents(CheckFollowing(authProfileId))
         }
     }
 
-    private fun checkFollowing(authProfileId: String) {
+    private fun checkFollowing() {
         state.value?.let { state ->
             val followingList = sessionManager.state.value?.profile?.following
+            val authProfileId = state.videoSeed?.authProfileId
             if (followingList == null) {
                 Log.d("TAG", "checkFollowing: favoritesList is empty")
                 return

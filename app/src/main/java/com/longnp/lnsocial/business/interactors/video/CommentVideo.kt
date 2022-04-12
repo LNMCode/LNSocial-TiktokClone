@@ -31,7 +31,7 @@ class CommentVideo(
         )
         val bodyRequest = Constants.getRequestBodyAuth(paramsRequestBody.toString())
         val data = service.commentVideo(bodyRequest)
-        emit(DataState.data(response = null, data = data.comments.map { it.toComment() }))
+        emit(DataState.data(response = null, data = data.map { it.toComment() }))
     }.catch { e ->
         Log.d("TAG", "execute: ${e.message}")
     }

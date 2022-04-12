@@ -63,6 +63,16 @@ object SeedModule {
 
     @Singleton
     @Provides
+    fun provideAddCommentVideo(
+        service: OpenApiMainService
+    ): AddCommentVideo {
+        return AddCommentVideo(
+            service = service
+        )
+    }
+
+    @Singleton
+    @Provides
     fun provideLikeVideoSeed(
         service: OpenApiMainService,
         profileDao: ProfileDao,

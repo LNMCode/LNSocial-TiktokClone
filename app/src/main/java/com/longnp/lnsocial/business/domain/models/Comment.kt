@@ -7,4 +7,5 @@ data class Comment(
     val nameUser: String,
     val avatarLink: String,
     val comment: String,
+    val order: Int,
 )

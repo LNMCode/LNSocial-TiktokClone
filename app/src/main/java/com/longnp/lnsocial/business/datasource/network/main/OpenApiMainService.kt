@@ -57,11 +57,11 @@ interface OpenApiMainService {
     @POST("video/getcommentsvideo")
     suspend fun getCommentsVideo(
         @Body params: RequestBody
-    ): SeedItemCommentsResponse
+    ):  List<CommentDto>
 
     @Headers("Content-Type: application/json")
     @POST("video/commentvideo")
     suspend fun commentVideo(
         @Body params: RequestBody
-    ): SeedItemCommentsResponse
+    ): List<CommentDto>
 }

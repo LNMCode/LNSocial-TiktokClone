@@ -21,6 +21,9 @@ data class CommentDto(
 
     @SerializedName("comment")
     val comment: String,
+
+    @SerializedName("order")
+    val order: Int,
 )
 
 fun CommentDto.toComment(): Comment {
@@ -31,5 +34,6 @@ fun CommentDto.toComment(): Comment {
         nameUser = nameUser,
         avatarLink = avatarLink,
         comment = comment,
+        order = order,
     )
 }

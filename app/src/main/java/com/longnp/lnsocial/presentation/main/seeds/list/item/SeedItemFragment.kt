@@ -6,8 +6,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
@@ -99,6 +101,8 @@ class SeedItemFragment : BaseSeedFragment() {
         }
         binding.root.image_view_option_comment.setOnClickListener {
             Log.d(TAG, "initEvents: Comments show")
+            val bundle = bundleOf("Constants.KEY_VIDEO_ID" to viewModel.state.value?.videoSeed?.pk)
+            findNavController().navigate(R.id.action_seedFragment_to_commentFragment, bundle)
         }
     }
 

@@ -9,6 +9,23 @@
         android:id="@+id/seedFragment"
         android:name="com.longnp.lnsocial.presentation.main.seeds.list.SeedFragment"
         android:label=""
-        tools:layout="@layout/fragment_seed"/>
+        tools:layout="@layout/fragment_seed">
+        <action
+            android:id="@+id/action_seedFragment_to_commentFragment"
+            app:destination="@id/commentFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left"
+            app:popEnterAnim="@anim/slide_from_left"
+            app:popExitAnim="@anim/slide_to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/commentFragment"
+        android:name="com.longnp.lnsocial.presentation.main.seeds.comment.CommentFragment"
+        android:label="CommentFragment"
+        tools:layout="@layout/fragment_comment">
+        <argument
+            android:name="Constants.KEY_VIDEO_ID"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

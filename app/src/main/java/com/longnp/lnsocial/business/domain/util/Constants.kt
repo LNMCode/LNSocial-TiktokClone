@@ -6,7 +6,7 @@ import org.json.JSONObject
 
 class Constants {
     companion object {
-        const val BASE_URL = "http://172.16.0.221:8080/api/" // Base url for api https://lnsocial.herokuapp.com/
+        const val BASE_URL = "http://192.168.1.82:8080/api/" // Base url for api https://lnsocial.herokuapp.com/
 
         const val GALLERY_REQUEST_CODE = 2011
         const val READ_STORAGE_REQUEST_CODE = 3012

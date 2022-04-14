@@ -10,7 +10,6 @@
         android:icon="@drawable/ic_search_icon"/>
 
     <item android:id="@+id/nav_add"
-        android:enabled="false"
         android:title="@null"/>
 
     <item

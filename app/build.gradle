@@ -112,4 +112,6 @@ dependencies {
 
     def junitKtx = "1.1.3"
     androidTestImplementation "androidx.test.ext:junit-ktx:$junitKtx"
+
+    implementation 'com.otaliastudios:cameraview:2.7.2'
 }

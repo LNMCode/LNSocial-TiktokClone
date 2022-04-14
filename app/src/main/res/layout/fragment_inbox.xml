@@ -20,7 +20,7 @@
             android:background="@color/colorWhite"
             app:layout_scrollFlags="scroll|enterAlways"
             app:menu="@menu/menu_inbox_fragment"
-            app:title="Driect message"
+            app:title="Chats"
             app:titleTextColor="@color/colorBlack">
 
         </com.google.android.material.appbar.MaterialToolbar>

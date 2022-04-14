@@ -93,13 +93,15 @@
             android:scrollHorizontally="false"
             tools:ignore="Autofill" />
 
-        <Button
+        <ImageButton
             android:id="@+id/button_gchat_send"
-            android:layout_width="80dp"
+            android:layout_width="60dp"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
             android:layout_height="48dp"
             android:layout_alignParentEnd="true"
             android:background="?attr/selectableItemBackground"
-            android:text="Send"
+            android:src="@drawable/ic_baseline_send"
             android:textColor="@color/colorPrimary" />
 
     </RelativeLayout>

@@ -29,7 +29,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/sign_up_plain_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/sign_up_plain_text"
-        app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
+        app:srcCompat="@drawable/ic_baseline_arrow_back_24"
+        app:tint="@color/colorGray" />
 
 
     <com.google.android.material.imageview.ShapeableImageView
@@ -43,18 +44,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sign_up_plain_text"
         tools:srcCompat="@drawable/coding_image" />
-
-    <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:id="@+id/loading_bar"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:indeterminate="true"
-        app:indicatorColor="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toBottomOf="@+id/video_thumbnail"
-        app:layout_constraintEnd_toEndOf="@+id/video_thumbnail"
-        app:layout_constraintStart_toStartOf="@+id/video_thumbnail"
-        app:layout_constraintTop_toTopOf="@+id/video_thumbnail"
-        app:trackColor="@color/cardview_light_background" />
 
     <EditText
         android:id="@+id/description_text"

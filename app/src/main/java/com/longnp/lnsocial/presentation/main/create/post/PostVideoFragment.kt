@@ -13,6 +13,7 @@ import androidx.navigation.fragment.navArgs
 import com.longnp.lnsocial.R
 import com.longnp.lnsocial.databinding.FragmentPostVideoBinding
 import com.longnp.lnsocial.presentation.main.create.BaseCreateFragment
+import com.longnp.lnsocial.presentation.util.loadThumbnailImageFromVideoPath
 
 class PostVideoFragment : BaseCreateFragment() {
 
@@ -36,8 +37,9 @@ class PostVideoFragment : BaseCreateFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initEventPost()
+        initThumbnail()
+        initBackPop()
         subscribeObservers()
-
     }
 
     private fun initEventPost() {
@@ -47,6 +49,20 @@ class PostVideoFragment : BaseCreateFragment() {
                 requireContext(),
                 localVideo,
             )
+        }
+    }
+
+    private fun initThumbnail() {
+        binding.videoThumbnail
+            .loadThumbnailImageFromVideoPath(
+                requireContext(),
+                localVideo.filePath
+            )
+    }
+
+    private fun initBackPop() {
+        binding.backBtn.setOnClickListener {
+            findNavController().popBackStack(R.id.selectMediaFragment, false)
         }
     }
 

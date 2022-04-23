@@ -16,13 +16,16 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.sql.Time
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object AppModule{
+object AppModule {
 
     @Singleton
     @Provides
@@ -41,9 +44,24 @@ object AppModule{
 
     @Singleton
     @Provides
-    fun provideRetrofitBuilder(gsonBuilder:  Gson): Retrofit.Builder{
+    fun provideOkHttpClient(): OkHttpClient {
+        return OkHttpClient()
+            .newBuilder()
+            .connectTimeout(120, TimeUnit.SECONDS)
+            .readTimeout(120, TimeUnit.SECONDS)
+            .writeTimeout(120, TimeUnit.SECONDS)
+            .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideRetrofitBuilder(
+        gsonBuilder: Gson,
+        okHttpClient: OkHttpClient,
+    ): Retrofit.Builder {
         return Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
+            .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create(gsonBuilder))
     }
 

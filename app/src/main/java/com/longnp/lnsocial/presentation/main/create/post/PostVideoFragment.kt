@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -41,6 +42,7 @@ class PostVideoFragment : BaseCreateFragment() {
 
     private fun initEventPost() {
         binding.postBtn.setOnClickListener {
+            cacheDate()
             viewModel.postVideo(
                 requireContext(),
                 localVideo,
@@ -52,11 +54,20 @@ class PostVideoFragment : BaseCreateFragment() {
         viewModel.state.observe(viewLifecycleOwner) { state ->
             baseCommunicationListener.displayProgressBar(isLoading = state.isLoading)
 
+            if (state.isLoading) {
+                binding.loadingLayout.root.isVisible = true
+            }
+
             if (state.isSuccess) {
                 Log.d(TAG, "subscribeObservers: Ok luon nha")
                 findNavController().popBackStack(R.id.seedFragment, false)
             }
         }
+    }
+
+    private fun cacheDate() {
+        val description = binding.descriptionText.text.toString()
+        viewModel.cacheData(description = description)
     }
 
 }

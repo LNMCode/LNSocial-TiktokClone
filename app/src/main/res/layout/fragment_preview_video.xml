@@ -51,7 +51,7 @@
         android:layout_height="30dp"
         android:layout_margin="15dp"
         android:src="@drawable/ic_baseline_arrow_back_24"
-        android:tint="@color/colorGray"
+        android:tint="@color/colorWhite"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -8,6 +8,7 @@
     <color name="colorAudioTitle">#FFFFFF</color>
     <color name="colorMediaOptions">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
+    <color name="colorBlack_alpha50">#81000000</color>
     <color name="colorGray">#858585</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorSeedLineBottomNav">#A1ACACAC</color>

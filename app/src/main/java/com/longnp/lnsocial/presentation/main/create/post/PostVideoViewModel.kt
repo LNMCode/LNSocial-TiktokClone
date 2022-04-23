@@ -35,7 +35,7 @@ constructor(
                 localVideo,
                 sessionManager.state.value?.authToken,
                 idUser,
-                description = "This is video upload from android"
+                description = state.description
             ).onEach { dataState ->
                 this.state.value = state.copy(isLoading = dataState.isLoading)
 
@@ -45,6 +45,12 @@ constructor(
 
                 dataState.stateMessage?.let {}
             }.launchIn(viewModelScope)
+        }
+    }
+
+    fun cacheData(description: String) {
+        state.value?.let { state ->
+            this.state.value = state.copy(description = description)
         }
     }
 }

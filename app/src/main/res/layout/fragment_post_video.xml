@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@android:color/white"
-    android:layout_height="match_parent"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:fitsSystemWindows="true"
     tools:context=".presentation.main.create.post.PostVideoFragment">
 
     <TextView
         android:id="@+id/sign_up_plain_text"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
-        android:layout_width="wrap_content"
         android:text="Create video"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="14sp"
@@ -21,10 +21,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:contentDescription="Back button"
         android:id="@+id/back_btn"
-        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="Back button"
         android:padding="6dp"
         app:layout_constraintBottom_toBottomOf="@+id/sign_up_plain_text"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,12 +33,12 @@
 
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:contentDescription="video_thumbnail"
         android:id="@+id/video_thumbnail"
-        android:layout_height="70dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginTop="24dp"
         android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="12dp"
+        android:contentDescription="video_thumbnail"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sign_up_plain_text"
@@ -46,9 +46,9 @@
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/loading_bar"
-        android:indeterminate="true"
-        android:layout_height="40dp"
         android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:indeterminate="true"
         app:indicatorColor="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="@+id/video_thumbnail"
         app:layout_constraintEnd_toEndOf="@+id/video_thumbnail"
@@ -57,16 +57,16 @@
         app:trackColor="@color/cardview_light_background" />
 
     <EditText
+        android:id="@+id/description_text"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="2dp"
         android:background="@android:color/white"
         android:ems="10"
         android:hint="Describe your video"
-        android:id="@+id/description_text"
         android:inputType="text"
-        android:layout_height="0dp"
-        android:layout_marginBottom="2dp"
-        android:layout_marginEnd="6dp"
-        android:layout_marginStart="4dp"
-        android:layout_width="0dp"
         android:maxLength="150"
         android:textColor="@color/colorPrimaryDark"
         android:textColorHint="@color/colorGray"
@@ -77,8 +77,8 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/hashtag_btn"
-        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:padding="4dp"
         android:text="hashtags"
         android:textAllCaps="false"
@@ -88,9 +88,9 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/friends_btn"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:layout_width="wrap_content"
         android:padding="4dp"
         android:text="friends"
         android:textAllCaps="false"
@@ -99,48 +99,33 @@
         app:layout_constraintStart_toEndOf="@+id/hashtag_btn" />
 
     <View
-        android:background="@color/cardview_light_background"
         android:id="@+id/line"
+        android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginTop="12dp"
-        android:layout_width="0dp"
+        android:background="@color/cardview_light_background"
         app:layout_constraintEnd_toEndOf="@+id/video_thumbnail"
         app:layout_constraintStart_toStartOf="@+id/hashtag_btn"
         app:layout_constraintTop_toBottomOf="@+id/friends_btn" />
 
     <Button
         android:id="@+id/post_btn"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="6dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginStart="6dp"
         android:layout_width="0dp"
-        android:text="post"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="6dp"
+        android:layout_marginBottom="6dp"
+        android:text="Post Video"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         app:backgroundTint="@color/colorPrimaryDark"
         app:cornerRadius="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/drafts_btn" />
-
-    <Button
-        android:id="@+id/drafts_btn"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="6dp"
-        android:layout_marginEnd="6dp"
-        android:layout_marginStart="12dp"
-        android:layout_width="0dp"
-        android:text="drafts"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        app:backgroundTint="@color/colorPrimaryDark"
-        app:cornerRadius="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/post_btn"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <include
+        android:id="@+id/loading_layout"
+        layout="@layout/layout_loading"
+        android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

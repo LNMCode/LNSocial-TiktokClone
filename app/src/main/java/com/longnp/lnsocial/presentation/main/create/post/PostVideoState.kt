@@ -8,5 +8,6 @@ data class PostVideoState(
     val isLoading: Boolean = false,
     val localVideo: LocalVideo? = null,
     val isSuccess: Boolean = false,
+    val description: String = "This is video from android",
     val queue: Queue<StateMessage> = Queue(mutableListOf())
 )

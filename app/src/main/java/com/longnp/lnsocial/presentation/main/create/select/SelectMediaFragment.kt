@@ -46,7 +46,7 @@ class SelectMediaFragment : BaseCreateFragment(), SelectMediaAdapter.Interaction
     private fun initRecyclerView() {
         selectMediaAdapter = SelectMediaAdapter(this)
         binding.recyclerview.apply {
-            layoutManager = GridLayoutManager(requireContext(), 3)
+            layoutManager = GridLayoutManager(requireContext(), 4)
             adapter = selectMediaAdapter
         }
     }

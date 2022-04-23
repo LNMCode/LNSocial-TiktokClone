@@ -38,6 +38,18 @@
         <argument
             android:name="localVideo"
             app:argType="com.longnp.lnsocial.business.datasource.local.media.LocalVideo" />
+        <action
+            android:id="@+id/action_previewVideoFragment_to_postVideoFragment"
+            app:destination="@id/postVideoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postVideoFragment"
+        android:name="com.longnp.lnsocial.presentation.main.create.post.PostVideoFragment"
+        android:label="fragment_post_video"
+        tools:layout="@layout/fragment_post_video">
+        <argument
+            android:name="localVideo"
+            app:argType="com.longnp.lnsocial.business.datasource.local.media.LocalVideo" />
     </fragment>
 
 </navigation>

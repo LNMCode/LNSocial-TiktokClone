@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.longnp.lnsocial.R
 import com.longnp.lnsocial.databinding.FragmentPreviewVideoBinding
 import com.longnp.lnsocial.presentation.exoplayer.Player
 import com.longnp.lnsocial.presentation.main.create.BaseCreateFragment
@@ -41,11 +43,23 @@ class PreviewVideoFragment : BaseCreateFragment() {
         lifecycle.addObserver(player)
         player.init()
         setUpClickListeners()
+        initBackPop()
+        baseCommunicationListener.hideNavigation(isHide = true)
+    }
+
+    private fun initBackPop() {
+        binding.buttonBackPop.setOnClickListener {
+            findNavController().popBackStack(R.id.selectMediaFragment, false)
+        }
     }
 
     private fun setUpClickListeners() {
         binding.nextBtn.setOnClickListener {
-
+            findNavController().navigate(
+                PreviewVideoFragmentDirections.actionPreviewVideoFragmentToPostVideoFragment(
+                    localVideo
+                )
+            )
         }
     }
 

@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.GridLayout
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.longnp.lnsocial.R
 import com.longnp.lnsocial.business.datasource.local.media.LocalVideo
@@ -36,15 +38,22 @@ class SelectMediaFragment : BaseCreateFragment(), SelectMediaAdapter.Interaction
         super.onViewCreated(view, savedInstanceState)
         viewModel.onTriggerEvents(SelectMediaEvents.GetAllImageAndVideo(requireContext()))
         initRecyclerView()
+        initBtnBack()
         subscribeObservers()
+        baseCommunicationListener.hideNavigation(isHide = true)
     }
 
     private fun initRecyclerView() {
         selectMediaAdapter = SelectMediaAdapter(this)
         binding.recyclerview.apply {
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            layoutManager = GridLayoutManager(requireContext(), 3)
             adapter = selectMediaAdapter
+        }
+    }
+
+    private fun initBtnBack() {
+        binding.closeBtn.setOnClickListener {
+            findNavController().popBackStack(R.id.createFragment, false)
         }
     }
 

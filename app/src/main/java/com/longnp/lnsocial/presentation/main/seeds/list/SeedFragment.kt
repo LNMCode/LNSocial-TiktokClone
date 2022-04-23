@@ -36,6 +36,7 @@ class SeedFragment : BaseSeedFragment(),
         //binding.swipeRefresh.setOnRefreshListener(this)
         initViewPager()
         subscribeObservers()
+        baseCommunicationListener.hideNavigation(isHide = false)
     }
 
     private fun subscribeObservers() {

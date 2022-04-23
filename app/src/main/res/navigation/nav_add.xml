@@ -7,8 +7,37 @@
 
     <fragment
         android:id="@+id/createFragment"
-        android:name="com.longnp.lnsocial.presentation.main.create.CreateFragment"
-        android:label=""
-        tools:layout="@layout/fragment_create" />
+        android:name="com.longnp.lnsocial.presentation.main.create.record.CreateFragment"
+        android:label="PreviewVideoFragment"
+        tools:layout="@layout/fragment_create">
+        <action
+            android:id="@+id/action_createFragment_to_selectMediaFragment"
+            app:destination="@id/selectMediaFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left"
+            app:popEnterAnim="@anim/slide_from_left"
+            app:popExitAnim="@anim/slide_to_right" />
+        <action
+            android:id="@+id/action_createFragment_to_previewVideoFragment"
+            app:destination="@id/previewVideoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectMediaFragment"
+        android:name="com.longnp.lnsocial.presentation.main.create.select.SelectMediaFragment"
+        android:label="fragment_select_media"
+        tools:layout="@layout/fragment_select_media">
+        <action
+            android:id="@+id/action_selectMediaFragment_to_previewVideoFragment"
+            app:destination="@id/previewVideoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/previewVideoFragment"
+        android:name="com.longnp.lnsocial.presentation.main.create.preview.PreviewVideoFragment"
+        android:label="fragment_preview_video"
+        tools:layout="@layout/fragment_preview_video">
+        <argument
+            android:name="localVideo"
+            app:argType="com.longnp.lnsocial.business.datasource.local.media.LocalVideo" />
+    </fragment>
 
 </navigation>

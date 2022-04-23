@@ -1,4 +1,4 @@
-package com.longnp.lnsocial.presentation.main.create
+package com.longnp.lnsocial.presentation.main.create.record
 
 import com.longnp.lnsocial.business.domain.util.Queue
 import com.longnp.lnsocial.business.domain.util.StateMessage

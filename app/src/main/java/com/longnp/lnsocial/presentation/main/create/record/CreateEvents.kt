@@ -1,7 +1,6 @@
-package com.longnp.lnsocial.presentation.main.create
+package com.longnp.lnsocial.presentation.main.create.record
 
 import com.longnp.lnsocial.business.domain.util.StateMessage
-import com.longnp.lnsocial.presentation.main.discovery.DiscoveryEvents
 
 sealed class CreateEvents {
 

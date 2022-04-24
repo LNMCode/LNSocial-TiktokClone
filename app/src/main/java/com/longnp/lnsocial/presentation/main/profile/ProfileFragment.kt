@@ -67,7 +67,14 @@ class ProfileFragment : BaseProfileFragment() {
 
     private fun initBtnEventEditProfile() {
         binding.button.setOnClickListener {
-            findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment)
+            val profileData = viewModel.state.value?.profile
+            if (profileData == null) {
+                Log.d(TAG, "initBtnEventEditProfile: Profile is null")
+                return@setOnClickListener
+            }
+            findNavController().navigate(
+                ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment(profileData)
+            )
         }
     }
 
@@ -82,7 +89,7 @@ class ProfileFragment : BaseProfileFragment() {
             )
         }.attach()
 
-        binding.tabLayout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 viewModel.onTriggerEvents(ProfileEvents.GetVideoByType(tab?.tag as String))
                 Log.d(TAG, "onTabSelected: ${tab.tag}")

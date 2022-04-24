@@ -25,6 +25,10 @@
         android:id="@+id/editProfileFragment"
         android:name="com.longnp.lnsocial.presentation.main.profile.edit.EditProfileFragment"
         android:label="fragment_edit_profile"
-        tools:layout="@layout/fragment_edit_profile" />
+        tools:layout="@layout/fragment_edit_profile">
+        <argument
+            android:name="profileData"
+            app:argType="com.longnp.lnsocial.business.domain.models.Profile" />
+    </fragment>
 
 </navigation>

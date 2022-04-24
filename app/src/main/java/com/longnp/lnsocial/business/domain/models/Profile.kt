@@ -1,5 +1,9 @@
 package com.longnp.lnsocial.business.domain.models
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Profile(
     val pk: String, //id userid
     val accessToken: String,
@@ -19,4 +23,4 @@ data class Profile(
     val cared: String,
     val caredRecommend: String,
     val message: List<String>
-)
+): Parcelable

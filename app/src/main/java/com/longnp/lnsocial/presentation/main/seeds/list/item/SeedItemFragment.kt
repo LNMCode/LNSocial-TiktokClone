@@ -97,7 +97,9 @@ class SeedItemFragment : BaseSeedFragment() {
             viewModel.onTriggerEvents(SeedItemEvents.Follow)
         }
         binding.root.image_view_option_like.setOnClickListener {
-            viewModel.onTriggerEvents(SeedItemEvents.LikeVideo)
+            if (viewModel.state.value?.isLoading == false){
+                viewModel.onTriggerEvents(SeedItemEvents.LikeVideo)
+            }
         }
         binding.root.image_view_option_comment.setOnClickListener {
             Log.d(TAG, "initEvents: Comments show")

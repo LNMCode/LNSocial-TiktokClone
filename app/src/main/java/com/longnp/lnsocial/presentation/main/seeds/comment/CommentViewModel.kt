@@ -53,7 +53,7 @@ constructor(
                     this.state.value = state.copy(isLoading = dataState.isLoading)
 
                     dataState.data?.let { list ->
-                        this.state.value = state.copy(comments = list)
+                        this.state.value = state.copy(comments = list, isLoading = false)
                     }
                 }.launchIn(viewModelScope)
             }
@@ -76,7 +76,7 @@ constructor(
                     this.state.value = state.copy(isLoading = dataState.isLoading)
 
                     dataState.data?.let { list ->
-                        this.state.value = state.copy(comments = list)
+                        this.state.value = state.copy(comments = list, isLoading = false)
                     }
                 }.launchIn(viewModelScope)
             }

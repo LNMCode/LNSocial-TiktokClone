@@ -45,7 +45,7 @@ constructor(
             getFriendRecommend.execute(sessionManager.state.value?.authToken).onEach { dataState ->
                 this.state.value = state.copy(isLoading = dataState.isLoading)
                 dataState.data?.let { list ->
-                    this.state.value = state.copy(friends = list)
+                    this.state.value = state.copy(friends = list, isLoading = false)
                 }
 
                 dataState.stateMessage?.let {}
@@ -64,7 +64,7 @@ constructor(
                 this.state.value = state.copy(isLoading = dataState.isLoading)
                 dataState.data?.let { inboxModel ->
                     this.state.value = state.copy(inboxModel = inboxModel)
-                    this.state.value = state.copy(isAddFriendComplete = true)
+                    this.state.value = state.copy(isAddFriendComplete = true, isLoading = false)
                 }
                 dataState.stateMessage?.let {}
             }.launchIn(viewModelScope)

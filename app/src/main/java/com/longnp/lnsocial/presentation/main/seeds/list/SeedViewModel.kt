@@ -49,7 +49,7 @@ constructor(
                 this.state.value = state.copy(isLoading = dataState.isLoading)
 
                 dataState.data?.let { list ->
-                    this.state.value = state.copy(videoSeedList = list)
+                    this.state.value = state.copy(videoSeedList = list, isLoading = false)
                 }
 
                 dataState.stateMessage?.let { stateMessage ->

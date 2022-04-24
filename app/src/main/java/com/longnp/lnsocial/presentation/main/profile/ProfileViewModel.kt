@@ -52,7 +52,7 @@ constructor(
                 this.state.value = state.copy(isLoading = dataState.isLoading)
 
                 dataState.data?.let { profile ->
-                    this.state.value = state.copy(profile = profile)
+                    this.state.value = state.copy(profile = profile, isLoading = false)
                     onTriggerEvents(ProfileEvents.GetVideoByType(PUBLIC.name))
                 }
 
@@ -73,13 +73,13 @@ constructor(
                 dataState.data?.let { list ->
                     when (type.uppercase()) {
                         PUBLIC.name -> {
-                            this.state.value = state.copy(videoPublic = list)
+                            this.state.value = state.copy(videoPublic = list, isLoading = false)
                         }
                         FAVORITE.name -> {
-                            this.state.value = state.copy(videoFavorite = list)
+                            this.state.value = state.copy(videoFavorite = list, isLoading = false)
                         }
                         PRIVATE.name -> {
-                            this.state.value = state.copy(videoPrivate = list)
+                            this.state.value = state.copy(videoPrivate = list, isLoading = false)
                         }
                     }
                 }

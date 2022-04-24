@@ -40,7 +40,7 @@ constructor(
                 this.state.value = state.copy(isLoading = dataState.isLoading)
 
                 dataState.data?.let { list ->
-                    this.state.value = state.copy(inboxModelList = list)
+                    this.state.value = state.copy(inboxModelList = list, isLoading = false)
                 }
                 dataState.stateMessage?.let {}
             }.launchIn(viewModelScope)

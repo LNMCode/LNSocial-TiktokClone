@@ -65,11 +65,11 @@ class MainActivity : BaseActivity() {
 
 
     override fun displayProgressBar(isLoading: Boolean) {
-//        if (isLoading) {
-//            binding.progressBar.visibility = View.VISIBLE
-//        } else {
-//            binding.progressBar.visibility = View.GONE
-//        }
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
     }
 
     override fun changeColorNavigation(isHomePage: Boolean) {

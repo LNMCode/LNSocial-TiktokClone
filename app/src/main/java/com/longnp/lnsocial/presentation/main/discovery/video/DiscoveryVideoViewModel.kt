@@ -34,7 +34,7 @@ constructor(
 
     private fun getVideo(data: List<VideoSeed>) {
         state.value?.let { state ->
-            this.state.value = state.copy(videoSeedList = data)
+            this.state.value = state.copy(videoSeedList = data, isLoading = false)
         }
     }
 }

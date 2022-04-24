@@ -39,7 +39,7 @@ constructor(
             ).onEach { dataState ->
                 this.state.value = state.copy(isLoading = dataState.isLoading)
                 dataState.data?.let { list ->
-                    this.state.value = state.copy(items = list)
+                    this.state.value = state.copy(items = list, isLoading = false)
                 }
 
                 dataState.stateMessage?.let {}

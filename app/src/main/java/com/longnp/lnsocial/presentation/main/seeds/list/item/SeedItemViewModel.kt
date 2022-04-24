@@ -96,7 +96,7 @@ constructor(
                 this.state.value = state.copy(isLoading = dataState.isLoading)
 
                 dataState.data?.let { videoSeed ->
-                    this.state.value = state.copy(videoSeed = videoSeed)
+                    this.state.value = state.copy(videoSeed = videoSeed, isLoading = false)
                     sessionManager.onTriggerEvent(SessionEvents.OnGetProfileFromCache(authToken.authProfileId))
                     onTriggerEvents(OnChangeNumberLike(videoSeed.numberLike))
                     onTriggerEvents(OnChangeIsLike)
@@ -132,7 +132,7 @@ constructor(
                 this.state.value = state.copy(isLoading = dataState.isLoading)
 
                 dataState.data?.let { seedItem ->
-                    this.state.value = state.copy(isFollow = true)
+                    this.state.value = state.copy(isFollow = true, isLoading = false)
                 }
 
                 dataState.stateMessage?.let {}
@@ -159,7 +159,7 @@ constructor(
                 this.state.value = state.copy(isLoading = dataState.isLoading)
 
                 dataState.data?.let { comments ->
-                    this.state.value = state.copy(comments = comments)
+                    this.state.value = state.copy(comments = comments, isLoading = false)
                 }
 
                 dataState.stateMessage?.let {}
@@ -187,7 +187,7 @@ constructor(
                 this.state.value = state.copy(isLoading = dataState.isLoading)
 
                 dataState.data?.let { comments ->
-                    this.state.value = state.copy(comments = comments)
+                    this.state.value = state.copy(comments = comments, isLoading = false)
                     onTriggerEvents(OnChangeNumberComment(comments.size))
                 }
 
@@ -203,7 +203,7 @@ constructor(
                 profileFromCache.execute(pk).onEach { dataState ->
                     val favoritesList = dataState.data?.favoriteVideos ?: return@onEach
                     val isLike = favoritesList.contains(state.videoSeed?.pk)
-                    this.state.value = state.copy(isLike = isLike)
+                    this.state.value = state.copy(isLike = isLike, isLoading = false)
                 }.launchIn(viewModelScope)
             }
         }

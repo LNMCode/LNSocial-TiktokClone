@@ -10,9 +10,11 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.longnp.lnsocial.R
 import com.longnp.lnsocial.databinding.FragmentCreateBinding
 import com.longnp.lnsocial.presentation.main.create.BaseCreateFragment
+import com.longnp.lnsocial.presentation.main.create.record.CreateFilterCameraAdapter.*
 import com.otaliastudios.cameraview.CameraView
 import com.otaliastudios.cameraview.controls.Audio
 import com.otaliastudios.cameraview.controls.Facing
@@ -22,7 +24,7 @@ import com.otaliastudios.cameraview.gesture.Gesture
 import com.otaliastudios.cameraview.gesture.GestureAction
 import kotlinx.coroutines.launch
 
-class CreateFragment : BaseCreateFragment() {
+class CreateFragment : BaseCreateFragment(), InteractionFilter {
 
     private val viewModel: CreateViewModel by viewModels()
 
@@ -52,6 +54,7 @@ class CreateFragment : BaseCreateFragment() {
         initEventsClose()
         initCameraView()
         initEventInView()
+        initListFilters()
         setUpCameraSettings()
         layoutRequestPermission()
         baseCommunicationListener.hideNavigation(isHide = true)
@@ -133,6 +136,27 @@ class CreateFragment : BaseCreateFragment() {
                 viewModel.stopVideo(requireContext())
             }
         }
+
+        // Show camera filters
+        binding.filtersBtn.setOnClickListener { cameraFilters() }
+
+        // Hide camera filters
+        binding.layoutCameraFilters.closeBtn.setOnClickListener { cameraFilters() }
+    }
+
+    private fun initListFilters() {
+        binding.layoutCameraFilters.recyclerviewFilter.apply {
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            val filtersAdapter = CreateFilterCameraAdapter(this@CreateFragment)
+            adapter = filtersAdapter
+
+        }
+    }
+
+    private fun cameraFilters() {
+        val isShow = binding.layoutCameraFilters.root.isVisible
+        binding.layoutCameraFilters.root.isVisible = !isShow
     }
 
     private fun setUpCameraSettings() {
@@ -142,7 +166,7 @@ class CreateFragment : BaseCreateFragment() {
         binding.flashBtn.setOnClickListener {
             val isFlashOff = cameraView.flash == Flash.OFF
 
-            cameraView.flash = if (isFlashOff) Flash.ON else Flash.OFF
+            cameraView.flash = if (isFlashOff) Flash.TORCH else Flash.OFF
             binding.flashBtn.setImageResource(
                 if (isFlashOff) R.drawable.ic_round_flash_on else R.drawable.ic_round_flash_off
             )
@@ -180,5 +204,9 @@ class CreateFragment : BaseCreateFragment() {
     override fun onDestroy() {
         super.onDestroy()
         cameraView.destroy()
+    }
+
+    override fun onItemSelected(item: CreateFilterCamera) {
+        cameraView.filter = item.filter.newInstance();
     }
 }

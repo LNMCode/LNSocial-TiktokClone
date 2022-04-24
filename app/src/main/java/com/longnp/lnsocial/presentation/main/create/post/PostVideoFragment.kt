@@ -44,6 +44,7 @@ class PostVideoFragment : BaseCreateFragment() {
 
     private fun initEventPost() {
         binding.postBtn.setOnClickListener {
+            baseCommunicationListener.hideSoftKeyboard()
             cacheDate()
             viewModel.postVideo(
                 requireContext(),

@@ -80,10 +80,10 @@
                 android:id="@+id/flip_plain_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp"
                 android:layout_gravity="center_horizontal"
                 android:text="Flip"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="@+id/flip_camera_btn"
                 app:layout_constraintStart_toStartOf="@+id/flip_camera_btn"
                 app:layout_constraintTop_toBottomOf="@+id/flip_camera_btn" />
@@ -103,10 +103,10 @@
                 android:id="@+id/speed_plain_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp"
                 android:layout_gravity="center_horizontal"
                 android:text="Speed"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="@+id/shutter_speed_btn"
                 app:layout_constraintStart_toStartOf="@+id/shutter_speed_btn"
                 tools:layout_editor_absoluteY="118dp" />
@@ -114,7 +114,7 @@
             <ImageView
                 android:id="@+id/filters_btn"
                 android:layout_width="28dp"
-                android:layout_height="2dp"
+                android:layout_height="28dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="6dp"
                 android:contentDescription="filters"
@@ -124,10 +124,10 @@
                 android:id="@+id/filters_plain_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp"
                 android:layout_gravity="center_horizontal"
-                android:text="filters" />
+                android:text="filters"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp" />
 
             <ImageView
                 android:id="@+id/enhance_btn"
@@ -141,11 +141,11 @@
             <TextView
                 android:id="@+id/enhance_plain_text"
                 android:layout_width="wrap_content"
-                android:textColor="#FFFFFF"
-                android:textSize="11sp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="beautify" />
+                android:text="beautify"
+                android:textColor="#FFFFFF"
+                android:textSize="11sp" />
 
             <ImageView
                 android:id="@+id/timer_btn"
@@ -160,10 +160,10 @@
                 android:id="@+id/timer_plain_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp"
                 android:layout_gravity="center_horizontal"
-                android:text="timer" />
+                android:text="timer"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp" />
 
             <ImageView
                 android:id="@+id/flash_btn"
@@ -178,10 +178,10 @@
                 android:id="@+id/flash_plain_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp"
                 android:layout_gravity="center_horizontal"
-                android:text="flash" />
+                android:text="flash"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp" />
 
         </LinearLayout>
 
@@ -205,10 +205,10 @@
             android:id="@+id/upload_plain_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#FFFFFF"
-            android:textSize="11sp"
             android:layout_marginTop="1dp"
             android:text="upload"
+            android:textColor="#FFFFFF"
+            android:textSize="11sp"
             app:layout_constraintEnd_toEndOf="@+id/upload_image_btn"
             app:layout_constraintStart_toStartOf="@+id/upload_image_btn"
             app:layout_constraintTop_toBottomOf="@+id/upload_image_btn"
@@ -231,19 +231,19 @@
             android:layout_marginBottom="14dp"
             android:contentDescription="start_recording"
             android:src="@drawable/record_btn_drawable"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/bottom_divider"
             app:layout_constraintEnd_toEndOf="parent"
-            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
             android:id="@+id/music_note_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#FFFFFF"
-            android:textSize="11sp"
             android:layout_marginEnd="1dp"
             android:contentDescription="@null"
+            android:textColor="#FFFFFF"
+            android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="@+id/sounds_display_text"
             app:layout_constraintEnd_toStartOf="@+id/sounds_display_text"
             app:layout_constraintTop_toTopOf="@+id/sounds_display_text"
@@ -253,9 +253,9 @@
             android:id="@+id/sounds_display_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="sounds"
             android:textColor="#FFFFFF"
             android:textSize="11sp"
-            android:text="sounds"
             app:layout_constraintBottom_toBottomOf="@+id/close_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -305,6 +305,15 @@
             layout="@layout/little_space_layout"
             android:visibility="gone"
             tools:visibility="gone" />
+
+        <include
+            android:id="@+id/layout_camera_filters"
+            layout="@layout/layout_camera_filters"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

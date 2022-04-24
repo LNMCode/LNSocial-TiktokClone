@@ -1,6 +1,7 @@
 package com.longnp.lnsocial.presentation.main.seeds.list
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -68,7 +69,13 @@ class SeedFragment : BaseSeedFragment(),
     }
 
     override fun onRefresh() {
-        TODO("Not yet implemented")
+        viewModel.onTriggerEvent(SeedEvents.NewSearch)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        onRefresh()
+        Log.d(TAG, "onResume: SeedFragment")
     }
 
 }

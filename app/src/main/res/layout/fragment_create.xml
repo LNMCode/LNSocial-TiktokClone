@@ -233,6 +233,7 @@
             android:src="@drawable/record_btn_drawable"
             app:layout_constraintBottom_toTopOf="@+id/bottom_divider"
             app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView

@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.longnp.lnsocial.R
 import com.longnp.lnsocial.databinding.FragmentCreateBinding
@@ -18,6 +20,7 @@ import com.otaliastudios.cameraview.controls.Flash
 import com.otaliastudios.cameraview.controls.Mode
 import com.otaliastudios.cameraview.gesture.Gesture
 import com.otaliastudios.cameraview.gesture.GestureAction
+import kotlinx.coroutines.launch
 
 class CreateFragment : BaseCreateFragment() {
 
@@ -54,9 +57,29 @@ class CreateFragment : BaseCreateFragment() {
         baseCommunicationListener.hideNavigation(isHide = true)
     }
 
-        private fun subscribeObservers() {
+    private fun subscribeObservers() {
         viewModel.state.observe(viewLifecycleOwner) { state ->
             baseCommunicationListener.displayProgressBar(state.isLoading)
+
+            if (state.isRecording) {
+                binding.startRecordingBtn.isVisible = false
+                binding.pauseRecordingBtn.isVisible = true
+                binding.stopRecordingDisplayIcon.isVisible = true
+            } else {
+                binding.startRecordingBtn.isVisible = true
+                binding.pauseRecordingBtn.isVisible = false
+                binding.stopRecordingDisplayIcon.isVisible = false
+            }
+        }
+        viewModel.localVideo.observe(viewLifecycleOwner) { localVideo ->
+            localVideo?.let {
+                findNavController().navigate(
+                    CreateFragmentDirections.actionCreateFragmentToPreviewVideoFragment(
+                        localVideo
+                    )
+                )
+                viewModel.resetLocalVideo()
+            }
         }
     }
 
@@ -85,6 +108,31 @@ class CreateFragment : BaseCreateFragment() {
         binding.uploadImageBtn.setOnClickListener {
             findNavController().navigate(R.id.action_createFragment_to_selectMediaFragment)
         }
+        binding.startRecordingBtn.setOnClickListener {
+            // Resume recording
+            if (viewModel.state.value?.hasRecordingStarted == true)
+                viewModel.resumeVideo()
+            // Start recording
+            else {
+                lifecycleScope.launch {
+                    val fileDescriptor =
+                        viewModel.startVideo(requireContext()) ?: return@launch
+                    cameraView.takeVideo(fileDescriptor)
+                }
+            }
+        }
+
+        binding.pauseRecordingBtn.setOnClickListener {
+            cameraView.stopVideo()
+            viewModel.pauseVideo()
+        }
+
+        binding.finishRecordingBtn.setOnClickListener {
+            if (viewModel.state.value?.hasRecordingStarted == true) {
+                cameraView.stopVideo()
+                viewModel.stopVideo(requireContext())
+            }
+        }
     }
 
     private fun setUpCameraSettings() {
@@ -101,7 +149,7 @@ class CreateFragment : BaseCreateFragment() {
         }
     }
 
-    private fun turnOnCameraPreview(){
+    private fun turnOnCameraPreview() {
         Log.d(TAG, "turnOnCameraPreview: Open camera")
         cameraView.open()
     }
@@ -113,7 +161,8 @@ class CreateFragment : BaseCreateFragment() {
     }
 
     private fun fullScreen() {
-        (activity as AppCompatActivity).window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+        (activity as AppCompatActivity).window.decorView.systemUiVisibility =
+            View.SYSTEM_UI_FLAG_FULLSCREEN
     }
 
     override fun onResume() {
@@ -124,6 +173,8 @@ class CreateFragment : BaseCreateFragment() {
     override fun onStop() {
         super.onStop()
         cameraView.close()
+        viewModel.stopVideo(requireContext())
+
     }
 
     override fun onDestroy() {

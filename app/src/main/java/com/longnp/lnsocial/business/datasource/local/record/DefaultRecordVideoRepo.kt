@@ -7,8 +7,11 @@ import android.provider.MediaStore
 import com.longnp.lnsocial.business.datasource.local.utils.getRealPathFromURI
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class DefaultRecordVideoRepo : RecordVideoRepo {
+class DefaultRecordVideoRepo
+@Inject
+constructor() : RecordVideoRepo {
     private var localRecordLocation: LocalRecordLocation? = null
 
     override suspend fun initVideo(context: Context, timeCreated: Long): LocalRecordLocation? =

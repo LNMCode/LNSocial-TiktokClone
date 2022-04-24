@@ -4,6 +4,9 @@
 LNSocial is a social media app dedicated to short-form videos created for and consumed by users. The length of videos is between 15-30 seconds. 
 **[Video demo]()**
 
+```
+Im coding for project, if you have any error or any question, please contact me to solve.
+```
 ## Installation
 Clone repository or download zip file and import into **Android Studio**
 ```bash

@@ -122,7 +122,7 @@ class SeedItemFragment : BaseSeedFragment() {
             } else {
                 binding.root.image_view_option_like.loadImageFromResource(R.drawable.ic_heart_icon_pink)
             }
-            if (state.isFollow) {
+            if (state.isFollow || viewModel.checkIsAuthVideo()) {
                 binding.root.image_view_follow_option.isVisible = false
             }
         }

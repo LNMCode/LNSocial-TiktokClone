@@ -197,7 +197,7 @@ constructor(
     }
 
     private fun onChangeIsLike() {
-        state.value?.let{ state ->
+        state.value?.let { state ->
             val pk = sessionManager.state.value?.profile?.pk
             if (pk != null) {
                 profileFromCache.execute(pk).onEach { dataState ->
@@ -213,13 +213,13 @@ constructor(
 
     }
 
-    private fun onChangeNumberLike(number: Int){
+    private fun onChangeNumberLike(number: Int) {
         state.value?.let { state ->
             this.state.value = state.copy(numberLike = number)
         }
     }
 
-    private fun onChangeNumberComment(number: Int){
+    private fun onChangeNumberComment(number: Int) {
         state.value?.let { state ->
             this.state.value = state.copy(numberComments = number)
         }
@@ -242,5 +242,12 @@ constructor(
             val isFollow = followingList.contains(authProfileId)
             this.state.value = state.copy(isFollow = isFollow)
         }
+    }
+
+    fun checkIsAuthVideo(): Boolean {
+        state.value?.let { state ->
+            return state.videoSeed?.authProfileId == sessionManager.state.value?.profile?.pk
+        }
+        return false
     }
 }

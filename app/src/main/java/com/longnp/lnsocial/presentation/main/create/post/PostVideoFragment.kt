@@ -46,6 +46,7 @@ class PostVideoFragment : BaseCreateFragment() {
         binding.postBtn.setOnClickListener {
             baseCommunicationListener.hideSoftKeyboard()
             cacheDate()
+            binding.postBtn.isVisible = false
             viewModel.postVideo(
                 requireContext(),
                 localVideo,

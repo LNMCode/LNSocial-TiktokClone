@@ -27,4 +27,9 @@ interface ProfileDao {
         WHERE pk = :pk
         """)
     suspend fun updateListFollowing(pk: String, following: List<String>, number: Int)
+
+    @Query("""
+        UPDATE profile SET nickname = :username WHERE pk = :pk
+    """)
+    suspend fun updateUsername(pk: String, username: String)
 }

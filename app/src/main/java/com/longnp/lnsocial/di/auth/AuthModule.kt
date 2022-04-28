@@ -8,6 +8,7 @@ import com.longnp.lnsocial.business.datasource.network.auth.OpenApiAuthService
 import com.longnp.lnsocial.business.interactors.auth.Login
 import com.longnp.lnsocial.business.interactors.auth.ProfileFromCache
 import com.longnp.lnsocial.business.interactors.auth.Register
+import com.longnp.lnsocial.business.interactors.auth.UpdateUsernameFromCache
 import com.longnp.lnsocial.business.interactors.session.CheckPreviousAuthUser
 import com.longnp.lnsocial.business.interactors.session.Logout
 import dagger.Module
@@ -93,6 +94,16 @@ object AuthModule{
     ): ProfileFromCache {
         return ProfileFromCache(
             profile = profileDao
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideUpdateUsernameFromCache(
+        profileDao: ProfileDao
+    ): UpdateUsernameFromCache {
+        return UpdateUsernameFromCache(
+            profileDao = profileDao
         )
     }
 }

@@ -15,7 +15,7 @@
         android:layout_marginTop="6dp"
         android:text="Create video"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="14sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -97,16 +97,18 @@
         app:layout_constraintStart_toStartOf="@+id/hashtag_btn"
         app:layout_constraintTop_toBottomOf="@+id/friends_btn" />
 
-    <Button
+    <TextView
         android:id="@+id/post_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="6dp"
-        android:layout_marginBottom="6dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/background_color_button"
+        android:gravity="center"
+        android:paddingVertical="15dp"
         android:text="Post Video"
         android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        app:backgroundTint="@color/colorPrimaryDark"
+        android:textColor="@color/colorWhite"
         app:cornerRadius="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -116,5 +118,9 @@
         android:id="@+id/loading_layout"
         layout="@layout/layout_loading"
         android:visibility="gone" />
+
+    <include
+        android:id="@+id/input_hashtags"
+        layout="@layout/layout_custom_input_hashtags" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

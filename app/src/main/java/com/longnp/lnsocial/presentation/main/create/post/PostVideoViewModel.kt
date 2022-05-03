@@ -53,4 +53,10 @@ constructor(
             this.state.value = state.copy(description = description)
         }
     }
+
+    fun cacheDataHashTags(hashTag: String) {
+        state.value?.let { state ->
+            this.state.value = state.copy(hashTags = hashTag)
+        }
+    }
 }

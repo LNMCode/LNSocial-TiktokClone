@@ -119,8 +119,4 @@
         layout="@layout/layout_loading"
         android:visibility="gone" />
 
-    <include
-        android:id="@+id/input_hashtags"
-        layout="@layout/layout_custom_input_hashtags" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

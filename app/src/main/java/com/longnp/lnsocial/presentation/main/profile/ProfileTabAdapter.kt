@@ -38,7 +38,11 @@ class ProfileTabAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: TabAdapter) {
-            binding.haha.text = item.listItem.size.toString()
+            val recycler = ProfileAdapterTabImage()
+            recycler.submitList(item.listItem)
+            binding.haha.apply {
+                adapter = recycler
+            }
         }
     }
 }

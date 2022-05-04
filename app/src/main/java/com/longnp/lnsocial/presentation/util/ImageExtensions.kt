@@ -1,8 +1,10 @@
 package com.longnp.lnsocial.presentation.util
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.media.MediaMetadataRetriever
 import android.net.Uri
+import android.util.Log
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -68,15 +70,21 @@ fun ShapeableImageView.loadThumbnailImageFromVideoPath(
     filePath: String?,
     requestOptions: RequestOptions = Constants.requestOptions
 ) {
-    val mediaMetadataRetriever = MediaMetadataRetriever().apply {
-        setDataSource(context, Uri.parse(filePath))
-    }
-    val bitmap = mediaMetadataRetriever.frameAtTime
-    mediaMetadataRetriever.release()
+    var bitmap: Bitmap? = null
+    try {
+        val mediaMetadataRetriever = MediaMetadataRetriever().apply {
+            setDataSource(context, Uri.parse(filePath))
+        }
+        bitmap = mediaMetadataRetriever.frameAtTime
+        mediaMetadataRetriever.release()
 
+    }catch (e: Exception) {
+        Log.d("TAG", "loadThumbnailImageFromVideoPath: ${e.message}")
+    }
     Glide.with(this)
         .setDefaultRequestOptions(requestOptions)
         .load(bitmap)
+        .error(R.drawable.coding_image)
         .centerCrop()
         .into(this)
 }

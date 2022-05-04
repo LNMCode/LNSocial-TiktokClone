@@ -4,14 +4,19 @@
 LNSocial is a social media app dedicated to short-form videos created for and consumed by users. The length of videos is between 15-30 seconds. 
 **[Video demo]()**
 
-```
-Im coding for project, if you have any error or any question, please contact me to solve.
-```
+## Screenshots
+<p align="center">
+<img src="/preview/preview01.gif" width="32%"/>
+<img src="/preview/preview02.gif" width="32%"/>
+<img src="/preview/preview03.gif" width="32%"/>
+</p>
+
 ## Installation
 Clone repository or download zip file and import into **Android Studio**
 ```bash
 https://github.com/LNMCode/LNSocial-TiktokClone.git
 ```
+Or go to the [Releases](https://github.com/LNMCode/LNSocial-TiktokClone/releases) to download the latest APK.
 
 ## About android development
 

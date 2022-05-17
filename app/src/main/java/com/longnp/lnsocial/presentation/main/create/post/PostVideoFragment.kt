@@ -36,7 +36,7 @@ class PostVideoFragment : BaseCreateFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //initEventPost()
+        initEventPost()
         initThumbnail()
         initBackPop()
         subscribeObservers()

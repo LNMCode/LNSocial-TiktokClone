@@ -86,10 +86,16 @@ class SeedItemFragment : BaseSeedFragment() {
         binding.root.text_view_music_title.isSelected = true
 
         binding.root.player_view_story.player = initSimplePlayer()
+        setMaxVideoSize()
         btnPauseVideo = binding.root.btn_pause_video
         initEventPlayerView()
         storyUrl?.let { prepareMedia(it) }
         initNumberLike()
+    }
+
+    private fun setMaxVideoSize() {
+        binding.root.player_view_story.player?.trackSelectionParameters?.buildUpon()
+            ?.setMaxVideoSize(1024, 768)?.build()
     }
 
     private fun initEvents() {
@@ -97,7 +103,7 @@ class SeedItemFragment : BaseSeedFragment() {
             viewModel.onTriggerEvents(SeedItemEvents.Follow)
         }
         binding.root.image_view_option_like.setOnClickListener {
-            if (viewModel.state.value?.isLoading == false){
+            if (viewModel.state.value?.isLoading == false) {
                 viewModel.onTriggerEvents(SeedItemEvents.LikeVideo)
             }
         }

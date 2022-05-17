@@ -10,12 +10,14 @@ import com.longnp.lnsocial.business.datasource.cache.auth.AuthTokenDao
 import com.longnp.lnsocial.business.datasource.cache.profile.ProfileDao
 import com.longnp.lnsocial.business.datasource.datastore.AppDataStore
 import com.longnp.lnsocial.business.datasource.datastore.AppDataStoreManager
+import com.longnp.lnsocial.business.datasource.network.RequestInterceptor
 import com.longnp.lnsocial.business.datasource.network.main.OpenApiMainService
 import com.longnp.lnsocial.business.domain.util.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -44,9 +46,16 @@ object AppModule {
 
     @Singleton
     @Provides
+    fun provideRequestInterceptor(): RequestInterceptor {
+        return RequestInterceptor()
+    }
+
+    @Singleton
+    @Provides
     fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient()
             .newBuilder()
+            .addInterceptor(RequestInterceptor())
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
             .writeTimeout(120, TimeUnit.SECONDS)

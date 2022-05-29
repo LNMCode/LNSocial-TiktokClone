@@ -2,7 +2,7 @@
 
 ## LNSocial 
 LNSocial is a social media app dedicated to short-form videos created for and consumed by users. The length of videos is between 15-30 seconds. 
-**[Video demo]()**
+**[Video demo](https://youtu.be/9G0c0lyap18)**
 
 ## Screenshots
 <p align="center">
